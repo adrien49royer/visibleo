@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon espace — Visibleo</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bleu:#0F2554;--bleu-mid:#1B3A7A;--bleu-vif:#2952B8;--bleu-clair:#EBF0FA;--bleu-pale:#F4F7FD;
+  --or:#C9943A;--or-clair:#FEF6E4;--or-vif:#E8A830;
+  --blanc:#FFFFFF;--texte:#0D1B3E;--texte-sec:#4A5568;--texte-ter:#718096;
+  --bord:#DDE3F0;--bg:#F0F4FC;--vert:#1A7A4A;--rouge:#C0392B;
+  --shadow-sm:0 1px 3px rgba(15,37,84,.08);--shadow-md:0 4px 16px rgba(15,37,84,.1);
+  --r-sm:6px;--r-md:10px;--r-lg:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;font-size:14px;color:var(--texte);background:var(--bg);-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Syne',sans-serif;}
+
+/* LAYOUT */
+.app{display:flex;min-height:100vh;}
+
+/* SIDEBAR NAV */
+.sidenav{width:220px;background:var(--bleu);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
+.sn-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sn-logo .lt{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#fff;}
+.sn-logo .lt em{color:var(--or);font-style:normal;}
+.sn-logo .sn-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;}
+.sn-menu{padding:12px 0;flex:1;}
+.sn-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);padding:14px 20px 6px;}
+.sn-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.65);text-decoration:none;font-size:13px;font-weight:500;cursor:pointer;border-left:3px solid transparent;transition:all .15s;}
+.sn-item:hover{color:#fff;background:rgba(255,255,255,.07);}
+.sn-item.active{color:#fff;background:rgba(255,255,255,.1);border-left-color:var(--or);}
+.sn-icon{font-size:16px;width:20px;text-align:center;}
+.sn-bottom{padding:16px 20px;border-top:1px solid rgba(255,255,255,.1);}
+.sn-entreprise{display:flex;align-items:center;gap:10px;}
+.sn-ent-icon{width:32px;height:32px;background:rgba(255,255,255,.15);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.sn-ent-nom{font-size:12px;font-weight:600;color:#fff;line-height:1.3;}
+.sn-ent-statut{font-size:10px;color:rgba(255,255,255,.4);}
+
+/* CONTENU PRINCIPAL */
+.main{flex:1;overflow:auto;}
+.topbar{background:var(--blanc);border-bottom:1px solid var(--bord);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.topbar-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;}
+.topbar-actions{display:flex;align-items:center;gap:12px;}
+.btn-voir{display:flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--bord);border-radius:var(--r-md);font-size:12px;font-weight:500;color:var(--texte-sec);text-decoration:none;transition:all .15s;}
+.btn-voir:hover{border-color:var(--bleu-vif);color:var(--bleu-vif);}
+.btn-sauv{display:flex;align-items:center;gap:6px;padding:7px 18px;background:var(--bleu);color:#fff;border:none;border-radius:var(--r-md);font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;font-family:'Inter',sans-serif;}
+.btn-sauv:hover{background:var(--bleu-vif);}
+.content{padding:24px 28px;}
+
+/* STATS CARDS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:18px 20px;}
+.sc-icon{font-size:24px;margin-bottom:10px;}
+.sc-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--texte);}
+.sc-lbl{font-size:12px;color:var(--texte-ter);margin-top:2px;}
+.sc-trend{font-size:11px;margin-top:6px;}
+.sc-trend.up{color:var(--vert);}
+.sc-trend.down{color:var(--rouge);}
+
+/* CHART SIMPLE */
+.chart-card{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:20px;margin-bottom:24px;}
+.chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.chart-head h3{font-size:14px;font-weight:700;}
+.chart-bars{display:flex;align-items:flex-end;gap:6px;height:80px;}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.chart-bar{width:100%;background:var(--bleu-clair);border-radius:4px 4px 0 0;transition:height .3s;}
+.chart-bar.today{background:var(--bleu-vif);}
+.chart-bar-lbl{font-size:9px;color:var(--texte-ter);}
+
+/* SECTION TABS */
+.section-tabs{display:flex;gap:0;background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);overflow:hidden;margin-bottom:24px;}
+.stab{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:500;color:var(--texte-ter);cursor:pointer;border-right:1px solid var(--bord);transition:all .15s;}
+.stab:last-child{border-right:none;}
+.stab:hover{background:var(--bleu-pale);}
+.stab.active{background:var(--bleu);color:#fff;font-weight:600;}
+
+/* FORM FICHE */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-full{grid-column:1/-1;}
+.form-field{display:flex;flex-direction:column;gap:5px;}
+.form-field label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-ter);}
+.form-field input,.form-field textarea,.form-field select{padding:9px 12px;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:13px;color:var(--texte);font-family:'Inter',sans-serif;outline:none;transition:border .15s;background:var(--blanc);}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{border-color:var(--bleu-vif);}
+.form-section{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:20px;margin-bottom:16px;}
+.form-section h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-sec);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--bord);}
+.services-editor{display:flex;flex-wrap:wrap;gap:8px;padding:10px;border:1px solid var(--bord);border-radius:var(--r-sm);min-height:44px;background:var(--blanc);}
+.svc-tag{display:flex;align-items:center;gap:5px;background:var(--bleu-clair);color:var(--bleu-vif);padding:4px 10px;border-radius:100px;font-size:12px;}
+.svc-tag button{background:none;border:none;color:var(--bleu-vif);cursor:pointer;font-size:14px;padding:0;line-height:1;}
+.svc-add{display:flex;gap:8px;margin-top:8px;}
+.svc-add input{flex:1;padding:7px 12px;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:12px;outline:none;}
+.svc-add button{padding:7px 14px;background:var(--bleu-clair);color:var(--bleu-vif);border:none;border-radius:var(--r-sm);font-size:12px;font-weight:600;cursor:pointer;}
+.horaires-grid{display:grid;grid-template-columns:100px 1fr 1fr;gap:8px;align-items:center;}
+.horaires-grid .jour{font-size:12px;font-weight:500;}
+.hg-input{padding:7px 10px;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:12px;width:100%;outline:none;}
+.fermé-check{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--texte-ter);}
+
+/* BOOST SECTION */
+.boost-section{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:20px;margin-bottom:16px;}
+.boost-current{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bleu-pale);border-radius:var(--r-md);margin-bottom:16px;}
+.bc-icon{font-size:28px;}
+.bc-info h4{font-size:14px;font-weight:700;color:var(--bleu);}
+.bc-info p{font-size:12px;color:var(--texte-ter);margin-top:2px;}
+.bc-badge{margin-left:auto;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;}
+.bc-badge.aucun{background:#f0f0f0;color:var(--texte-ter);}
+.bc-badge.actif{background:#E6F5EC;color:var(--vert);}
+.boost-options-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.bopt{border:1px solid var(--bord);border-radius:var(--r-md);padding:14px;cursor:pointer;transition:all .15s;text-align:center;}
+.bopt:hover{border-color:var(--or);background:var(--or-clair);}
+.bopt.current{border-color:var(--vert);background:#E6F5EC;}
+.bopt-nom{font-size:12px;font-weight:700;margin-bottom:4px;}
+.bopt-prix{font-size:16px;font-weight:800;color:var(--bleu);font-family:'Syne',sans-serif;}
+.bopt-zone{font-size:10px;color:var(--texte-ter);margin-top:2px;}
+
+/* CONTACTS LIST */
+.contacts-list{display:flex;flex-direction:column;gap:10px;}
+.contact-item{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-md);padding:14px 16px;display:flex;align-items:flex-start;gap:14px;}
+.ci-avatar{width:36px;height:36px;border-radius:50%;background:var(--bleu-clair);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.ci-info{flex:1;}
+.ci-nom{font-size:13px;font-weight:600;}
+.ci-msg{font-size:12px;color:var(--texte-sec);margin-top:3px;line-height:1.5;}
+.ci-meta{display:flex;align-items:center;gap:10px;margin-top:6px;}
+.ci-date{font-size:11px;color:var(--texte-ter);}
+.ci-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;}
+.ci-badge.new{background:var(--bleu-clair);color:var(--bleu-vif);}
+.ci-badge.lu{background:#f0f0f0;color:var(--texte-ter);}
+
+/* AVIS LIST */
+.avis-moderation{display:flex;flex-direction:column;gap:10px;}
+.am-item{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-md);padding:14px 16px;display:flex;align-items:flex-start;gap:14px;}
+.am-note{font-size:18px;color:var(--or);}
+.am-info{flex:1;}
+.am-auteur{font-size:13px;font-weight:600;}
+.am-txt{font-size:12px;color:var(--texte-sec);margin-top:3px;}
+.am-actions{display:flex;gap:8px;margin-top:8px;}
+.btn-approve{padding:5px 12px;background:#E6F5EC;color:var(--vert);border:none;border-radius:var(--r-sm);font-size:11px;font-weight:600;cursor:pointer;}
+.btn-reject{padding:5px 12px;background:#FBEEF0;color:var(--rouge);border:none;border-radius:var(--r-sm);font-size:11px;font-weight:600;cursor:pointer;}
+
+/* STATUS FICHE */
+.fiche-statut-banner{border-radius:var(--r-md);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:13px;}
+.fsb-active{background:#E6F5EC;border:1px solid #B8E6CC;}
+.fsb-inactive{background:var(--or-clair);border:1px solid #F0D898;}
+.fsb-icon{font-size:22px;}
+
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+@media(max-width:900px){
+  .sidenav{display:none;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .boost-options-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <nav class="sidenav">
+    <div class="sn-logo">
+      <div class="lt">Visibl<em>eo</em></div>
+      <div class="sn-sub">Espace propriétaire</div>
+    </div>
+    <div class="sn-menu">
+      <div class="sn-label">Tableau de bord</div>
+      <div class="sn-item active" onclick="showSection('dashboard')"><span class="sn-icon">📊</span> Vue d'ensemble</div>
+      <div class="sn-label">Ma fiche</div>
+      <div class="sn-item" onclick="showSection('fiche')"><span class="sn-icon">✏️</span> Modifier ma fiche</div>
+      <div class="sn-item" onclick="showSection('horaires')"><span class="sn-icon">🕐</span> Horaires</div>
+      <div class="sn-item" onclick="showSection('photos')"><span class="sn-icon">📷</span> Photos</div>
+      <div class="sn-label">Activité</div>
+      <div class="sn-item" onclick="showSection('contacts')"><span class="sn-icon">💬</span> Contacts reçus <span style="background:var(--or);color:var(--bleu);font-size:10px;font-weight:700;padding:2px 6px;border-radius:100px;margin-left:auto;" id="nbContactsBadge">3</span></div>
+      <div class="sn-item" onclick="showSection('avis')"><span class="sn-icon">⭐</span> Avis clients</div>
+      <div class="sn-label">Visibilité</div>
+      <div class="sn-item" onclick="showSection('boost')"><span class="sn-icon">🚀</span> Boost visibilité</div>
+    </div>
+    <div class="sn-bottom">
+      <div class="sn-entreprise">
+        <div class="sn-ent-icon" id="snIcon">🔧</div>
+        <div>
+          <div class="sn-ent-nom" id="snNom">Martin Plomberie</div>
+          <div class="sn-ent-statut" id="snStatut">✓ Fiche active</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">Vue d'ensemble</div>
+      <div class="topbar-actions">
+        <a href="fiche.html?slug=martin-plomberie-saumur-49" class="btn-voir" target="_blank">👁 Voir ma fiche</a>
+        <button class="btn-sauv" id="btnSauvegarder" style="display:none" onclick="sauvegarder()">💾 Enregistrer</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="tab-content active" id="sec-dashboard">
+        <div class="fiche-statut-banner fsb-active" id="statutBanner">
+          <span class="fsb-icon">✅</span>
+          <div>
+            <strong>Votre fiche est active</strong> — Visible sur Visibleo et référencée sur Google.
+            <span style="font-size:11px;color:var(--texte-ter);display:block;margin-top:2px;">Activée le <span id="dateActivation">—</span> · Dernière mise à jour : <span id="dateUpdate">—</span></span>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card"><div class="sc-icon">👁</div><div class="sc-val" id="statVues">347</div><div class="sc-lbl">Vues de la fiche</div><div class="sc-trend up" id="trendVues">↑ +12 cette semaine</div></div>
+          <div class="stat-card"><div class="sc-icon">💬</div><div class="sc-val" id="statContacts">23</div><div class="sc-lbl">Contacts reçus</div><div class="sc-trend up">↑ +3 cette semaine</div></div>
+          <div class="stat-card"><div class="sc-icon">⭐</div><div class="sc-val" id="statNote">4,8</div><div class="sc-lbl">Note moyenne</div><div class="sc-trend up">12 avis clients</div></div>
+          <div class="stat-card"><div class="sc-icon">🔍</div><div class="sc-val" id="statPos">#4</div><div class="sc-lbl">Position recherche</div><div class="sc-trend" style="color:var(--or)">⭐ Boost dept actif</div></div>
+        </div>
+
+        <!-- Mini chart vues 7 jours -->
+        <div class="chart-card">
+          <div class="chart-head"><h3>Vues — 7 derniers jours</h3><span style="font-size:12px;color:var(--texte-ter)">Total : 89 vues</span></div>
+          <div class="chart-bars" id="chartBars"></div>
+        </div>
+
+        <!-- Raccourcis -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="form-section" style="margin-bottom:0;">
+            <h3>Actions rapides</h3>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <button onclick="showSection('fiche')" style="padding:10px 14px;background:var(--bleu-pale);border:1px solid var(--bord);border-radius:var(--r-md);text-align:left;font-size:13px;cursor:pointer;color:var(--texte);">✏️ Modifier ma description</button>
+              <button onclick="showSection('photos')" style="padding:10px 14px;background:var(--bleu-pale);border:1px solid var(--bord);border-radius:var(--r-md);text-align:left;font-size:13px;cursor:pointer;color:var(--texte);">📷 Ajouter des photos</button>
+              <button onclick="showSection('boost')" style="padding:10px 14px;background:var(--or-clair);border:1px solid #F0D898;border-radius:var(--r-md);text-align:left;font-size:13px;cursor:pointer;color:var(--texte);">🚀 Améliorer mon boost</button>
+            </div>
+          </div>
+          <div class="form-section" style="margin-bottom:0;">
+            <h3>Derniers contacts</h3>
+            <div id="lastContacts" style="display:flex;flex-direction:column;gap:8px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODIFIER FICHE -->
+      <div class="tab-content" id="sec-fiche">
+        <div class="form-section">
+          <h3>Informations générales</h3>
+          <div class="form-grid">
+            <div class="form-field"><label>Téléphone professionnel</label><input type="tel" id="fTel" placeholder="02 41 XX XX XX"></div>
+            <div class="form-field"><label>Email de contact</label><input type="email" id="fEmail" placeholder="contact@monentreprise.fr"></div>
+            <div class="form-field form-full"><label>Site web</label><input type="url" id="fSite" placeholder="https://www.monentreprise.fr"></div>
+            <div class="form-field form-full"><label>Zone d'intervention</label><input type="text" id="fZone" placeholder="Saumur et 30km alentours — Saumur, Doué-en-Anjou, Longué…"></div>
+          </div>
+        </div>
+        <div class="form-section">
+          <h3>Description & Services</h3>
+          <div class="form-field" style="margin-bottom:14px;">
+            <label>Description de votre activité</label>
+            <textarea id="fDesc" rows="5" placeholder="Décrivez votre activité, votre expérience, ce qui vous différencie…"></textarea>
+          </div>
+          <div class="form-field">
+            <label>Services proposés</label>
+            <div class="services-editor" id="servicesEditor"></div>
+            <div class="svc-add">
+              <input type="text" id="svcInput" placeholder="Ajouter un service (ex: Dépannage urgent)">
+              <button onclick="addService()">+ Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HORAIRES -->
+      <div class="tab-content" id="sec-horaires">
+        <div class="form-section">
+          <h3>Horaires d'ouverture</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;" id="horairesForm"></div>
+        </div>
+      </div>
+
+      <!-- PHOTOS -->
+      <div class="tab-content" id="sec-photos">
+        <div class="form-section">
+          <h3>Photos de votre activité</h3>
+          <p style="font-size:13px;color:var(--texte-ter);margin-bottom:16px;">Ajoutez jusqu'à 6 photos (chantiers, locaux, équipe…). Formats acceptés : JPG, PNG, max 5 Mo.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;" id="photosGrid">
+            <div style="height:120px;border:2px dashed var(--bord);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;cursor:pointer;color:var(--texte-ter);font-size:12px;" onclick="document.getElementById('photoInput').click()">
+              <span style="font-size:28px;">📷</span>Ajouter une photo
+            </div>
+          </div>
+          <input type="file" id="photoInput" accept="image/*" style="display:none" multiple onchange="previewPhotos(this)">
+          <div class="form-field">
+            <label>Ou entrez une URL de photo</label>
+            <div style="display:flex;gap:8px;"><input type="url" id="photoUrl" placeholder="https://…"><button onclick="addPhotoUrl()" style="padding:8px 14px;background:var(--bleu);color:#fff;border:none;border-radius:var(--r-sm);font-size:12px;cursor:pointer;">Ajouter</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACTS -->
+      <div class="tab-content" id="sec-contacts">
+        <div class="contacts-list" id="contactsList"></div>
+      </div>
+
+      <!-- AVIS -->
+      <div class="tab-content" id="sec-avis">
+        <p style="font-size:13px;color:var(--texte-ter);margin-bottom:16px;">Les avis en attente nécessitent votre validation avant publication.</p>
+        <div class="avis-moderation" id="avisList"></div>
+      </div>
+
+      <!-- BOOST -->
+      <div class="tab-content" id="sec-boost">
+        <div class="boost-section">
+          <h3 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-sec);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bord);">Boost actuel</h3>
+          <div class="boost-current">
+            <div class="bc-icon">⭐⭐</div>
+            <div class="bc-info">
+              <h4 id="boostNom">Boost Département</h4>
+              <p id="boostDesc">Prioritaire dans tout le Maine-et-Loire · 34,99 €/mois</p>
+            </div>
+            <div class="bc-badge actif" id="boostBadge">Actif</div>
+          </div>
+          <h3 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-sec);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bord);">Changer d'offre</h3>
+          <div class="boost-options-grid" id="boostOptsGrid"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+const SB_URL='https://VOTRE_REF.supabase.co';
+const SB_KEY='VOTRE_ANON_KEY';
+let _sb=null;
+function sb(){if(!_sb&&typeof supabase!=='undefined')_sb=supabase.createClient(SB_URL,SB_KEY);return _sb;}
+
+// Récupère SIREN depuis l'URL ou le localStorage
+const siren=(new URLSearchParams(window.location.search).get('siren')||localStorage.getItem('visibleo_siren')||'demo').replace(/\s/g,'');
+
+// ── Démo data ──────────────────────────────────────────────
+const DEMO_FICHE={
+  id:'demo',slug:'martin-plomberie-saumur-49',
+  telephone_public:'02 41 XX XX XX',email_public:'contact@martin-plomberie.fr',
+  site_web:'https://martin-plomberie.fr',zone_intervention:'Saumur et 30km alentours',
+  description_seo:'Martin Plomberie est une entreprise individuelle spécialisée dans la plomberie et l\'installation sanitaire à Saumur et ses environs.',
+  services:['Dépannage urgent','Installation sanitaire','Chauffage','Chauffe-eau','Rénovation salle de bain'],
+  horaires:{lun:'8h00–18h00',mar:'8h00–18h00',mer:'8h00–18h00',jeu:'8h00–18h00',ven:'8h00–17h00',sam:'9h00–12h00',dim:'Fermé'},
+  boost_niveau:'departement',note_moyenne:4.8,nb_avis:12,nb_vues:347,nb_contacts:23,
+  statut:'active',activated_at:'2026-03-15',updated_at:'2026-04-01',
+  entreprises:{nom:'Martin Plomberie',naf_libelle:'Plomberie & Chauffage',ville:'Saumur',departement:'49',type_entreprise:'local'}
+};
+
+const DEMO_CONTACTS=[
+  {id:1,nom_demandeur:'Sophie R.',email_demandeur:'sophie@email.fr',tel_demandeur:'06 12 34 56 78',message:'Bonjour, j\'ai une fuite d\'eau urgente. Pouvez-vous intervenir aujourd\'hui ?',statut:'new',created_at:new Date(Date.now()-86400000).toISOString()},
+  {id:2,nom_demandeur:'Marc D.',email_demandeur:'marc.d@email.fr',tel_demandeur:'06 98 76 54 32',message:'Je souhaite un devis pour l\'installation d\'un nouveau chauffe-eau.',statut:'lu',created_at:new Date(Date.now()-3*86400000).toISOString()},
+  {id:3,nom_demandeur:'Isabelle L.',email_demandeur:'isabelle@email.fr',tel_demandeur:'',message:'Disponible pour une rénovation salle de bain complète ?',statut:'new',created_at:new Date(Date.now()-5*86400000).toISOString()},
+];
+
+const DEMO_AVIS=[
+  {id:1,auteur_nom:'Patrick M.',note:5,commentaire:'Excellent travail, très professionnel !',statut:'en_attente',created_at:new Date(Date.now()-86400000).toISOString()},
+  {id:2,auteur_nom:'Lucie B.',note:4,commentaire:'Bon plombier, délai respecté.',statut:'en_attente',created_at:new Date(Date.now()-2*86400000).toISOString()},
+];
+
+let currentFiche=DEMO_FICHE;
+let currentServices=[...DEMO_FICHE.services];
+
+// ── Init ─────────────────────────────────────────────────
+async function init(){
+  if(siren!=='demo'){
+    try{
+      const db=sb();
+      if(db){
+        const{data}=await db.from('fiches').select('*,entreprises(*)').eq('entreprises.siren',siren).eq('statut','active').single();
+        if(data)currentFiche=data;
+      }
+    }catch(e){}
+  }
+  populateForm();
+  renderChart();
+  renderContacts();
+  renderAvis();
+  renderBoost();
+  renderLastContacts();
+  const e=currentFiche.entreprises||{};
+  document.getElementById('snNom').textContent=e.nom||'Mon entreprise';
+  document.getElementById('snIcon').textContent=e.naf_libelle?.includes('Plomb')?'🔧':e.naf_libelle?.includes('Digit')?'💻':'🏢';
+  document.getElementById('dateActivation').textContent=currentFiche.activated_at?new Date(currentFiche.activated_at).toLocaleDateString('fr-FR'):'—';
+  document.getElementById('dateUpdate').textContent=currentFiche.updated_at?new Date(currentFiche.updated_at).toLocaleDateString('fr-FR'):'—';
+}
+
+function populateForm(){
+  document.getElementById('fTel').value=currentFiche.telephone_public||'';
+  document.getElementById('fEmail').value=currentFiche.email_public||'';
+  document.getElementById('fSite').value=currentFiche.site_web||'';
+  document.getElementById('fZone').value=currentFiche.zone_intervention||'';
+  document.getElementById('fDesc').value=currentFiche.description_seo||'';
+  currentServices=[...(currentFiche.services||[])];
+  renderServices();
+  renderHoraires();
+}
+
+// ── Navigation tabs ──────────────────────────────────────
+function showSection(id){
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('sec-'+id)?.classList.add('active');
+  document.querySelectorAll('.sn-item').forEach(i=>i.classList.remove('active'));
+  event?.currentTarget?.classList.add('active');
+  const titles={dashboard:'Vue d\'ensemble',fiche:'Modifier ma fiche',horaires:'Horaires d\'ouverture',photos:'Mes photos',contacts:'Contacts reçus',avis:'Avis clients',boost:'Boost visibilité'};
+  document.getElementById('topbarTitle').textContent=titles[id]||id;
+  document.getElementById('btnSauvegarder').style.display=(['fiche','horaires'].includes(id))?'flex':'none';
+}
+
+// ── Services ─────────────────────────────────────────────
+function renderServices(){
+  document.getElementById('servicesEditor').innerHTML=currentServices.map(s=>`
+    <div class="svc-tag">${s}<button onclick="removeService('${s}')">×</button></div>
+  `).join('');
+}
+function addService(){
+  const inp=document.getElementById('svcInput');
+  const v=inp.value.trim();
+  if(v&&!currentServices.includes(v)){currentServices.push(v);renderServices();inp.value='';}
+}
+function removeService(s){currentServices=currentServices.filter(x=>x!==s);renderServices();}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement.id==='svcInput'){addService();}});
+
+// ── Horaires ─────────────────────────────────────────────
+const JOURS=['lun','mar','mer','jeu','ven','sam','dim'];
+const JOURS_L=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+function renderHoraires(){
+  const h=currentFiche.horaires||{};
+  document.getElementById('horairesForm').innerHTML=JOURS.map((j,i)=>`
+    <div style="display:grid;grid-template-columns:90px 1fr 1fr 80px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bord);">
+      <span style="font-size:13px;font-weight:500;">${JOURS_L[i]}</span>
+      <input class="hg-input" id="h_debut_${j}" value="${h[j]?.split('–')[0]||''}" placeholder="8h00" ${h[j]==='Fermé'?'disabled':''}>
+      <input class="hg-input" id="h_fin_${j}" value="${h[j]?.split('–')[1]||''}" placeholder="18h00" ${h[j]==='Fermé'?'disabled':''}>
+      <label class="fermé-check"><input type="checkbox" id="h_ferme_${j}" ${h[j]==='Fermé'?'checked':''} onchange="toggleFerme('${j}')"> Fermé</label>
+    </div>`).join('');
+}
+function toggleFerme(j){
+  const f=document.getElementById(`h_ferme_${j}`).checked;
+  document.getElementById(`h_debut_${j}`).disabled=f;
+  document.getElementById(`h_fin_${j}`).disabled=f;
+}
+
+// ── Sauvegarde ────────────────────────────────────────────
+async function sauvegarder(){
+  const updates={
+    telephone_public:document.getElementById('fTel').value,
+    email_public:document.getElementById('fEmail').value,
+    site_web:document.getElementById('fSite').value,
+    zone_intervention:document.getElementById('fZone').value,
+    description_seo:document.getElementById('fDesc').value,
+    services:currentServices,
+    horaires:Object.fromEntries(JOURS.map(j=>{
+      const ferme=document.getElementById(`h_ferme_${j}`)?.checked;
+      if(ferme)return[j,'Fermé'];
+      const d=document.getElementById(`h_debut_${j}`)?.value||'';
+      const f=document.getElementById(`h_fin_${j}`)?.value||'';
+      return[j,d&&f?`${d}–${f}`:d||'—'];
+    })),
+    updated_at:new Date().toISOString()
+  };
+  try{
+    const db=sb();
+    if(db&&currentFiche.id!=='demo'){
+      const{error}=await db.from('fiches').update(updates).eq('id',currentFiche.id);
+      if(!error){alert('✓ Fiche mise à jour !');return;}
+    }
+    alert('✓ Modifications enregistrées ! (Mode démo — connectez Supabase pour persister)');
+  }catch(e){alert('Erreur lors de la sauvegarde.');}
+}
+
+// ── Chart ─────────────────────────────────────────────────
+function renderChart(){
+  const jours=['L','M','M','J','V','S','D'];
+  const vals=[8,15,12,22,19,7,6];
+  const max=Math.max(...vals);
+  document.getElementById('chartBars').innerHTML=vals.map((v,i)=>`
+    <div class="chart-bar-wrap">
+      <div class="chart-bar${i===new Date().getDay()?' today':''}" style="height:${Math.round(v/max*70)+10}px" title="${v} vues"></div>
+      <span class="chart-bar-lbl">${jours[i]}</span>
+    </div>`).join('');
+}
+
+// ── Contacts ──────────────────────────────────────────────
+function renderContacts(){
+  const contacts=DEMO_CONTACTS;
+  document.getElementById('contactsList').innerHTML=contacts.map(c=>`
+    <div class="contact-item">
+      <div class="ci-avatar">👤</div>
+      <div class="ci-info">
+        <div class="ci-nom">${c.nom_demandeur}</div>
+        <div class="ci-msg">${c.message}</div>
+        <div class="ci-meta">
+          <span class="ci-date">${timeAgo(c.created_at)}</span>
+          <span class="ci-badge ${c.statut==='new'?'new':'lu'}">${c.statut==='new'?'Nouveau':'Lu'}</span>
+          ${c.email_demandeur?`<a href="mailto:${c.email_demandeur}" style="font-size:11px;color:var(--bleu-vif);">Répondre →</a>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderLastContacts(){
+  document.getElementById('lastContacts').innerHTML=DEMO_CONTACTS.slice(0,2).map(c=>`
+    <div style="padding:8px 10px;background:var(--bg);border-radius:var(--r-sm);font-size:12px;">
+      <strong>${c.nom_demandeur}</strong> — ${c.message.slice(0,45)}…
+      <div style="font-size:10px;color:var(--texte-ter);margin-top:2px;">${timeAgo(c.created_at)}</div>
+    </div>`).join('');
+}
+
+// ── Avis ──────────────────────────────────────────────────
+function renderAvis(){
+  document.getElementById('avisList').innerHTML=DEMO_AVIS.map(a=>`
+    <div class="am-item">
+      <div class="am-note">${'★'.repeat(a.note)}</div>
+      <div class="am-info">
+        <div class="am-auteur">${a.auteur_nom}</div>
+        <div class="am-txt">${a.commentaire}</div>
+        <div class="am-actions">
+          <button class="btn-approve" onclick="approuverAvis(${a.id})">✓ Publier</button>
+          <button class="btn-reject" onclick="rejeterAvis(${a.id})">✗ Rejeter</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function approuverAvis(id){alert('Avis publié ! (Mode démo)');}
+function rejeterAvis(id){alert('Avis rejeté. (Mode démo)');}
+
+// ── Boost ─────────────────────────────────────────────────
+const BOOSTS=[
+  {code:'aucun',nom:'Standard',prix:'Gratuit',zone:'Fiche de base',current:false},
+  {code:'boost_ville',nom:'Boost Ville',prix:'19,99€/mois',zone:'1 ville'},
+  {code:'boost_dept',nom:'Boost Département',prix:'34,99€/mois',zone:'1 département',current:true},
+  {code:'boost_region',nom:'Boost Région',prix:'59,99€/mois',zone:'1 région'},
+  {code:'boost_multi',nom:'Multi-régions',prix:'89,99€/mois',zone:'2-3 régions'},
+  {code:'boost_national',nom:'National',prix:'149€/mois',zone:'France entière'},
+];
+function renderBoost(){
+  document.getElementById('boostOptsGrid').innerHTML=BOOSTS.map(b=>`
+    <div class="bopt ${b.current?'current':''}" onclick="changerBoost('${b.code}')">
+      <div class="bopt-nom">${b.nom} ${b.current?'✓':''}</div>
+      <div class="bopt-prix">${b.prix}</div>
+      <div class="bopt-zone">${b.zone}</div>
+    </div>`).join('');
+}
+function changerBoost(code){
+  if(code==='aucun'){alert('Votre fiche passera en mode standard à la prochaine échéance.');return;}
+  const o=BOOSTS.find(b=>b.code===code);
+  window.location.href=`activer.html?siren=${siren}&offre=${code}`;
+}
+
+// ── Photos ────────────────────────────────────────────────
+function previewPhotos(input){
+  const files=Array.from(input.files);
+  const grid=document.getElementById('photosGrid');
+  files.forEach(f=>{
+    const url=URL.createObjectURL(f);
+    const div=document.createElement('div');
+    div.style.cssText='height:120px;border-radius:var(--r-md);overflow:hidden;position:relative;';
+    div.innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover;">`;
+    grid.insertBefore(div,grid.firstChild);
+  });
+}
+function addPhotoUrl(){
+  const url=document.getElementById('photoUrl').value.trim();
+  if(!url)return;
+  const grid=document.getElementById('photosGrid');
+  const div=document.createElement('div');
+  div.style.cssText='height:120px;border-radius:var(--r-md);overflow:hidden;';
+  div.innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.remove()">`;
+  grid.insertBefore(div,grid.firstChild);
+  document.getElementById('photoUrl').value='';
+}
+
+function timeAgo(d){
+  const diff=Date.now()-new Date(d);const days=Math.floor(diff/86400000);
+  if(days===0)return'Aujourd\'hui';if(days===1)return'Hier';
+  if(days<30)return`Il y a ${days} jours`;return`Il y a ${Math.floor(days/30)} mois`;
+}
+
+init();
+</script>
+</body>
+</html>

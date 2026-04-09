@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Activez votre fiche Visibleo — 139 €</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bleu:#0F2554;--bleu-mid:#1B3A7A;--bleu-vif:#2952B8;--bleu-clair:#EBF0FA;--bleu-pale:#F4F7FD;
+  --or:#C9943A;--or-clair:#FEF6E4;--or-vif:#E8A830;
+  --blanc:#FFFFFF;--texte:#0D1B3E;--texte-sec:#4A5568;--texte-ter:#718096;
+  --bord:#DDE3F0;--bg:#F7F9FE;--vert:#1A7A4A;--rouge:#C0392B;
+  --shadow-md:0 4px 16px rgba(15,37,84,.1);--shadow-lg:0 12px 40px rgba(15,37,84,.14);
+  --r-md:10px;--r-lg:16px;--r-xl:24px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;font-size:15px;color:var(--texte);background:var(--bg);-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Syne',sans-serif;}
+
+/* HEADER MINIMAL */
+.header{background:var(--bleu);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.logo-icon{width:28px;height:28px;background:var(--or);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--bleu);}
+.logo-text{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;}
+.logo-text em{color:var(--or);font-style:normal;}
+.header-safe{font-size:12px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:6px;}
+
+/* ÉTAPES */
+.steps-bar{background:var(--blanc);border-bottom:1px solid var(--bord);padding:12px 24px;}
+.steps-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:0;}
+.step{display:flex;align-items:center;gap:8px;font-size:13px;flex:1;}
+.step-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.step.done .step-num{background:var(--vert);color:#fff;}
+.step.active .step-num{background:var(--bleu);color:#fff;}
+.step.todo .step-num{background:var(--bord);color:var(--texte-ter);}
+.step-lbl{font-weight:500;color:var(--texte-ter);}
+.step.done .step-lbl,.step.active .step-lbl{color:var(--texte);}
+.step-line{flex:1;height:2px;background:var(--bord);margin:0 8px;}
+.step-line.done{background:var(--vert);}
+
+/* CONTENU */
+.page-wrap{max-width:680px;margin:0 auto;padding:32px 24px 60px;}
+
+/* PREVIEW FICHE */
+.preview-card{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow-md);}
+.preview-header{background:var(--bleu);padding:16px 24px;display:flex;align-items:center;gap:14px;}
+.preview-icon{width:44px;height:44px;background:rgba(255,255,255,.15);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.preview-header-text .nom{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#fff;}
+.preview-header-text .sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px;}
+.preview-status{margin-left:auto;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600;color:rgba(255,255,255,.7);}
+.preview-status .dot{width:6px;height:6px;border-radius:50%;background:#EF4444;}
+.preview-body{padding:20px 24px;}
+.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.pf{display:flex;flex-direction:column;gap:3px;}
+.pf-label{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--texte-ter);font-weight:600;}
+.pf-val{font-size:13px;font-weight:500;color:var(--texte);}
+.preview-inclus{background:var(--bleu-pale);border-radius:var(--r-md);padding:14px 16px;}
+.inclus-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--bleu);margin-bottom:10px;}
+.inclus-items{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.inclus-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--texte-sec);}
+.inclus-check{color:var(--vert);font-weight:700;flex-shrink:0;}
+
+/* OFFRE PRIX */
+.offre-card{background:var(--blanc);border:2px solid var(--or);border-radius:var(--r-lg);padding:24px;margin-bottom:16px;box-shadow:var(--shadow-md);}
+.offre-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.offre-nom{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;}
+.offre-badge{background:var(--or-clair);color:#92600A;border:1px solid #F0D898;font-size:11px;font-weight:700;padding:4px 12px;border-radius:100px;}
+.offre-prix{display:flex;align-items:baseline;gap:6px;margin-bottom:16px;}
+.offre-montant{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--bleu);}
+.offre-ht{font-size:13px;color:var(--texte-ter);}
+.offre-ligne{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--bord);}
+.offre-ligne:last-child{border-bottom:none;}
+.offre-ligne strong{font-weight:600;}
+.offre-total{background:var(--bleu);color:#fff;padding:14px 20px;border-radius:var(--r-md);display:flex;justify-content:space-between;align-items:center;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-top:16px;}
+.offre-total span{font-size:22px;}
+
+/* BOOST UPSELL */
+.boost-upsell{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:20px;margin-bottom:16px;}
+.bu-title{font-size:14px;font-weight:600;margin-bottom:4px;color:var(--texte);}
+.bu-sub{font-size:12px;color:var(--texte-ter);margin-bottom:14px;}
+.boost-options{display:flex;flex-direction:column;gap:8px;}
+.boost-opt{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--bord);border-radius:var(--r-md);cursor:pointer;transition:all .15s;}
+.boost-opt:hover,.boost-opt.selected{border-color:var(--or);background:var(--or-clair);}
+.boost-opt input[type=radio]{accent-color:var(--or);}
+.bo-info{flex:1;}
+.bo-nom{font-size:13px;font-weight:600;}
+.bo-zone{font-size:11px;color:var(--texte-ter);}
+.bo-prix{font-size:14px;font-weight:700;color:var(--bleu);white-space:nowrap;}
+
+/* BTN PAIEMENT */
+.btn-pay{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:var(--bleu);color:#fff;border:none;border-radius:var(--r-lg);font-family:'Syne',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none;margin-bottom:12px;}
+.btn-pay:hover{background:var(--bleu-vif);transform:translateY(-1px);box-shadow:var(--shadow-lg);}
+.btn-pay.or{background:var(--or);color:var(--bleu);}
+.btn-pay.or:hover{background:var(--or-vif);}
+
+.securite{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;color:var(--texte-ter);}
+.securite span{display:flex;align-items:center;gap:4px;}
+
+/* Mentions légales */
+.mentions{font-size:11px;color:var(--texte-ter);line-height:1.7;padding:16px;border:1px solid var(--bord);border-radius:var(--r-md);background:var(--blanc);margin-top:24px;}
+
+/* Success page */
+.success-wrap{text-align:center;padding:60px 24px;}
+.success-icon{font-size:72px;margin-bottom:24px;}
+.success-wrap h2{font-size:28px;font-weight:800;color:var(--bleu);margin-bottom:12px;}
+.success-wrap p{color:var(--texte-sec);margin-bottom:32px;}
+.success-steps{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;text-align:left;}
+.ss-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-md);}
+.ss-num{width:28px;height:28px;border-radius:50%;background:var(--bleu);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.ss-txt{font-size:13px;color:var(--texte-sec);}
+
+@media(max-width:500px){
+  .preview-grid{grid-template-columns:1fr;}
+  .inclus-items{grid-template-columns:1fr;}
+  .boost-options{display:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="../index.html" class="logo">
+    <div class="logo-icon">V</div>
+    <span class="logo-text">Visibl<em>eo</em></span>
+  </a>
+  <div class="header-safe">🔒 Paiement 100% sécurisé</div>
+</header>
+
+<div class="steps-bar">
+  <div class="steps-inner">
+    <div class="step done"><div class="step-num">✓</div><span class="step-lbl">Votre entreprise</span></div>
+    <div class="step-line done"></div>
+    <div class="step active"><div class="step-num">2</div><span class="step-lbl">Choisir votre offre</span></div>
+    <div class="step-line"></div>
+    <div class="step todo"><div class="step-num">3</div><span class="step-lbl">Paiement</span></div>
+    <div class="step-line"></div>
+    <div class="step todo"><div class="step-num">4</div><span class="step-lbl">Activation</span></div>
+  </div>
+</div>
+
+<div class="page-wrap" id="pageContent">
+  <div style="text-align:center;padding:60px;color:var(--texte-ter);">
+    <div style="width:32px;height:32px;border:3px solid var(--bord);border-top-color:var(--bleu-vif);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;"></div>
+    Chargement…
+  </div>
+</div>
+
+<style>@keyframes spin{to{transform:rotate(360deg);}}</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+const SB_URL='https://VOTRE_REF.supabase.co';
+const SB_KEY='VOTRE_ANON_KEY';
+let _sb=null;
+function sb(){if(!_sb&&typeof supabase!=='undefined')_sb=supabase.createClient(SB_URL,SB_KEY);return _sb;}
+
+const params=new URLSearchParams(window.location.search);
+const siren=params.get('siren')||'';
+const offreParam=params.get('offre')||'activation';
+const paymentStatus=params.get('payment');
+
+// Stripe Payment Links (à remplacer par vos vrais liens)
+const STRIPE_LINKS={
+  activation:     'https://buy.stripe.com/VOTRE_LIEN_ACTIVATION',
+  boost_ville:    'https://buy.stripe.com/VOTRE_LIEN_BOOST_VILLE',
+  boost_dept:     'https://buy.stripe.com/VOTRE_LIEN_BOOST_DEPT',
+  boost_region:   'https://buy.stripe.com/VOTRE_LIEN_BOOST_REGION',
+  boost_national: 'https://buy.stripe.com/VOTRE_LIEN_BOOST_NATIONAL',
+};
+
+const OFFRES={
+  activation:    {nom:'Activation fiche',prix:139,ht:115.83,tva:23.17,unique:true,desc:'Fiche publiée à vie sur Visibleo'},
+  boost_ville:   {nom:'Boost Ville',prix:19.99,ht:16.66,tva:3.33,unique:false,desc:'Priorité dans votre ville — mensuel'},
+  boost_dept:    {nom:'Boost Département',prix:34.99,ht:29.16,tva:5.83,unique:false,desc:'Priorité dans tout votre département'},
+  boost_region:  {nom:'Boost Région',prix:59.99,ht:49.99,tva:10.00,unique:false,desc:'Visibilité sur toute une région'},
+  boost_national:{nom:'Boost National',prix:149,ht:124.17,tva:24.83,unique:false,desc:'France entière — position premium'},
+};
+
+const BOOST_LOCAL=[
+  {code:'boost_ville',   nom:'Boost Ville',    zone:'1 ville / commune',    prix:'19,99 €/mois'},
+  {code:'boost_dept',    nom:'Boost Département',zone:'1 département',      prix:'34,99 €/mois',featured:true},
+  {code:'boost_region',  nom:'Boost Région',   zone:'1 région entière',     prix:'59,99 €/mois'},
+];
+
+const BOOST_DIGITAL=[
+  {code:'boost_national',nom:'Boost National', zone:'France entière',        prix:'149 €/mois'},
+];
+
+// Démo data
+const DEMO_ENTREPRISE={
+  siren:'912 345 678',nom:'Martin Plomberie',forme_juridique:'EI',
+  naf_code:'4322A',naf_libelle:'Plomberie & Chauffage',
+  ville:'Saumur',code_postal:'49400',departement:'49',region:'Pays de la Loire',
+  type_entreprise:'local'
+};
+
+async function init(){
+  // Vérifier si retour de paiement Stripe
+  if(paymentStatus==='success'){
+    renderSuccess();return;
+  }
+
+  let entreprise=DEMO_ENTREPRISE;
+  try{
+    const db=sb();
+    if(db&&siren){
+      const{data}=await db.from('entreprises').select('*').eq('siren',siren.replace(/\s/g,'')).single();
+      if(data)entreprise=data;
+    }
+  }catch(e){}
+
+  renderActivation(entreprise);
+}
+
+function renderActivation(e){
+  const offre=OFFRES[offreParam]||OFFRES.activation;
+  const isLocal=e.type_entreprise==='local'||e.type_entreprise==='regional';
+  const boostOptions=isLocal?BOOST_LOCAL:BOOST_DIGITAL;
+  const emoji=['4322A','4321A','4399C'].includes(e.naf_code)?'🔧':
+               ['6201Z','7311Z'].includes(e.naf_code)?'💻':
+               ['5610A','5610C'].includes(e.naf_code)?'🍽️':'🏢';
+
+  document.getElementById('pageContent').innerHTML=`
+
+    <h2 style="font-size:22px;font-weight:800;margin-bottom:6px;letter-spacing:-0.02em;">Activez votre fiche Visibleo</h2>
+    <p style="color:var(--texte-sec);margin-bottom:24px;font-size:14px;">Votre entreprise sera visible sur Google et dans notre annuaire sous 24 heures.</p>
+
+    <!-- APERÇU FICHE -->
+    <div class="preview-card">
+      <div class="preview-header">
+        <div class="preview-icon">${emoji}</div>
+        <div class="preview-header-text">
+          <div class="nom">${e.nom}</div>
+          <div class="sub">${e.naf_libelle} · ${e.ville} (${e.departement})</div>
+        </div>
+        <div class="preview-status"><div class="dot"></div>Non référencée</div>
+      </div>
+      <div class="preview-body">
+        <div class="preview-grid">
+          <div class="pf"><span class="pf-label">SIREN</span><span class="pf-val">${e.siren}</span></div>
+          <div class="pf"><span class="pf-label">Forme juridique</span><span class="pf-val">${e.forme_juridique}</span></div>
+          <div class="pf"><span class="pf-label">Secteur</span><span class="pf-val">${e.naf_libelle}</span></div>
+          <div class="pf"><span class="pf-label">Région</span><span class="pf-val">${e.region}</span></div>
+        </div>
+        <div class="preview-inclus">
+          <div class="inclus-title">Ce qui est inclus dans votre activation</div>
+          <div class="inclus-items">
+            <div class="inclus-item"><span class="inclus-check">✓</span>Fiche professionnelle complète</div>
+            <div class="inclus-item"><span class="inclus-check">✓</span>Référencement Google (SEO)</div>
+            <div class="inclus-item"><span class="inclus-check">✓</span>Accès espace propriétaire</div>
+            <div class="inclus-item"><span class="inclus-check">✓</span>Publication sous 24h</div>
+            <div class="inclus-item"><span class="inclus-check">✓</span>Avis clients activés</div>
+            <div class="inclus-item"><span class="inclus-check">✓</span>Annuaire sectoriel & géo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DÉTAIL PRIX -->
+    <div class="offre-card">
+      <div class="offre-header">
+        <span class="offre-nom">Activation fiche</span>
+        <span class="offre-badge">Paiement unique</span>
+      </div>
+      <div class="offre-prix">
+        <span class="offre-montant">139 €</span>
+        <span class="offre-ht">TTC</span>
+      </div>
+      <div class="offre-ligne"><span>Activation fiche professionnelle</span><span><strong>115,83 €</strong> HT</span></div>
+      <div class="offre-ligne"><span>TVA 20%</span><span>23,17 €</span></div>
+      <div class="offre-total"><span>Total à régler</span><span>139,00 €</span></div>
+    </div>
+
+    <!-- BOOST UPSELL -->
+    ${isLocal?`
+    <div class="boost-upsell">
+      <div class="bu-title">⭐ Ajoutez un boost de visibilité</div>
+      <div class="bu-sub">Apparaissez en tête des résultats dans votre zone. Sans engagement. (Optionnel)</div>
+      <div class="boost-options">
+        <div class="boost-opt selected" onclick="selectBoost('aucun',this)">
+          <input type="radio" name="boost" checked>
+          <div class="bo-info"><div class="bo-nom">Sans boost</div><div class="bo-zone">Fiche standard uniquement</div></div>
+          <div class="bo-prix">Gratuit</div>
+        </div>
+        ${boostOptions.map(b=>`
+        <div class="boost-opt${b.featured?' featured':''}" onclick="selectBoost('${b.code}',this)">
+          <input type="radio" name="boost">
+          <div class="bo-info"><div class="bo-nom">${b.nom}${b.featured?' ⭐':''}</div><div class="bo-zone">${b.zone}</div></div>
+          <div class="bo-prix">${b.prix}</div>
+        </div>`).join('')}
+      </div>
+    </div>`:`
+    <div class="boost-upsell">
+      <div class="bu-title">🏆 Boost National disponible pour votre activité</div>
+      <div class="bu-sub">Votre secteur (${e.naf_libelle}) a une portée nationale. Bénéficiez d'une visibilité sur toute la France.</div>
+      <div class="boost-options">
+        <div class="boost-opt selected" onclick="selectBoost('aucun',this)"><input type="radio" name="boost" checked><div class="bo-info"><div class="bo-nom">Sans boost</div><div class="bo-zone">Fiche standard</div></div><div class="bo-prix">Gratuit</div></div>
+        <div class="boost-opt" onclick="selectBoost('boost_national',this)"><input type="radio" name="boost"><div class="bo-info"><div class="bo-nom">Boost National 🏆</div><div class="bo-zone">France entière · Position premium</div></div><div class="bo-prix">149 €/mois</div></div>
+      </div>
+    </div>`}
+
+    <!-- BOUTON PAIEMENT -->
+    <button class="btn-pay or" id="btnPay" onclick="payerStripe('${e.siren}','${e.nom}')">
+      🔒 Activer ma fiche — Payer 139 €
+    </button>
+    <div class="securite">
+      <span>🔒 SSL sécurisé</span>
+      <span>💳 Visa · Mastercard · Amex</span>
+      <span>✓ Stripe</span>
+    </div>
+
+    <!-- MENTIONS -->
+    <div class="mentions">
+      <strong>Visibleo</strong> est un service commercial privé de mise en visibilité pour les entreprises françaises.
+      Ce service n'est pas émis par un organisme public ou gouvernemental et n'est affilié à aucune administration.
+      <strong>Aucun paiement n'est obligatoire.</strong> Vous pouvez refuser cette offre sans aucune conséquence juridique ou administrative.
+      L'activation de votre fiche constitue une souscription volontaire à un service commercial.
+      Conformément au RGPD, seules des données publiques issues du registre national BODACC/RNE sont utilisées.
+      <br><br>
+      <a href="mentions-legales.html" style="color:var(--bleu-vif)">Mentions légales</a> ·
+      <a href="mentions-legales.html#rgpd" style="color:var(--bleu-vif)">Politique de confidentialité</a> ·
+      <a href="optout.html?siren=${e.siren}" style="color:var(--texte-ter)">Ne plus recevoir nos communications</a>
+    </div>
+  `;
+}
+
+let boostChoisi='aucun';
+function selectBoost(code,el){
+  boostChoisi=code;
+  document.querySelectorAll('.boost-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked=true;
+  const btn=document.getElementById('btnPay');
+  if(!btn)return;
+  if(code==='aucun'){
+    btn.textContent='🔒 Activer ma fiche — Payer 139 €';
+  } else {
+    const prix={boost_ville:'19,99',boost_dept:'34,99',boost_region:'59,99',boost_national:'149'}[code]||'';
+    btn.textContent=`🔒 Activer ma fiche (139 €) + Boost (${prix} €/mois)`;
+  }
+}
+
+function payerStripe(siren,nom){
+  const base=STRIPE_LINKS.activation;
+  if(!base||base.includes('VOTRE_LIEN')){
+    alert('Mode démo : les liens Stripe ne sont pas encore configurés.\n\nConfigurer dans activer.html → STRIPE_LINKS.activation');
+    return;
+  }
+  const url=`${base}?client_reference_id=${encodeURIComponent(siren)}&prefilled_email=&metadata[siren]=${encodeURIComponent(siren)}&metadata[nom]=${encodeURIComponent(nom)}&metadata[boost]=${boostChoisi}`;
+  window.location.href=url;
+}
+
+function renderSuccess(){
+  document.getElementById('pageContent').innerHTML=`
+    <div class="success-wrap">
+      <div class="success-icon">🎉</div>
+      <h2>Paiement reçu — Merci !</h2>
+      <p>Votre fiche Visibleo est en cours d'activation. Vous recevrez un email de confirmation avec l'accès à votre espace propriétaire.</p>
+      <div class="success-steps">
+        <div class="ss-item"><div class="ss-num">1</div><div class="ss-txt"><strong>Email de confirmation</strong> envoyé sur votre adresse</div></div>
+        <div class="ss-item"><div class="ss-num">2</div><div class="ss-txt"><strong>Fiche publiée sous 24h</strong> sur Visibleo et référencée Google</div></div>
+        <div class="ss-item"><div class="ss-num">3</div><div class="ss-txt"><strong>Accès à votre espace propriétaire</strong> pour personnaliser votre fiche</div></div>
+      </div>
+      <a href="espace.html" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--bleu);color:#fff;border-radius:var(--r-lg);font-family:'Syne',sans-serif;font-size:15px;font-weight:700;text-decoration:none;">
+        Accéder à mon espace →
+      </a>
+    </div>`;
+}
+
+function optOut(siren){
+  if(confirm('Souhaitez-vous ne plus recevoir nos communications ? Votre adresse sera supprimée de notre liste.'))
+    alert('Votre demande a été prise en compte. Vous ne recevrez plus de communications de notre part.');
+}
+
+init();
+</script>
+</body>
+</html>

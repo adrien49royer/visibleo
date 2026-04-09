@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="metaTitle">Fiche entreprise — Visibleo</title>
+<meta name="description" id="metaDesc" content="Fiche professionnelle sur Visibleo">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bleu:#0F2554;--bleu-mid:#1B3A7A;--bleu-vif:#2952B8;--bleu-clair:#EBF0FA;--bleu-pale:#F4F7FD;
+  --or:#C9943A;--or-clair:#FEF6E4;--or-vif:#E8A830;
+  --blanc:#FFFFFF;--texte:#0D1B3E;--texte-sec:#4A5568;--texte-ter:#718096;
+  --bord:#DDE3F0;--bg:#F7F9FE;--vert:#1A7A4A;--rouge:#C0392B;
+  --shadow-sm:0 1px 3px rgba(15,37,84,.08);--shadow-md:0 4px 16px rgba(15,37,84,.1);--shadow-lg:0 12px 40px rgba(15,37,84,.14);
+  --r-sm:6px;--r-md:10px;--r-lg:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;font-size:15px;color:var(--texte);background:var(--bg);-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Syne',sans-serif;}
+
+/* HEADER */
+.header{background:var(--bleu);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,37,84,.4);}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px;height:60px;}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.logo-icon{width:30px;height:30px;background:var(--or);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--bleu);}
+.logo-text{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-text em{color:var(--or);font-style:normal;}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.5);flex:1;}
+.breadcrumb a{color:rgba(255,255,255,.6);text-decoration:none;}
+.breadcrumb a:hover{color:var(--or);}
+.breadcrumb span{color:rgba(255,255,255,.3);}
+
+/* LAYOUT */
+.page-wrap{max-width:1200px;margin:0 auto;padding:24px 24px 60px;display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;}
+
+/* COLONNE PRINCIPALE */
+/* Fiche Hero */
+.fiche-hero{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);overflow:hidden;margin-bottom:16px;}
+
+.fiche-cover-big{height:220px;background:linear-gradient(135deg,var(--bleu-clair),var(--bleu-pale));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.fiche-cover-big img{width:100%;height:100%;object-fit:cover;}
+.fiche-cover-big .cover-ph{font-size:80px;opacity:.25;}
+
+/* Badge boost sur la cover */
+.boost-tag{position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;gap:6px;background:var(--or);color:var(--bleu);font-size:11px;font-weight:700;padding:5px 14px;border-radius:100px;letter-spacing:.04em;}
+
+.fiche-intro{padding:24px 28px 20px;}
+.fiche-top{display:flex;align-items:flex-start;gap:20px;margin-bottom:20px;}
+
+.fiche-logo{width:72px;height:72px;border-radius:var(--r-md);background:var(--bleu-clair);border:2px solid var(--bord);display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;overflow:hidden;}
+.fiche-logo img{width:100%;height:100%;object-fit:cover;}
+
+.fiche-identity{flex:1;}
+.fiche-badges{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;}
+.badge-secteur{background:var(--bleu-clair);color:var(--bleu-vif);text-transform:uppercase;letter-spacing:.05em;}
+.badge-forme{background:#f0f0f0;color:var(--texte-sec);}
+.badge-actif{background:#E6F5EC;color:var(--vert);}
+.badge-attente{background:var(--or-clair);color:#92600A;}
+
+.fiche-nom{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--texte);line-height:1.2;margin-bottom:8px;}
+.fiche-ville-line{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--texte-sec);}
+.fiche-ville-line span{color:var(--texte-ter);}
+
+/* Note résumé */
+.note-bloc{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--bleu-pale);border-radius:var(--r-md);margin-bottom:20px;}
+.note-big{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:var(--bleu);}
+.note-detail{flex:1;}
+.stars-big{font-size:20px;color:var(--or);letter-spacing:2px;}
+.note-nb{font-size:13px;color:var(--texte-ter);margin-top:2px;}
+.note-bar-wrap{display:flex;flex-direction:column;gap:4px;min-width:160px;}
+.note-bar-row{display:flex;align-items:center;gap:6px;font-size:11px;}
+.note-bar-lbl{width:40px;text-align:right;color:var(--texte-ter);}
+.note-bar{flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;}
+.note-bar-fill{height:100%;background:var(--or);border-radius:3px;}
+.note-bar-n{width:20px;color:var(--texte-ter);}
+
+/* Tabs */
+.tabs{display:flex;border-bottom:2px solid var(--bord);margin-bottom:24px;}
+.tab{padding:12px 20px;font-size:14px;font-weight:500;color:var(--texte-ter);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;}
+.tab:hover{color:var(--texte);}
+.tab.active{color:var(--bleu-vif);border-bottom-color:var(--bleu-vif);font-weight:600;}
+.tab-content{display:none;padding:0 28px 28px;}
+.tab-content.active{display:block;}
+
+/* Sections de contenu */
+.content-block{margin-bottom:28px;}
+.content-block h3{font-size:16px;font-weight:700;color:var(--texte);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--bord);}
+.desc-text{font-size:14px;color:var(--texte-sec);line-height:1.8;}
+.services-list{display:flex;flex-wrap:wrap;gap:8px;}
+.service-pill{padding:7px 14px;background:var(--bleu-clair);color:var(--bleu-vif);border-radius:100px;font-size:13px;font-weight:500;}
+.infos-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.info-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--bg);border-radius:var(--r-sm);border:1px solid var(--bord);}
+.info-icon{font-size:18px;flex-shrink:0;}
+.info-label{font-size:11px;color:var(--texte-ter);text-transform:uppercase;letter-spacing:.06em;}
+.info-val{font-size:13px;font-weight:500;color:var(--texte);margin-top:2px;}
+
+/* Horaires */
+.horaires-table{width:100%;}
+.horaires-table tr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bord);font-size:13px;}
+.horaires-table tr:last-child{border-bottom:none;}
+.h-jour{font-weight:500;color:var(--texte);}
+.h-heure{color:var(--texte-sec);}
+.h-ferme{color:var(--rouge);}
+.h-today{background:var(--bleu-pale);margin:0 -12px;padding:8px 12px !important;border-radius:var(--r-sm);}
+.h-today .h-jour{color:var(--bleu-vif);}
+
+/* Galerie photos */
+.photos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.photos-grid img{width:100%;height:100px;object-fit:cover;border-radius:var(--r-sm);cursor:pointer;transition:transform .15s;}
+.photos-grid img:hover{transform:scale(1.03);}
+
+/* Avis */
+.avis-list{display:flex;flex-direction:column;gap:16px;}
+.avis-item{padding:16px 20px;background:var(--bg);border:1px solid var(--bord);border-radius:var(--r-md);}
+.avis-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.avis-auteur{font-weight:600;font-size:14px;}
+.avis-date{font-size:12px;color:var(--texte-ter);}
+.avis-stars{color:var(--or);font-size:14px;margin-bottom:6px;}
+.avis-text{font-size:13px;color:var(--texte-sec);line-height:1.6;}
+.avis-form{background:var(--bleu-pale);border:1px solid var(--bord);border-radius:var(--r-md);padding:20px;margin-top:16px;}
+.avis-form h4{font-size:15px;font-weight:600;margin-bottom:14px;}
+.form-field{margin-bottom:12px;}
+.form-field label{display:block;font-size:12px;font-weight:500;color:var(--texte-sec);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em;}
+.form-field input,.form-field textarea,.form-field select{width:100%;padding:9px 12px;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:13px;color:var(--texte);font-family:'Inter',sans-serif;background:var(--blanc);outline:none;transition:border .15s;}
+.form-field input:focus,.form-field textarea:focus{border-color:var(--bleu-vif);}
+.star-rating{display:flex;gap:4px;}
+.star-rating span{font-size:28px;color:#ddd;cursor:pointer;transition:color .1s;}
+.star-rating span:hover,.star-rating span.active{color:var(--or);}
+.btn-submit{background:var(--bleu);color:#fff;padding:10px 24px;border-radius:var(--r-md);border:none;font-family:'Syne',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;}
+.btn-submit:hover{background:var(--bleu-vif);}
+
+/* Données légales */
+.legal-block{font-size:12px;color:var(--texte-ter);line-height:1.8;}
+.legal-block strong{color:var(--texte-sec);}
+
+/* COLONNE DROITE (sidebar) */
+.sidebar-col{display:flex;flex-direction:column;gap:16px;}
+
+.sidebar-card{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:20px;position:sticky;top:80px;}
+
+/* CTA Contact */
+.contact-card{background:var(--bleu);border-radius:var(--r-lg);padding:24px;color:#fff;}
+.contact-card .cc-nom{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px;}
+.contact-card .cc-secteur{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:20px;}
+.contact-btns{display:flex;flex-direction:column;gap:10px;}
+.btn-tel{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--or);color:var(--bleu);border-radius:var(--r-md);font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:background .15s;justify-content:center;}
+.btn-tel:hover{background:var(--or-vif);}
+.btn-contact{display:flex;align-items:center;gap:10px;padding:11px 16px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:var(--r-md);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;justify-content:center;font-family:'Inter',sans-serif;}
+.btn-contact:hover{background:rgba(255,255,255,.2);}
+.contact-note{font-size:11px;color:rgba(255,255,255,.4);text-align:center;margin-top:12px;}
+
+/* Formulaire de contact (dans la sidebar) */
+.contact-form{display:none;}
+.contact-form.open{display:block;}
+.cf-input{width:100%;padding:9px 12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:var(--r-sm);color:#fff;font-size:13px;font-family:'Inter',sans-serif;outline:none;margin-bottom:10px;}
+.cf-input::placeholder{color:rgba(255,255,255,.4);}
+.cf-input:focus{border-color:var(--or);}
+
+/* Zone d'intervention */
+.zone-card h4{font-size:13px;font-weight:600;margin-bottom:12px;}
+.zone-tag{display:inline-flex;align-items:center;gap:6px;background:var(--bleu-clair);color:var(--bleu-vif);padding:5px 12px;border-radius:100px;font-size:12px;font-weight:500;margin:0 4px 4px 0;}
+
+/* Boost CTA sidebar */
+.boost-cta{background:linear-gradient(135deg,var(--or-clair),#fff9ed);border:1px solid #F0D898;border-radius:var(--r-lg);padding:20px;}
+.boost-cta h4{font-size:13px;font-weight:700;color:var(--bleu);margin-bottom:8px;}
+.boost-cta p{font-size:12px;color:var(--texte-sec);margin-bottom:14px;line-height:1.6;}
+.btn-boost{display:block;background:var(--or);color:var(--bleu);text-align:center;padding:10px;border-radius:var(--r-md);font-size:13px;font-weight:700;text-decoration:none;transition:background .15s;}
+.btn-boost:hover{background:var(--or-vif);}
+
+/* Fiches similaires */
+.similaire-list{display:flex;flex-direction:column;gap:10px;}
+.similaire-item{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--bord);border-radius:var(--r-md);text-decoration:none;transition:all .15s;}
+.similaire-item:hover{border-color:var(--bleu-vif);background:var(--bleu-pale);}
+.sim-icon{width:36px;height:36px;border-radius:var(--r-sm);background:var(--bleu-clair);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.sim-nom{font-size:13px;font-weight:600;color:var(--texte);}
+.sim-sub{font-size:11px;color:var(--texte-ter);}
+.sim-note{font-size:11px;color:var(--or);margin-left:auto;white-space:nowrap;}
+
+/* Loading */
+.loading-state{text-align:center;padding:80px 24px;color:var(--texte-ter);}
+.loading-spinner{width:36px;height:36px;border:3px solid var(--bord);border-top-color:var(--bleu-vif);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Responsive */
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr;}
+  .sidebar-col{order:-1;}
+  .sidebar-card{position:static;}
+  .infos-grid{grid-template-columns:1fr;}
+}
+@media(max-width:500px){
+  .fiche-intro{padding:16px 20px 12px;}
+  .tab-content{padding:0 16px 20px;}
+  .fiche-nom{font-size:20px;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">V</div>
+      <span class="logo-text">Visibl<em>eo</em></span>
+    </a>
+    <div class="breadcrumb">
+      <a href="../index.html">Accueil</a>
+      <span>/</span>
+      <a href="annuaire.html">Annuaire</a>
+      <span>/</span>
+      <span id="bcSecteur">Chargement…</span>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap" id="pageWrap">
+  <div class="loading-state" style="grid-column:1/-1;">
+    <div class="loading-spinner"></div>
+    <p>Chargement de la fiche…</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+const SB_URL='https://VOTRE_REF.supabase.co';
+const SB_KEY='VOTRE_ANON_KEY';
+let _sb=null;
+function sb(){if(!_sb&&typeof supabase!=='undefined')_sb=supabase.createClient(SB_URL,SB_KEY);return _sb;}
+
+const slug=new URLSearchParams(window.location.search).get('slug')||'demo';
+
+// ── Données de démo ────────────────────────────────────
+const DEMO={
+  id:'demo',slug:'martin-plomberie-saumur-49',
+  description_seo:'Martin Plomberie est une entreprise individuelle spécialisée dans la plomberie et l\'installation sanitaire à Saumur et ses environs (Maine-et-Loire). Fondée par Thomas Martin, plombier certifié avec plus de 12 ans d\'expérience, l\'entreprise intervient pour les particuliers et les professionnels dans un rayon de 30 km autour de Saumur. Disponible 24h/24 pour les urgences.',
+  description_courte:'Plombier professionnel sur Saumur et 30km. Urgences 24h/24, devis gratuit.',
+  services:['Dépannage urgent','Installation sanitaire','Chauffage','Chauffe-eau','Rénovation salle de bain','Débouchage'],
+  telephone_public:'02 41 XX XX XX',
+  site_web:'https://martin-plomberie.fr',
+  email_public:'contact@martin-plomberie.fr',
+  horaires:{lun:'8h00–18h00',mar:'8h00–18h00',mer:'8h00–18h00',jeu:'8h00–18h00',ven:'8h00–17h00',sam:'9h00–12h00',dim:'Fermé'},
+  zone_intervention:'Saumur et 30 km alentours — Saumur, Doué-en-Anjou, Longué-Jumelles, Noyant…',
+  boost_niveau:'departement',
+  note_moyenne:4.8,nb_avis:12,nb_vues:347,nb_contacts:23,
+  statut:'active',
+  activated_at:'2026-03-15T10:00:00Z',
+  entreprises:{
+    nom:'Martin Plomberie',siren:'912 345 678',forme_juridique:'EI',
+    naf_code:'4322A',naf_libelle:'Plomberie & Chauffage',
+    adresse:'14 Rue du Commerce',ville:'Saumur',code_postal:'49400',departement:'49',region:'Pays de la Loire',
+    nom_dirigeant:'Thomas MARTIN',date_immat:'2026-03-10'
+  },
+  avis:[
+    {id:1,auteur_nom:'Sophie R.',note:5,commentaire:'Intervention rapide pour une fuite d\'eau un samedi matin. Thomas est arrivé en moins d\'une heure, très professionnel et honnête sur le tarif. Je recommande vivement !',created_at:'2026-03-28T09:00:00Z'},
+    {id:2,auteur_nom:'Marc D.',note:5,commentaire:'Excellent travail pour l\'installation de ma nouvelle salle de bain. Propre, ponctuel et prix correct. Rien à redire.',created_at:'2026-03-20T14:30:00Z'},
+    {id:3,auteur_nom:'Isabelle L.',note:4,commentaire:'Bon plombier, intervention efficace pour le remplacement de mon chauffe-eau. Délai d\'attente un peu long mais travail soigné.',created_at:'2026-03-12T11:00:00Z'},
+  ]
+};
+
+const JOURS=['lun','mar','mer','jeu','ven','sam','dim'];
+const JOURS_FULL=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+const BOOST_LABELS={ville:'⭐ Mis en avant',departement:'⭐⭐ Prioritaire département',region:'⭐⭐⭐ Prioritaire région',multi_region:'🏆 Multi-régions',national:'🏆 Référence nationale'};
+
+// ── Chargement fiche ───────────────────────────────────
+async function loadFiche(){
+  let data=null;
+  try{
+    const db=sb();
+    if(db&&slug!=='demo'){
+      const{data:d}=await db.from('fiches')
+        .select('*,entreprises(*),avis(id,auteur_nom,note,commentaire,created_at)')
+        .eq('slug',slug).eq('statut','active').eq('avis.statut','approuve').single();
+      if(d)data=d;
+    }
+  }catch(e){}
+  render(data||DEMO,!data);
+}
+
+function render(f,isDemo){
+  const e=f.entreprises||{};
+  const boost=f.boost_niveau||'aucun';
+  const bl=BOOST_LABELS[boost];
+  document.title=`${e.nom} — ${e.naf_libelle} à ${e.ville} | Visibleo`;
+  document.getElementById('metaTitle').content=`${e.nom} — ${e.naf_libelle} à ${e.ville} | Visibleo`;
+  document.getElementById('bcSecteur').textContent=e.naf_libelle;
+
+  const avgNote=parseFloat(f.note_moyenne)||0;
+  const stars='★'.repeat(Math.round(avgNote))+'☆'.repeat(5-Math.round(avgNote));
+
+  // Barres de notes (simulées pour la démo)
+  const barNotes=[[5,70],[4,20],[3,7],[2,2],[1,1]];
+  const barHtml=barNotes.map(([n,pct])=>`
+    <div class="note-bar-row">
+      <span class="note-bar-lbl">${n}★</span>
+      <div class="note-bar"><div class="note-bar-fill" style="width:${pct}%"></div></div>
+      <span class="note-bar-n">${Math.round((f.nb_avis||0)*pct/100)}</span>
+    </div>`).join('');
+
+  // Horaires
+  const today=new Date().getDay();
+  const joursIdx=[1,2,3,4,5,6,0]; // lun=0 dans notre array, dim=6
+  const h=f.horaires||{};
+  const horairesHtml=JOURS.map((j,i)=>{
+    const isToday=(joursIdx[i]===today);
+    const val=h[j]||'Fermé';
+    return`<tr${isToday?' class="h-today"':''}><td class="h-jour">${JOURS_FULL[i]}</td><td class="${val==='Fermé'?'h-ferme':'h-heure'}">${val}</td></tr>`;
+  }).join('');
+
+  // Services
+  const svcHtml=(f.services||[]).map(s=>`<span class="service-pill">${s}</span>`).join('');
+
+  // Avis
+  const avisData=f.avis||[];
+  const avisHtml=avisData.map(a=>`
+    <div class="avis-item">
+      <div class="avis-header"><span class="avis-auteur">${a.auteur_nom}</span><span class="avis-date">${timeAgo(a.created_at)}</span></div>
+      <div class="avis-stars">${'★'.repeat(a.note)+'☆'.repeat(5-a.note)}</div>
+      <p class="avis-text">${a.commentaire}</p>
+    </div>`).join('');
+
+  // Zones
+  const zoneHtml=(f.boost_zones||[e.departement, e.region].filter(Boolean))
+    .map(z=>`<span class="zone-tag">📍 ${z}</span>`).join('');
+
+  // Infos légales
+  const legaleHtml=`
+    <div class="legal-block">
+      <strong>SIREN :</strong> ${e.siren||'—'} &nbsp;·&nbsp;
+      <strong>Forme juridique :</strong> ${e.forme_juridique||'—'} &nbsp;·&nbsp;
+      <strong>Date d'immatriculation :</strong> ${e.date_immat?new Date(e.date_immat).toLocaleDateString('fr-FR'):'—'}<br>
+      <strong>Code NAF :</strong> ${e.naf_code||'—'} — ${e.naf_libelle||'—'}<br>
+      <strong>Adresse :</strong> ${e.adresse||''} ${e.code_postal||''} ${e.ville||''}<br>
+      ${isDemo?'<em>Données issues de la base de données publique BODACC / INSEE.</em>':'<em>Données issues de la base de données Sirene, droits réservés INSEE — mise à jour mensuelle.</em>'}
+    </div>`;
+
+  document.getElementById('pageWrap').innerHTML=`
+    <!-- COLONNE PRINCIPALE -->
+    <div>
+      <div class="fiche-hero">
+        <div class="fiche-cover-big">
+          ${f.photo_principale?`<img src="${f.photo_principale}" alt="${e.nom}">`:`<div class="cover-ph">🔧</div>`}
+          ${bl?`<div class="boost-tag">${bl}</div>`:''}
+        </div>
+        <div class="fiche-intro">
+          <div class="fiche-top">
+            <div class="fiche-logo">${f.logo_url?`<img src="${f.logo_url}" alt="logo">`:'🔧'}</div>
+            <div class="fiche-identity">
+              <div class="fiche-badges">
+                <span class="badge badge-secteur">${e.naf_libelle||''}</span>
+                <span class="badge badge-forme">${e.forme_juridique||''}</span>
+                <span class="badge ${f.statut==='active'?'badge-actif':'badge-attente'}">${f.statut==='active'?'✓ Référencé':'En attente'}</span>
+              </div>
+              <h1 class="fiche-nom">${e.nom}</h1>
+              <div class="fiche-ville-line">
+                📍 ${e.adresse||''}, ${e.code_postal||''} ${e.ville||''}
+                <span>·</span> ${e.departement||''} · ${e.region||''}
+              </div>
+            </div>
+          </div>
+
+          ${f.nb_avis>0?`
+          <div class="note-bloc">
+            <div class="note-big">${avgNote.toFixed(1)}</div>
+            <div class="note-detail">
+              <div class="stars-big">${stars}</div>
+              <div class="note-nb">${f.nb_avis} avis clients</div>
+            </div>
+            <div class="note-bar-wrap">${barHtml}</div>
+          </div>`:''}
+
+          <div class="tabs">
+            <div class="tab active" onclick="switchTab('infos')">Présentation</div>
+            <div class="tab" onclick="switchTab('horaires')">Horaires</div>
+            <div class="tab" onclick="switchTab('avis')">Avis (${f.nb_avis||0})</div>
+            <div class="tab" onclick="switchTab('legal')">Infos légales</div>
+          </div>
+
+          <!-- TAB : Infos -->
+          <div class="tab-content active" id="tab-infos">
+            <div class="content-block">
+              <h3>À propos</h3>
+              <p class="desc-text">${f.description_seo||f.description_courte||''}</p>
+            </div>
+            ${svcHtml?`<div class="content-block"><h3>Services proposés</h3><div class="services-list">${svcHtml}</div></div>`:''}
+            <div class="content-block">
+              <h3>Coordonnées & informations</h3>
+              <div class="infos-grid">
+                ${f.telephone_public?`<div class="info-item"><span class="info-icon">📞</span><div><div class="info-label">Téléphone</div><div class="info-val">${f.telephone_public}</div></div></div>`:''}
+                ${f.email_public?`<div class="info-item"><span class="info-icon">✉️</span><div><div class="info-label">Email</div><div class="info-val">${f.email_public}</div></div></div>`:''}
+                ${f.site_web?`<div class="info-item"><span class="info-icon">🌐</span><div><div class="info-label">Site web</div><div class="info-val"><a href="${f.site_web}" target="_blank" style="color:var(--bleu-vif)">${f.site_web.replace(/https?:\/\//,'')}</a></div></div></div>`:''}
+                <div class="info-item"><span class="info-icon">📍</span><div><div class="info-label">Zone d'intervention</div><div class="info-val">${f.zone_intervention||e.ville}</div></div></div>
+                <div class="info-item"><span class="info-icon">👁</span><div><div class="info-label">Vues</div><div class="info-val">${(f.nb_vues||0).toLocaleString('fr-FR')} consultations</div></div></div>
+                <div class="info-item"><span class="info-icon">📅</span><div><div class="info-label">Référencé depuis</div><div class="info-val">${f.activated_at?new Date(f.activated_at).toLocaleDateString('fr-FR'):'—'}</div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB : Horaires -->
+          <div class="tab-content" id="tab-horaires">
+            <div class="content-block">
+              <h3>Horaires d'ouverture</h3>
+              <table class="horaires-table"><tbody>${horairesHtml}</tbody></table>
+            </div>
+          </div>
+
+          <!-- TAB : Avis -->
+          <div class="tab-content" id="tab-avis">
+            <div class="content-block">
+              <h3>Avis clients</h3>
+              ${avisHtml?`<div class="avis-list">${avisHtml}</div>`:'<p style="color:var(--texte-ter);font-size:13px;">Aucun avis pour le moment.</p>'}
+              <div class="avis-form" style="margin-top:20px;">
+                <h4>Laisser un avis</h4>
+                <div class="form-field">
+                  <label>Votre note</label>
+                  <div class="star-rating" id="starRating">
+                    <span onclick="setNote(1)">★</span><span onclick="setNote(2)">★</span>
+                    <span onclick="setNote(3)">★</span><span onclick="setNote(4)">★</span>
+                    <span onclick="setNote(5)">★</span>
+                  </div>
+                </div>
+                <div class="form-field"><label>Votre nom</label><input type="text" id="avisNom" placeholder="Marie D."></div>
+                <div class="form-field"><label>Votre commentaire</label><textarea id="avisTxt" rows="3" placeholder="Décrivez votre expérience…"></textarea></div>
+                <button class="btn-submit" onclick="soumettreAvis('${f.id}')">Publier mon avis</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB : Légal -->
+          <div class="tab-content" id="tab-legal">
+            <div class="content-block">
+              <h3>Informations légales</h3>
+              ${legaleHtml}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar-col">
+
+      <!-- Contact -->
+      <div class="contact-card">
+        <div class="cc-nom">${e.nom}</div>
+        <div class="cc-secteur">${e.naf_libelle} · ${e.ville}</div>
+        <div class="contact-btns">
+          ${f.telephone_public?`<a href="tel:${f.telephone_public.replace(/\s/g,'')}" class="btn-tel">📞 ${f.telephone_public}</a>`:''}
+          <button class="btn-contact" onclick="toggleContactForm()">✉️ Envoyer un message</button>
+        </div>
+        <div class="contact-form" id="contactForm">
+          <div style="height:12px;"></div>
+          <input class="cf-input" type="text" id="cfNom" placeholder="Votre nom">
+          <input class="cf-input" type="email" id="cfEmail" placeholder="Votre email">
+          <input class="cf-input" type="tel" id="cfTel" placeholder="Votre téléphone">
+          <textarea class="cf-input" id="cfMsg" rows="3" placeholder="Décrivez votre besoin…"></textarea>
+          <button class="btn-tel" style="width:100%;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);" onclick="envoyerContact('${f.id}','${e.id||''}')">Envoyer →</button>
+        </div>
+        <div class="contact-note">Répond généralement sous 24h</div>
+      </div>
+
+      <!-- Zone d'intervention -->
+      ${zoneHtml?`<div class="sidebar-card zone-card"><h4>📍 Zone d'intervention</h4>${zoneHtml}</div>`:''}
+
+      <!-- Boost CTA (si pas encore boosté ou si fiche active) -->
+      ${f.statut==='active'&&boost==='aucun'?`
+      <div class="boost-cta">
+        <h4>⭐ Boostez votre visibilité</h4>
+        <p>Apparaissez en tête des résultats dans votre secteur et votre zone. Dès 19,99€/mois, sans engagement.</p>
+        <a href="activer.html?siren=${e.siren}&offre=boost_ville" class="btn-boost">Voir les offres boost →</a>
+      </div>`:''}
+
+      <!-- Fiches similaires -->
+      <div class="sidebar-card">
+        <h4 style="font-size:13px;font-weight:600;margin-bottom:14px;">Professionnels similaires</h4>
+        <div class="similaire-list" id="similaireList">
+          ${getSimilairesDemo(e.naf_libelle,e.ville)}
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+function getSimilairesDemo(naf,ville){
+  const demos=[
+    {e:'🔧',nom:'Plomberie Dupont',ville:'Saumur',note:4.5,slug:'plomberie-dupont-saumur-49'},
+    {e:'🔧',nom:'Fix & Go Plomberie',ville:'Doué',note:4.3,slug:'fix-go-saumur-49'},
+    {e:'🔧',nom:'Artisan Moreau',ville:'Longué',note:4.7,slug:'moreau-plomberie-49'},
+  ];
+  return demos.map(d=>`
+    <a class="similaire-item" href="fiche.html?slug=${d.slug}">
+      <div class="sim-icon">${d.e}</div>
+      <div><div class="sim-nom">${d.nom}</div><div class="sim-sub">📍 ${d.ville}</div></div>
+      <div class="sim-note">★ ${d.note}</div>
+    </a>`).join('');
+}
+
+// ── Tabs ───────────────────────────────────────────────
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const ids=['infos','horaires','avis','legal'];
+    t.classList.toggle('active',ids[i]===id);
+  });
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('tab-'+id)?.classList.add('active');
+}
+
+// ── Contact ────────────────────────────────────────────
+function toggleContactForm(){
+  document.getElementById('contactForm').classList.toggle('open');
+}
+
+async function envoyerContact(ficheId,entrepriseId){
+  const nom=document.getElementById('cfNom').value;
+  const email=document.getElementById('cfEmail').value;
+  const tel=document.getElementById('cfTel').value;
+  const msg=document.getElementById('cfMsg').value;
+  if(!nom||!email||!msg){alert('Merci de remplir tous les champs.');return;}
+  try{
+    const db=sb();
+    if(db){
+      await db.from('contacts').insert({fiche_id:ficheId,entreprise_id:entrepriseId,nom_demandeur:nom,email_demandeur:email,tel_demandeur:tel,message:msg});
+    }
+    document.getElementById('contactForm').innerHTML='<p style="color:rgba(255,255,255,.8);font-size:13px;margin-top:12px;text-align:center;">✓ Message envoyé ! L\'entreprise vous répondra sous 24h.</p>';
+  }catch(e){alert('Erreur lors de l\'envoi. Réessayez.');}
+}
+
+// ── Avis ───────────────────────────────────────────────
+let noteChoisie=0;
+function setNote(n){
+  noteChoisie=n;
+  document.querySelectorAll('#starRating span').forEach((s,i)=>s.classList.toggle('active',i<n));
+}
+
+async function soumettreAvis(ficheId){
+  const nom=document.getElementById('avisNom').value;
+  const txt=document.getElementById('avisTxt').value;
+  if(!noteChoisie||!nom||!txt){alert('Merci de remplir tous les champs et de noter.');return;}
+  try{
+    const db=sb();
+    if(db)await db.from('avis').insert({fiche_id:ficheId,auteur_nom:nom,note:noteChoisie,commentaire:txt,statut:'en_attente'});
+    alert('Merci pour votre avis ! Il sera publié après validation.');
+  }catch(e){alert('Erreur. Réessayez.');}
+}
+
+// ── Utils ──────────────────────────────────────────────
+function timeAgo(d){
+  const diff=Date.now()-new Date(d);
+  const days=Math.floor(diff/86400000);
+  if(days===0)return'Aujourd\'hui';
+  if(days===1)return'Hier';
+  if(days<30)return`Il y a ${days} jours`;
+  return`Il y a ${Math.floor(days/30)} mois`;
+}
+
+loadFiche();
+</script>
+</body>
+</html>

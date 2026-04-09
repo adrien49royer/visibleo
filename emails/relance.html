@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8">
+<title>Relance J+7 — Visibleo</title></head>
+<!--
+  TEMPLATE EMAIL : relance_j7
+  Sujet Brevo : {{ contact.NOM_ENTREPRISE }} — votre fiche vous attend encore
+  Déclencheur Make : pipeline_statut = 'email_envoye' AND email_envoye_at < NOW() - 7 days
+  Variables : NOM_ENTREPRISE, PRENOM_DIRIGEANT, VILLE, NAF_LIBELLE, SIREN, LIEN_ACTIVATION, LIEN_OPTOUT
+-->
+<body style="margin:0;padding:0;background:#F0F4FC;font-family:Arial,sans-serif;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+<tr><td align="center">
+<table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+
+  <tr><td style="background:#0F2554;padding:24px 40px;">
+    <div style="font-family:Georgia,serif;font-size:22px;font-weight:bold;color:#fff;">
+      Visibl<span style="color:#C9943A;">eo</span>
+    </div>
+  </td></tr>
+
+  <!-- URGENCY BAR -->
+  <tr><td style="background:#FFF0E8;border-bottom:3px solid #E8650A;padding:12px 40px;text-align:center;">
+    <span style="font-size:12px;font-weight:700;color:#C04A00;text-transform:uppercase;letter-spacing:.07em;">
+      ⏳ Votre fiche n'est toujours pas activée
+    </span>
+  </td></tr>
+
+  <tr><td style="padding:32px 40px;">
+    <p style="margin:0 0 16px;font-size:15px;color:#0D1B3E;">Bonjour,</p>
+
+    <p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#4A5568;">
+      Il y a 7 jours, nous vous avons contacté pour vous proposer d'activer la fiche de
+      <strong>{{ contact.NOM_ENTREPRISE }}</strong> sur Visibleo.
+    </p>
+
+    <p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#4A5568;">
+      Pendant ce temps, <strong>vos concurrents qui ont activé leur fiche</strong>
+      sont apparus dans les résultats Google quand un client cherchait
+      <em>{{ contact.NAF_LIBELLE }} à {{ contact.VILLE }}</em>.
+    </p>
+
+    <!-- COMPARAISON VISIBLE/PAS VISIBLE -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin:20px 0;border-radius:12px;overflow:hidden;">
+      <tr>
+        <td style="background:#FBEEF0;padding:14px 18px;width:50%;vertical-align:top;">
+          <div style="font-size:11px;font-weight:700;color:#C0392B;text-transform:uppercase;margin-bottom:8px;">Sans fiche active</div>
+          <div style="font-size:12px;color:#4A5568;line-height:1.6;">
+            ✗ Invisible sur Google<br>
+            ✗ Aucun avis client<br>
+            ✗ Pas de contact direct<br>
+            ✗ Opportunités perdues
+          </div>
+        </td>
+        <td style="background:#E6F5EC;padding:14px 18px;width:50%;vertical-align:top;">
+          <div style="font-size:11px;font-weight:700;color:#1A7A4A;text-transform:uppercase;margin-bottom:8px;">Avec Visibleo</div>
+          <div style="font-size:12px;color:#4A5568;line-height:1.6;">
+            ✓ Référencé sur Google<br>
+            ✓ Avis clients actifs<br>
+            ✓ Formulaire de contact<br>
+            ✓ 8 à 15 contacts/mois
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <p style="margin:0 0 24px;font-size:13px;color:#718096;font-style:italic;">
+      L'offre d'activation à 139 € reste disponible. Paiement unique, aucun engagement mensuel.
+    </p>
+
+    <table cellpadding="0" cellspacing="0">
+      <tr><td style="background:#0F2554;border-radius:10px;">
+        <a href="{{ contact.LIEN_ACTIVATION }}" style="display:block;padding:15px 36px;color:#fff;text-decoration:none;font-size:14px;font-weight:700;font-family:Georgia,serif;text-align:center;">
+          Activer ma fiche maintenant — 139 € →
+        </a>
+      </td></tr>
+    </table>
+  </td></tr>
+
+  <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:16px 40px;">
+    <p style="margin:0;font-size:11px;color:#718096;">
+      Service commercial privé, non affilié à un organisme public.
+      <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner</a>
+    </p>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TEMPLATE RELANCE J+14 — Dernière relance, ton différent
+     Sujet : Dernière chance — offre spéciale pour {{ contact.NOM_ENTREPRISE }}
+     ═══════════════════════════════════════════════════════════ -->
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8">
+<title>Relance J+14 — Visibleo</title></head>
+<body style="margin:0;padding:0;background:#F0F4FC;font-family:Arial,sans-serif;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+<tr><td align="center">
+<table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+
+  <tr><td style="background:#0F2554;padding:24px 40px;">
+    <div style="font-family:Georgia,serif;font-size:22px;font-weight:bold;color:#fff;">
+      Visibl<span style="color:#C9943A;">eo</span>
+    </div>
+  </td></tr>
+
+  <tr><td style="background:linear-gradient(135deg,#C9943A,#E8A830);padding:16px 40px;text-align:center;">
+    <span style="font-size:13px;font-weight:700;color:#0F2554;text-transform:uppercase;letter-spacing:.07em;">
+      🎯 Offre spéciale — valable 48h
+    </span>
+  </td></tr>
+
+  <tr><td style="padding:32px 40px;">
+    <p style="margin:0 0 16px;font-size:15px;color:#0D1B3E;">Bonjour,</p>
+
+    <p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#4A5568;">
+      C'est notre dernier email pour <strong>{{ contact.NOM_ENTREPRISE }}</strong>.
+      Nous respectons votre décision — mais avant de clore ce dossier, nous voulions vous faire
+      une proposition différente.
+    </p>
+
+    <!-- OFFRE SPÉCIALE -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#FEF6E4,#fff9ed);border:2px solid #C9943A;border-radius:12px;margin:20px 0;">
+      <tr><td style="padding:20px 24px;text-align:center;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#92600A;margin-bottom:8px;">Offre exclusive — 48h seulement</div>
+        <div style="font-family:Georgia,serif;font-size:32px;font-weight:bold;color:#0F2554;">
+          <span style="text-decoration:line-through;color:#aaa;font-size:20px;">139 €</span>
+          &nbsp;99 €
+        </div>
+        <div style="font-size:12px;color:#92600A;margin-top:4px;font-weight:600;">- 29% de réduction · Paiement unique</div>
+        <div style="font-size:12px;color:#4A5568;margin-top:8px;">Tout est inclus : fiche complète, SEO, espace propriétaire, avis clients.</div>
+      </td></tr>
+    </table>
+
+    <p style="margin:0 0 24px;font-size:13px;color:#718096;line-height:1.6;">
+      Cette offre n'est disponible que pour les entreprises qui n'ont pas encore activé leur fiche.
+      Elle expire dans 48 heures.
+    </p>
+
+    <table cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
+      <tr><td style="background:#C9943A;border-radius:10px;">
+        <a href="{{ contact.LIEN_ACTIVATION_PROMO }}" style="display:block;padding:15px 36px;color:#0F2554;text-decoration:none;font-size:14px;font-weight:700;font-family:Georgia,serif;text-align:center;">
+          Profiter de l'offre à 99 € →
+        </a>
+      </td></tr>
+    </table>
+
+    <p style="margin:0;font-size:12px;color:#aaa;text-align:center;">
+      Si vous ne souhaitez pas être contacté à nouveau, <a href="{{ contact.LIEN_OPTOUT }}" style="color:#aaa;">cliquez ici</a>.
+      Nous respecterons votre choix et n'enverrons plus aucune communication.
+    </p>
+  </td></tr>
+
+  <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:16px 40px;">
+    <p style="margin:0;font-size:11px;color:#718096;">
+      Service commercial privé, non affilié à un organisme public.
+      <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner définitivement</a>
+    </p>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visibleo — L'annuaire des entreprises françaises</title>
+<meta name="description" content="Trouvez les meilleurs professionnels près de chez vous. Plombiers, électriciens, artisans, commerces — toutes les entreprises locales référencées sur Visibleo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bleu:#0F2554;--bleu-mid:#1B3A7A;--bleu-vif:#2952B8;--bleu-clair:#EBF0FA;--bleu-pale:#F4F7FD;
+  --or:#C9943A;--or-clair:#FEF6E4;--or-vif:#E8A830;
+  --blanc:#FFFFFF;--texte:#0D1B3E;--texte-sec:#4A5568;--texte-ter:#718096;
+  --bord:#DDE3F0;--bg:#F7F9FE;--vert:#1A7A4A;--rouge:#C0392B;
+  --shadow-sm:0 1px 3px rgba(15,37,84,.08);
+  --shadow-md:0 4px 16px rgba(15,37,84,.1);
+  --shadow-lg:0 12px 40px rgba(15,37,84,.14);
+  --r-sm:6px;--r-md:10px;--r-lg:16px;--r-xl:24px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;font-size:15px;color:var(--texte);background:var(--blanc);line-height:1.6;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,.logo-text{font-family:'Syne',sans-serif;}
+
+/* HEADER */
+.header{background:var(--bleu);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(15,37,84,.4);}
+.header-inner{max-width:1240px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:32px;height:64px;}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.logo-icon{width:34px;height:34px;background:var(--or);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--bleu);}
+.logo-text{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.02em;}
+.logo-text em{color:var(--or);font-style:normal;}
+.header-search{flex:1;display:flex;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-md);overflow:hidden;transition:all .2s;display:none;}
+.header-search.visible{display:flex;}
+.header-search:focus-within{background:rgba(255,255,255,.18);border-color:var(--or);}
+.header-search input{flex:1;padding:0 16px;background:transparent;border:none;outline:none;color:#fff;font-size:14px;font-family:'Inter',sans-serif;}
+.header-search input::placeholder{color:rgba(255,255,255,.5);}
+.header-search .sep{width:1px;background:rgba(255,255,255,.2);align-self:center;height:24px;}
+.header-search .search-btn{padding:0 20px;background:var(--or);border:none;cursor:pointer;color:var(--bleu);font-size:18px;display:flex;align-items:center;transition:background .2s;}
+.header-search .search-btn:hover{background:var(--or-vif);}
+.header-nav{display:flex;align-items:center;gap:4px;flex-shrink:0;}
+.header-nav a{padding:7px 14px;color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;border-radius:var(--r-sm);transition:all .15s;}
+.header-nav a:hover{color:#fff;background:rgba(255,255,255,.1);}
+.btn-inscrire{padding:7px 18px !important;background:var(--or) !important;color:var(--bleu) !important;font-weight:600 !important;border-radius:var(--r-sm) !important;}
+.btn-inscrire:hover{background:var(--or-vif) !important;}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,var(--bleu) 0%,var(--bleu-mid) 60%,#1a4a9e 100%);padding:72px 24px 80px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 50%,rgba(201,148,58,.12) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 80% 30%,rgba(41,82,184,.3) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,148,58,.15);border:1px solid rgba(201,148,58,.35);color:var(--or-vif);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:24px;}
+.hero h1{font-size:clamp(30px,5vw,54px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-0.03em;margin-bottom:16px;position:relative;}
+.hero h1 span{color:var(--or);}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.7);max-width:520px;margin:0 auto 40px;line-height:1.7;}
+.search-hero{max-width:700px;margin:0 auto 40px;background:#fff;border-radius:var(--r-xl);box-shadow:var(--shadow-lg);display:flex;overflow:hidden;position:relative;}
+.search-hero .field{flex:1;display:flex;align-items:center;padding:0 20px;gap:10px;}
+.search-hero .field+.field{border-left:1px solid var(--bord);}
+.field-icon{color:var(--bleu-vif);font-size:18px;flex-shrink:0;}
+.field-label{font-size:11px;font-weight:600;color:var(--texte-ter);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:1px;}
+.search-hero .field input{border:none;outline:none;font-size:15px;color:var(--texte);font-family:'Inter',sans-serif;background:transparent;width:100%;padding:18px 0;}
+.search-hero .field input::placeholder{color:var(--texte-ter);}
+.btn-search{padding:0 32px;background:var(--bleu);border:none;cursor:pointer;color:#fff;font-family:'Syne',sans-serif;font-size:15px;font-weight:600;transition:background .2s;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.btn-search:hover{background:var(--bleu-vif);}
+.autocomplete-list{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:var(--r-md);box-shadow:var(--shadow-lg);border:1px solid var(--bord);display:none;z-index:200;max-height:300px;overflow-y:auto;}
+.autocomplete-list.open{display:block;}
+.autocomplete-item{padding:12px 20px;cursor:pointer;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--bord);transition:background .1s;}
+.autocomplete-item:last-child{border-bottom:none;}
+.autocomplete-item:hover{background:var(--bleu-pale);}
+.ac-nom{font-weight:500;font-size:14px;}
+.ac-sub{font-size:12px;color:var(--texte-ter);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;color:rgba(255,255,255,.85);font-size:13px;cursor:pointer;text-decoration:none;transition:all .15s;}
+.hero-tag:hover{background:rgba(255,255,255,.18);border-color:var(--or);color:#fff;}
+
+/* STATS */
+.stats-bar{background:var(--or-clair);border-top:1px solid #F0D898;border-bottom:3px solid var(--or);}
+.stats-inner{max-width:1240px;margin:0 auto;padding:0 24px;display:flex;justify-content:center;gap:0;}
+.stat-item{padding:18px 40px;display:flex;align-items:center;gap:12px;border-right:1px solid #E8D8A0;}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--bleu);}
+.stat-lbl{font-size:12px;color:var(--texte-sec);line-height:1.4;}
+
+/* SECTIONS */
+.section{padding:60px 24px;}
+.section-alt{background:var(--bg);}
+.section-inner{max-width:1240px;margin:0 auto;}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;}
+.section-head h2{font-size:26px;font-weight:700;letter-spacing:-0.02em;}
+.voir-tout{font-size:13px;color:var(--bleu-vif);text-decoration:none;font-weight:500;}
+.voir-tout:hover{text-decoration:underline;}
+
+/* CATÉGORIES */
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;}
+.cat-card{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:20px 16px;text-align:center;cursor:pointer;text-decoration:none;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.cat-card:hover{border-color:var(--bleu-vif);box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.cat-icon{width:52px;height:52px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:24px;}
+.cat-nom{font-size:13px;font-weight:600;color:var(--texte);}
+.cat-nb{font-size:11px;color:var(--texte-ter);}
+.cat-bleu{background:var(--bleu-clair);}.cat-or{background:var(--or-clair);}.cat-vert{background:#E6F5EC;}.cat-rose{background:#FBEEF0;}.cat-violet{background:#F0ECF9;}.cat-teal{background:#E5F5F5;}
+
+/* FICHES CARDS */
+.fiches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:20px;}
+.fiche-card{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);overflow:hidden;transition:all .25s;text-decoration:none;display:flex;flex-direction:column;position:relative;}
+.fiche-card:hover{box-shadow:var(--shadow-lg);border-color:var(--bleu-vif);transform:translateY(-3px);}
+.fiche-card.boosted{border-color:var(--or);}
+.boost-ribbon{position:absolute;top:14px;right:14px;background:var(--or);color:var(--bleu);font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;}
+.fiche-cover{height:150px;background:linear-gradient(135deg,var(--bleu-clair) 0%,var(--bleu-pale) 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.fiche-cover img{width:100%;height:100%;object-fit:cover;}
+.fiche-cover-ph{font-size:48px;opacity:.35;}
+.fiche-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;}
+.fiche-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.fiche-secteur{font-size:11px;font-weight:600;color:var(--bleu-vif);background:var(--bleu-clair);padding:3px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:.05em;}
+.fiche-ville{font-size:12px;color:var(--texte-ter);}
+.fiche-nom{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--texte);margin-bottom:8px;line-height:1.3;}
+.fiche-desc{font-size:13px;color:var(--texte-sec);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:12px;flex:1;}
+.fiche-services{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.service-tag{font-size:11px;background:var(--bg);border:1px solid var(--bord);color:var(--texte-sec);padding:3px 9px;border-radius:4px;}
+.fiche-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--bord);}
+.fiche-note{display:flex;align-items:center;gap:6px;}
+.stars{color:var(--or);font-size:13px;letter-spacing:1px;}
+.note-val{font-size:13px;font-weight:600;color:var(--texte);}
+.note-nb{font-size:12px;color:var(--texte-ter);}
+.fiche-cta{font-size:12px;font-weight:600;color:var(--bleu-vif);}
+
+/* RÉSULTATS */
+.resultats-section{display:none;background:var(--bg);min-height:50vh;padding:32px 24px;}
+.resultats-section.active{display:block;}
+.resultats-inner{max-width:1240px;margin:0 auto;}
+.resultats-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.resultats-titre{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;}
+.resultats-count{font-size:14px;color:var(--texte-ter);margin-top:2px;}
+.tri-select{padding:8px 14px;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:13px;color:var(--texte);background:var(--blanc);cursor:pointer;outline:none;}
+.loading-state{text-align:center;padding:60px;color:var(--texte-ter);}
+.loading-spinner{width:32px;height:32px;border:3px solid var(--bord);border-top-color:var(--bleu-vif);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* CTA */
+.cta-inscription{background:linear-gradient(135deg,var(--bleu) 0%,var(--bleu-mid) 100%);border-radius:var(--r-xl);padding:56px 48px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden;}
+.cta-inscription::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(201,148,58,.2) 0%,transparent 70%);pointer-events:none;}
+.cta-text h2{font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:10px;}
+.cta-text p{color:rgba(255,255,255,.7);font-size:15px;max-width:420px;}
+.cta-actions{display:flex;gap:12px;flex-shrink:0;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--r-md);font-family:'Syne',sans-serif;font-size:14px;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.btn-primary{background:var(--or);color:var(--bleu);}
+.btn-primary:hover{background:var(--or-vif);transform:translateY(-1px);box-shadow:0 4px 12px rgba(201,148,58,.4);}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);}
+.btn-outline:hover{background:rgba(255,255,255,.1);}
+
+/* TARIFS */
+.tarifs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:16px;}
+.tarif-card{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:24px 20px;text-align:center;position:relative;transition:all .2s;}
+.tarif-card:hover{border-color:var(--bleu-vif);box-shadow:var(--shadow-md);}
+.tarif-card.featured{border-color:var(--or);border-width:2px;}
+.tarif-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--or);color:var(--bleu);font-size:10px;font-weight:700;padding:3px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;}
+.tarif-nom{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--texte);margin-bottom:6px;}
+.tarif-zone{font-size:12px;color:var(--texte-ter);margin-bottom:16px;min-height:32px;}
+.tarif-prix{margin-bottom:16px;}
+.tarif-prix .montant{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:var(--bleu);}
+.tarif-prix .periode{font-size:12px;color:var(--texte-ter);}
+.tarif-prix .unique{font-size:12px;font-weight:600;color:var(--vert);background:#E6F5EC;padding:3px 10px;border-radius:100px;display:inline-block;margin-top:4px;}
+.tarif-features{list-style:none;text-align:left;font-size:12px;color:var(--texte-sec);margin-bottom:20px;}
+.tarif-features li{display:flex;align-items:flex-start;gap:7px;margin-bottom:7px;}
+.tarif-features li::before{content:'✓';color:var(--vert);font-weight:700;flex-shrink:0;}
+.tarif-btn{display:block;background:var(--bleu);color:#fff;text-align:center;padding:10px;border-radius:var(--r-md);font-size:13px;font-weight:600;text-decoration:none;transition:background .15s;}
+.tarif-btn:hover{background:var(--bleu-vif);}
+.tarif-card.featured .tarif-btn{background:var(--or);color:var(--bleu);}
+.tarif-card.featured .tarif-btn:hover{background:var(--or-vif);}
+
+/* FOOTER */
+footer{background:var(--bleu);color:rgba(255,255,255,.7);padding:56px 24px 32px;}
+.footer-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand p{font-size:13px;margin-top:12px;line-height:1.7;}
+.footer-col h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;}
+.footer-col a{display:block;color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;margin-bottom:10px;transition:color .15s;}
+.footer-col a:hover{color:var(--or);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.4);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp .5s ease forwards;}
+.d1{animation-delay:.1s;opacity:0;}.d2{animation-delay:.2s;opacity:0;}.d3{animation-delay:.3s;opacity:0;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .header-nav{display:none;}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:32px;}
+}
+@media(max-width:640px){
+  .hero{padding:48px 20px 56px;}
+  .search-hero{flex-direction:column;border-radius:var(--r-lg);}
+  .search-hero .field+.field{border-left:none;border-top:1px solid var(--bord);}
+  .btn-search{padding:16px;justify-content:center;}
+  .stats-inner{flex-wrap:wrap;justify-content:center;}
+  .stat-item{border-right:none;padding:14px 20px;}
+  .cats-grid{grid-template-columns:repeat(3,1fr);}
+  .fiches-grid{grid-template-columns:1fr;}
+  .cta-inscription{flex-direction:column;padding:36px 24px;}
+  .cta-actions{flex-direction:column;width:100%;}
+  .footer-inner{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-icon">V</div>
+      <span class="logo-text">Visibl<em>eo</em></span>
+    </a>
+    <div class="header-search" id="headerSearch">
+      <input type="text" id="headerQ" placeholder="Plombier, électricien, coiffeur…" />
+      <div class="sep"></div>
+      <input type="text" id="headerVille" placeholder="Ville" style="max-width:160px;" />
+      <button class="search-btn" onclick="lancerRecherche('header')">🔍</button>
+    </div>
+    <nav class="header-nav">
+      <a href="pages/annuaire.html">Annuaire</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="pages/activer.html" class="btn-inscrire">Référencer mon entreprise</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-badge">🇫🇷 Le réseau des entreprises françaises</div>
+  <h1 class="fade-up">Trouvez les meilleurs<br><span>professionnels</span> près de chez vous</h1>
+  <p class="hero-sub fade-up d1">Plombiers, électriciens, artisans, commerces, consultants —<br>toutes les entreprises françaises référencées sur Visibleo.</p>
+
+  <div class="search-hero fade-up d2" id="searchHero">
+    <div class="field" style="min-width:260px;">
+      <span class="field-icon">🔍</span>
+      <div style="flex:1;">
+        <span class="field-label">Que cherchez-vous ?</span>
+        <input type="text" id="heroQ" placeholder="Plombier, électricien, avocat…"
+               oninput="handleAC(this.value)"
+               onkeydown="if(event.key==='Enter')lancerRecherche('hero')" />
+      </div>
+    </div>
+    <div class="field">
+      <span class="field-icon">📍</span>
+      <div style="flex:1;">
+        <span class="field-label">Où ?</span>
+        <input type="text" id="heroVille" placeholder="Paris, Lyon, Nantes…"
+               onkeydown="if(event.key==='Enter')lancerRecherche('hero')" />
+      </div>
+    </div>
+    <button class="btn-search" onclick="lancerRecherche('hero')">🔍 Rechercher</button>
+    <div class="autocomplete-list" id="acList"></div>
+  </div>
+
+  <div class="hero-tags fade-up d3">
+    <span class="hero-tag" onclick="rq('Plombier')">🔧 Plombier</span>
+    <span class="hero-tag" onclick="rq('Électricien')">⚡ Électricien</span>
+    <span class="hero-tag" onclick="rq('Coiffeur')">✂️ Coiffeur</span>
+    <span class="hero-tag" onclick="rq('Déménagement')">📦 Déménagement</span>
+    <span class="hero-tag" onclick="rq('Restaurant')">🍽️ Restaurant</span>
+    <span class="hero-tag" onclick="rq('Comptable')">📊 Comptable</span>
+    <span class="hero-tag" onclick="rq('Avocat')">⚖️ Avocat</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><span class="stat-num" id="statFiches">—</span><span class="stat-lbl">Entreprises<br>référencées</span></div>
+    <div class="stat-item"><span class="stat-num" id="statVilles">—</span><span class="stat-lbl">Villes<br>couvertes</span></div>
+    <div class="stat-item"><span class="stat-num">12</span><span class="stat-lbl">Secteurs<br>d'activité</span></div>
+    <div class="stat-item"><span class="stat-num">24h</span><span class="stat-lbl">Délai de<br>publication</span></div>
+  </div>
+</div>
+
+<!-- RÉSULTATS (dynamique) -->
+<section class="resultats-section" id="resultatsSection">
+  <div class="resultats-inner">
+    <div class="resultats-header">
+      <div>
+        <div class="resultats-titre" id="rTitre">Résultats</div>
+        <div class="resultats-count" id="rCount"></div>
+      </div>
+      <select class="tri-select" onchange="triResults(this.value)">
+        <option value="boost">Pertinence</option>
+        <option value="note">Mieux notés</option>
+        <option value="vues">Plus consultés</option>
+      </select>
+    </div>
+    <div class="fiches-grid" id="rGrid"></div>
+  </div>
+</section>
+
+<!-- CATÉGORIES -->
+<section class="section" id="categories">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>Parcourir par catégorie</h2>
+      <a href="pages/annuaire.html" class="voir-tout">Voir tout →</a>
+    </div>
+    <div class="cats-grid">
+      <span class="cat-card" onclick="rq('Plomberie')"><div class="cat-icon cat-bleu">🔧</div><span class="cat-nom">Plomberie & Chauffage</span></span>
+      <span class="cat-card" onclick="rq('Électricité')"><div class="cat-icon cat-or">⚡</div><span class="cat-nom">Électricité</span></span>
+      <span class="cat-card" onclick="rq('BTP')"><div class="cat-icon cat-bleu">🏗️</div><span class="cat-nom">BTP & Rénovation</span></span>
+      <span class="cat-card" onclick="rq('Restauration')"><div class="cat-icon cat-rose">🍽️</div><span class="cat-nom">Restauration</span></span>
+      <span class="cat-card" onclick="rq('Coiffure')"><div class="cat-icon cat-violet">✂️</div><span class="cat-nom">Beauté & Bien-être</span></span>
+      <span class="cat-card" onclick="rq('Déménagement')"><div class="cat-icon cat-or">📦</div><span class="cat-nom">Transport & Déménagement</span></span>
+      <span class="cat-card" onclick="rq('Conseil')"><div class="cat-icon cat-teal">💼</div><span class="cat-nom">Conseil & Juridique</span></span>
+      <span class="cat-card" onclick="rq('Informatique')"><div class="cat-icon cat-violet">💻</div><span class="cat-nom">Digital & Tech</span></span>
+      <span class="cat-card" onclick="rq('Immobilier')"><div class="cat-icon cat-vert">🏠</div><span class="cat-nom">Immobilier</span></span>
+      <span class="cat-card" onclick="rq('Santé')"><div class="cat-icon cat-rose">❤️</div><span class="cat-nom">Santé & Médical</span></span>
+      <span class="cat-card" onclick="rq('Automobile')"><div class="cat-icon cat-bleu">🚗</div><span class="cat-nom">Automobile</span></span>
+      <span class="cat-card" onclick="rq('Formation')"><div class="cat-icon cat-teal">📚</div><span class="cat-nom">Formation</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- FICHES EN VEDETTE -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>Entreprises récemment référencées</h2>
+      <a href="pages/annuaire.html" class="voir-tout">Voir l'annuaire →</a>
+    </div>
+    <div class="fiches-grid" id="ficheVedette">
+      <div class="loading-state" style="grid-column:1/-1;"><div class="loading-spinner"></div><p>Chargement…</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="section" id="tarifs">
+  <div class="section-inner">
+    <div class="section-head"><h2>Des offres adaptées à votre zone d'activité</h2></div>
+    <p style="color:var(--texte-sec);margin-bottom:40px;max-width:600px;line-height:1.7;">Votre périmètre de visibilité est adapté à votre secteur. Un plombier de Saumur n'a pas les mêmes besoins qu'un consultant digital parisien.</p>
+    <div class="tarifs-grid" id="tarifsGrid"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="section-inner">
+    <div class="cta-inscription">
+      <div class="cta-text">
+        <h2>Votre entreprise vient de se créer ?</h2>
+        <p>Activez votre fiche Visibleo dès aujourd'hui. Visible sur Google dans les 24 heures. Paiement unique, aucun abonnement caché.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="pages/activer.html" class="btn btn-primary">Activer ma fiche — 139 €</a>
+        <a href="pages/annuaire.html" class="btn btn-outline">Voir l'annuaire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text" style="font-size:22px;">Visibl<em style="color:var(--or);">eo</em></div>
+      <p>Le réseau professionnel des entreprises françaises. Référencez votre entreprise et soyez visible dès votre création.</p>
+    </div>
+    <div class="footer-col">
+      <h4>L'annuaire</h4>
+      <a href="pages/annuaire.html">Toutes les entreprises</a>
+      <a href="#categories">Par catégorie</a>
+      <a href="pages/annuaire.html">Par région</a>
+    </div>
+    <div class="footer-col">
+      <h4>Référencement</h4>
+      <a href="pages/activer.html">Activer ma fiche</a>
+      <a href="#tarifs">Nos offres</a>
+      <a href="pages/espace.html">Mon espace</a>
+    </div>
+    <div class="footer-col">
+      <h4>Informations</h4>
+      <a href="pages/mentions-legales.html">Mentions légales</a>
+      <a href="pages/mentions-legales.html#rgpd">RGPD & Données</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Visibleo — Service commercial privé, non affilié à un organisme public</span>
+    <span>Sources : BODACC / RNE (données publiques INSEE)</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+// ── Config Supabase (à remplacer par vos vraies clés) ──
+const SB_URL = 'https://VOTRE_REF.supabase.co';
+const SB_KEY = 'VOTRE_ANON_KEY';
+let _sb = null;
+function sb(){if(!_sb&&typeof supabase!=='undefined')_sb=supabase.createClient(SB_URL,SB_KEY);return _sb;}
+
+// ── Stats ─────────────────────────────────────────────
+async function loadStats(){
+  try{
+    const db=sb();if(!db)return;
+    const[{count:f},{count:v}]=await Promise.all([
+      db.from('fiches').select('id',{count:'exact',head:true}).eq('statut','active'),
+      db.from('entreprises').select('ville',{count:'exact',head:true})
+    ]);
+    if(f)document.getElementById('statFiches').textContent=(f).toLocaleString('fr-FR')+'+';
+    if(v)document.getElementById('statVilles').textContent=(v).toLocaleString('fr-FR')+'+';
+  }catch(e){}
+}
+
+// ── Fiches vedette ────────────────────────────────────
+const DEMOS=[
+  {nom:'Martin Plomberie',ville:'Saumur',dept:'49',naf:'Plomberie & Chauffage',note:4.8,nb:12,desc:'Plombier professionnel sur Saumur et 30km. Urgences 24h/24, devis gratuit.',services:['Dépannage urgent','Chauffage','Sanitaire'],boost:'departement',e:'🔧',slug:'martin-plomberie-saumur-49'},
+  {nom:'Digital Flow Agency',ville:'Bordeaux',dept:'33',naf:'Marketing Digital',note:5.0,nb:7,desc:'Agence SEO, réseaux sociaux et création web. Référencement Google garanti.',services:['SEO','Réseaux sociaux','Web design'],boost:'national',e:'💻',slug:'digital-flow-bordeaux-33'},
+  {nom:'La Belle Coupe',ville:'Nantes',dept:'44',naf:'Coiffure',note:4.6,nb:34,desc:'Salon de coiffure moderne. Coupes femmes, hommes, couleurs et balayages tendance.',services:['Coupes','Couleurs','Balayage'],boost:'ville',e:'✂️',slug:'la-belle-coupe-nantes-44'},
+  {nom:'Bâti Pro Toulouse',ville:'Toulouse',dept:'31',naf:'BTP & Construction',note:4.5,nb:19,desc:'Rénovation, extension, maçonnerie. 15 ans d\'expérience, devis sous 48h.',services:['Rénovation','Maçonnerie','Extension'],boost:'region',e:'🏗️',slug:'bati-pro-toulouse-31'},
+  {nom:'Transport Express 49',ville:'Angers',dept:'49',naf:'Déménagement',note:4.7,nb:28,desc:'Déménagement résidentiel & pro en Pays de la Loire. Devis gratuit 24h.',services:['Déménagement','Garde-meuble','Emballage'],boost:'region',e:'📦',slug:'transport-express-angers-49'},
+  {nom:'Cabinet Juridique Martin',ville:'Paris 8e',dept:'75',naf:'Droit des affaires',note:4.9,nb:11,desc:'Avocats spécialisés droit des affaires, commercial et travail. Consultation en ligne.',services:['Droit des affaires','Contrats','Contentieux'],boost:'national',e:'⚖️',slug:'cabinet-martin-paris-75'},
+];
+
+const BOOST_LABELS={ville:'⭐ Mis en avant',departement:'⭐⭐ Prioritaire dept.',region:'⭐⭐⭐ Prioritaire région',multi_region:'🏆 Multi-régions',national:'🏆 Référence nationale'};
+
+function ficheCard(d,isDemo=false){
+  const slug=isDemo?d.slug:(d.slug||'');
+  const nom=isDemo?d.nom:(d.entreprises?.nom||'');
+  const ville=isDemo?d.ville:(d.entreprises?.ville||'');
+  const naf=isDemo?d.naf:(d.entreprises?.naf_libelle||'');
+  const note=isDemo?d.note:(d.note_moyenne||0);
+  const nb=isDemo?d.nb:(d.nb_avis||0);
+  const desc=isDemo?d.desc:(d.description_courte||'');
+  const services=(isDemo?d.services:(d.services||[])).slice(0,3);
+  const boost=isDemo?d.boost:(d.boost_niveau||'aucun');
+  const emoji=isDemo?d.e:'🏢';
+  const photo=isDemo?null:d.photo_principale;
+  const bl=BOOST_LABELS[boost];
+  const stars='★'.repeat(Math.round(note))+'☆'.repeat(5-Math.round(note));
+  return`<a class="fiche-card${boost&&boost!=='aucun'?' boosted':''}" href="pages/fiche.html?slug=${slug}">
+    ${bl?`<div class="boost-ribbon">${bl}</div>`:''}
+    <div class="fiche-cover">${photo?`<img src="${photo}" alt="${nom}" loading="lazy">`:`<div class="fiche-cover-ph">${emoji}</div>`}</div>
+    <div class="fiche-body">
+      <div class="fiche-meta"><span class="fiche-secteur">${naf}</span><span class="fiche-ville">📍 ${ville}</span></div>
+      <div class="fiche-nom">${nom}</div>
+      <div class="fiche-desc">${desc}</div>
+      <div class="fiche-services">${services.map(s=>`<span class="service-tag">${s}</span>`).join('')}</div>
+      <div class="fiche-footer">
+        <div class="fiche-note"><span class="stars">${stars}</span><span class="note-val">${parseFloat(note).toFixed(1)}</span><span class="note-nb">(${nb} avis)</span></div>
+        <span class="fiche-cta">Voir la fiche →</span>
+      </div>
+    </div>
+  </a>`;
+}
+
+async function loadVedette(){
+  const g=document.getElementById('ficheVedette');
+  try{
+    const db=sb();
+    if(!db){g.innerHTML=DEMOS.map(d=>ficheCard(d,true)).join('');return;}
+    const{data}=await db.from('fiches')
+      .select('*,entreprises(*)')
+      .eq('statut','active')
+      .order('boost_niveau',{ascending:false})
+      .limit(6);
+    g.innerHTML=data&&data.length?data.map(d=>ficheCard(d)).join(''):DEMOS.map(d=>ficheCard(d,true)).join('');
+  }catch(e){g.innerHTML=DEMOS.map(d=>ficheCard(d,true)).join('');}
+}
+
+// ── Recherche ─────────────────────────────────────────
+let curResults=[];
+async function lancerRecherche(src){
+  const q=src==='header'?document.getElementById('headerQ').value:document.getElementById('heroQ').value;
+  const v=src==='header'?document.getElementById('headerVille').value:document.getElementById('heroVille').value;
+  const sec=document.getElementById('resultatsSection');
+  sec.classList.add('active');
+  sec.scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('rGrid').innerHTML=`<div class="loading-state" style="grid-column:1/-1;"><div class="loading-spinner"></div><p>Recherche…</p></div>`;
+  document.getElementById('rTitre').textContent=[q,v].filter(Boolean).join(' à ')||'Tous les professionnels';
+  try{
+    const db=sb();
+    if(!db){curResults=DEMOS.filter(d=>!q||d.nom.toLowerCase().includes(q.toLowerCase())||d.naf.toLowerCase().includes(q.toLowerCase()));renderR(curResults,true);return;}
+    let query=db.from('fiches').select('*,entreprises(*)',{count:'exact'}).eq('statut','active');
+    if(q)query=query.ilike('entreprises.naf_libelle',`%${q}%`);
+    if(v)query=query.ilike('entreprises.ville',`%${v}%`);
+    const{data,count}=await query.order('boost_niveau',{ascending:false}).limit(30);
+    curResults=data||[];
+    document.getElementById('rCount').textContent=`${count||curResults.length} résultat${count!==1?'s':''} trouvé${count!==1?'s':''}`;
+    renderR(curResults,false);
+  }catch(e){curResults=DEMOS;renderR(curResults,true);}
+}
+
+function renderR(list,isDemo){
+  const g=document.getElementById('rGrid');
+  if(!list.length){g.innerHTML=`<p style="grid-column:1/-1;text-align:center;padding:40px;color:var(--texte-ter);">Aucun résultat.</p>`;return;}
+  g.innerHTML=list.map(d=>ficheCard(d,isDemo)).join('');
+}
+
+function triResults(tri){
+  const order={national:5,multi_region:4,region:3,departement:2,ville:1,aucun:0};
+  const sorted=[...curResults].sort((a,b)=>{
+    if(tri==='note')return(b.note||b.note_moyenne||0)-(a.note||a.note_moyenne||0);
+    if(tri==='vues')return(b.nb_vues||0)-(a.nb_vues||0);
+    return(order[b.boost||b.boost_niveau]||0)-(order[a.boost||a.boost_niveau]||0);
+  });
+  renderR(sorted,typeof sorted[0]?.e!=='undefined');
+}
+
+function rq(q){document.getElementById('heroQ').value=q;lancerRecherche('hero');}
+
+// ── Autocomplete ──────────────────────────────────────
+let acT;
+async function handleAC(v){
+  clearTimeout(acT);
+  const l=document.getElementById('acList');
+  if(v.length<2){l.classList.remove('open');return;}
+  acT=setTimeout(async()=>{
+    try{
+      const db=sb();if(!db){l.classList.remove('open');return;}
+      const{data}=await db.from('fiches').select('slug,entreprises(nom,ville,naf_libelle)').eq('statut','active').ilike('entreprises.nom',`%${v}%`).limit(6);
+      if(!data?.length){l.classList.remove('open');return;}
+      l.innerHTML=data.map(r=>`<div class="autocomplete-item" onclick="selAC('${r.entreprises?.nom}','${r.entreprises?.ville}')"><span>🏢</span><div><div class="ac-nom">${r.entreprises?.nom}</div><div class="ac-sub">${r.entreprises?.naf_libelle} · ${r.entreprises?.ville}</div></div></div>`).join('');
+      l.classList.add('open');
+    }catch(e){l.classList.remove('open');}
+  },300);
+}
+function selAC(n,v){document.getElementById('heroQ').value=n;document.getElementById('heroVille').value=v;document.getElementById('acList').classList.remove('open');lancerRecherche('hero');}
+document.addEventListener('click',e=>{if(!e.target.closest('#searchHero'))document.getElementById('acList').classList.remove('open');});
+
+// ── Scroll header search ───────────────────────────────
+window.addEventListener('scroll',()=>{
+  const hs=document.getElementById('headerSearch');
+  const heroH=document.getElementById('hero').offsetHeight;
+  hs.classList.toggle('visible',window.scrollY>heroH-80);
+});
+
+// ── Tarifs ─────────────────────────────────────────────
+const TARIFS=[
+  {code:'activation',nom:'Activation',zone:'Fiche publiée sur Visibleo',prix:'139',u:'',unique:true,f:['Fiche professionnelle complète','Référencement Google (SEO)','Espace propriétaire','Publication sous 24h','Paiement unique — définitif'],featured:false},
+  {code:'boost_ville',nom:'Boost Ville',zone:'1 ville / commune',prix:'19,99',u:'/mois',f:['Priorité dans votre ville','Badge "Mis en avant"','Statistiques de visibilité','Sans engagement'],featured:false},
+  {code:'boost_dept',nom:'Boost Département',zone:'1 département (ex: 49)',prix:'34,99',u:'/mois',f:['Priorité dans tout le département','Badge prioritaire','Stats avancées','Alertes nouveaux contacts'],featured:true,bl:'Le plus populaire'},
+  {code:'boost_region',nom:'Boost Région',zone:'1 région (ex: PDL)',prix:'59,99',u:'/mois',f:['Visibilité régionale complète','Priorité sur 100+ villes','Rapport mensuel','Support dédié'],featured:false},
+  {code:'boost_multi',nom:'Multi-régions',zone:'2 à 3 régions au choix',prix:'89,99',u:'/mois',f:['2-3 régions au choix','Expansion géographique','Dashboard complet','Account manager'],featured:false},
+  {code:'boost_national',nom:'Boost National',zone:'France entière',prix:'149',u:'/mois',f:['France entière','Position premium','Référence nationale','Support 24/7'],featured:false},
+];
+document.getElementById('tarifsGrid').innerHTML=TARIFS.map(t=>`
+  <div class="tarif-card${t.featured?' featured':''}">
+    ${t.featured?`<div class="tarif-badge">${t.bl}</div>`:''}
+    <div class="tarif-nom">${t.nom}</div>
+    <div class="tarif-zone">${t.zone}</div>
+    <div class="tarif-prix"><span class="montant">${t.prix}€</span><span class="periode">${t.u}</span>${t.unique?'<div class="unique">Paiement unique</div>':''}</div>
+    <ul class="tarif-features">${t.f.map(f=>`<li>${f}</li>`).join('')}</ul>
+    <a href="pages/activer.html?offre=${t.code}" class="tarif-btn">${t.code==='activation'?'Activer ma fiche':'Choisir ce boost'}</a>
+  </div>
+`).join('');
+
+// ── Init ───────────────────────────────────────────────
+loadStats();
+loadVedette();
+</script>
+</body>
+</html>

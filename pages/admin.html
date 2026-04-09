@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visibleo Admin — Pipeline & CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bleu:#0F2554;--bleu-mid:#1B3A7A;--bleu-vif:#2952B8;--bleu-clair:#EBF0FA;--bleu-pale:#F4F7FD;
+  --or:#C9943A;--or-clair:#FEF6E4;--or-vif:#E8A830;
+  --blanc:#FFFFFF;--texte:#0D1B3E;--texte-sec:#4A5568;--texte-ter:#718096;
+  --bord:#DDE3F0;--bg:#EFF3FB;--vert:#1A7A4A;--rouge:#C0392B;--orange:#D45F00;
+  --shadow-sm:0 1px 3px rgba(15,37,84,.08);--shadow-md:0 4px 16px rgba(15,37,84,.1);
+  --r-sm:6px;--r-md:10px;--r-lg:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;font-size:13px;color:var(--texte);background:var(--bg);-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Syne',sans-serif;}
+
+/* LAYOUT APP */
+.app{display:flex;min-height:100vh;}
+.sidenav{width:200px;background:var(--bleu);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
+.sn-logo{padding:18px 16px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sn-logo .lt{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;}
+.sn-logo .lt em{color:var(--or);font-style:normal;}
+.sn-logo .sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px;text-transform:uppercase;letter-spacing:.07em;}
+.sn-menu{padding:10px 0;flex:1;}
+.sn-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);padding:12px 16px 5px;}
+.sn-item{display:flex;align-items:center;gap:9px;padding:9px 16px;color:rgba(255,255,255,.65);text-decoration:none;font-size:12px;font-weight:500;cursor:pointer;border-left:3px solid transparent;transition:all .15s;}
+.sn-item:hover{color:#fff;background:rgba(255,255,255,.07);}
+.sn-item.active{color:#fff;background:rgba(255,255,255,.1);border-left-color:var(--or);}
+.sn-badge{margin-left:auto;background:var(--or);color:var(--bleu);font-size:9px;font-weight:700;padding:1px 5px;border-radius:100px;}
+
+/* MAIN */
+.main{flex:1;overflow:auto;display:flex;flex-direction:column;}
+.topbar{background:var(--blanc);border-bottom:1px solid var(--bord);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;flex-shrink:0;}
+.topbar h1{font-size:15px;font-weight:700;}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.tb-stat{font-size:11px;color:var(--texte-ter);}
+.tb-stat strong{color:var(--texte);}
+.btn-refresh{padding:6px 12px;background:var(--bleu-clair);border:none;border-radius:var(--r-sm);font-size:11px;font-weight:600;color:var(--bleu-vif);cursor:pointer;}
+.btn-refresh:hover{background:var(--bleu-vif);color:#fff;}
+.content{padding:16px 20px;flex:1;}
+
+/* STATS ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px;}
+.kpi{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:14px 16px;}
+.kpi-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--texte);}
+.kpi-lbl{font-size:11px;color:var(--texte-ter);margin-top:2px;}
+.kpi-trend{font-size:10px;margin-top:5px;}
+.kpi-trend.up{color:var(--vert);}
+.kpi-trend.down{color:var(--rouge);}
+
+/* PIPELINE */
+.pipeline-wrap{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);overflow:hidden;margin-bottom:20px;}
+.pipeline-header{padding:14px 18px;border-bottom:1px solid var(--bord);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.pipeline-header h2{font-size:14px;font-weight:700;}
+.pipe-filters{display:flex;gap:6px;flex-wrap:wrap;}
+.pipe-filter{padding:5px 12px;border:1px solid var(--bord);border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;background:var(--blanc);color:var(--texte-sec);transition:all .15s;}
+.pipe-filter.active{background:var(--bleu);color:#fff;border-color:var(--bleu);}
+.pipe-search{padding:6px 12px;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:12px;outline:none;width:180px;}
+.pipe-search:focus{border-color:var(--bleu-vif);}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead tr{background:var(--bg);}
+th{padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-ter);border-bottom:1px solid var(--bord);white-space:nowrap;}
+tbody tr{border-bottom:1px solid var(--bord);transition:background .1s;cursor:pointer;}
+tbody tr:hover{background:var(--bleu-pale);}
+tbody tr:last-child{border-bottom:none;}
+td{padding:10px 12px;font-size:12px;vertical-align:middle;}
+.td-nom{font-weight:600;color:var(--texte);}
+.td-sub{font-size:10px;color:var(--texte-ter);margin-top:1px;}
+
+/* BADGES STATUT */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:10px;font-weight:700;white-space:nowrap;}
+.b-new{background:#EBF0FA;color:var(--bleu-vif);}
+.b-email{background:#FEF6E4;color:var(--orange);}
+.b-relance{background:#FFF0E8;color:#C04A00;}
+.b-paye{background:#E6F5EC;color:var(--vert);}
+.b-inactif{background:#f0f0f0;color:var(--texte-ter);}
+.b-boost{background:var(--or-clair);color:#92600A;}
+.b-aucun{background:#f0f0f0;color:var(--texte-ter);}
+.b-type-local{background:#EBF0FA;color:var(--bleu-vif);}
+.b-type-regional{background:#F0ECF9;color:#5B21B6;}
+.b-type-digital{background:#E5F5F5;color:#0E7490;}
+.b-type-national{background:#FEF6E4;color:var(--orange);}
+
+/* ACTIONS */
+.td-actions{display:flex;gap:5px;opacity:0;}
+tr:hover .td-actions{opacity:1;}
+.act-btn{padding:4px 9px;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:10px;font-weight:600;cursor:pointer;background:var(--blanc);color:var(--texte-sec);transition:all .1s;}
+.act-btn:hover{border-color:var(--bleu-vif);color:var(--bleu-vif);}
+.act-btn.email{border-color:var(--or);color:var(--or);}
+.act-btn.email:hover{background:var(--or);color:var(--bleu);}
+.act-btn.view{border-color:var(--bleu-vif);color:var(--bleu-vif);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:flex;align-items:center;justify-content:center;display:none;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--blanc);border-radius:var(--r-lg);padding:24px;width:520px;max-width:90vw;max-height:90vh;overflow-y:auto;position:relative;}
+.modal-close{position:absolute;top:14px;right:14px;font-size:20px;cursor:pointer;background:none;border:none;color:var(--texte-ter);}
+.modal h3{font-size:17px;font-weight:700;margin-bottom:16px;}
+.modal-section{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--bord);}
+.modal-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.modal-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--texte-ter);font-weight:600;margin-bottom:4px;}
+.modal-val{font-size:13px;color:var(--texte);}
+.modal-actions{display:flex;gap:8px;margin-top:16px;}
+.modal-btn{padding:8px 16px;border-radius:var(--r-md);font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .15s;}
+.modal-btn.primary{background:var(--bleu);color:#fff;}
+.modal-btn.primary:hover{background:var(--bleu-vif);}
+.modal-btn.or{background:var(--or);color:var(--bleu);}
+.modal-btn.or:hover{background:var(--or-vif);}
+.modal-btn.ghost{background:var(--bg);color:var(--texte-sec);border:1px solid var(--bord);}
+
+/* REVENU */
+.revenu-card{background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));border-radius:var(--r-lg);padding:18px 20px;color:#fff;margin-bottom:20px;}
+.rev-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.rev-header h2{font-size:13px;font-weight:700;opacity:.7;text-transform:uppercase;letter-spacing:.07em;}
+.rev-montant{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;}
+.rev-sub{font-size:12px;opacity:.6;margin-top:4px;}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;}
+.rev-item{background:rgba(255,255,255,.08);border-radius:var(--r-md);padding:10px 12px;}
+.rev-item-val{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;}
+.rev-item-lbl{font-size:10px;opacity:.6;margin-top:2px;}
+
+/* EMPTY / LOADING */
+.loading-spinner{width:24px;height:24px;border:2px solid var(--bord);border-top-color:var(--bleu-vif);border-radius:50%;animation:spin .8s linear infinite;margin:20px auto;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.empty-row td{text-align:center;padding:40px;color:var(--texte-ter);}
+
+@media(max-width:900px){.sidenav{display:none;}.kpi-row{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <nav class="sidenav">
+    <div class="sn-logo">
+      <div class="lt">Visibl<em>eo</em></div>
+      <div class="sub">Back-office Admin</div>
+    </div>
+    <div class="sn-menu">
+      <div class="sn-lbl">Vue globale</div>
+      <div class="sn-item active" onclick="showView('pipeline')">📊 Pipeline</div>
+      <div class="sn-item" onclick="showView('revenue')">💶 Revenus</div>
+      <div class="sn-lbl">Données</div>
+      <div class="sn-item" onclick="showView('fiches')">📋 Toutes les fiches</div>
+      <div class="sn-item" onclick="showView('avis')">⭐ Avis en attente <span class="sn-badge" id="nbAvisBadge">—</span></div>
+      <div class="sn-item" onclick="showView('contacts')">💬 Contacts entrants</div>
+      <div class="sn-lbl">Automatisation</div>
+      <div class="sn-item" onclick="showView('bodacc')">🔌 Test BODACC Live</div>
+      <div class="sn-item" onclick="showView('emails')">📧 Emails envoyés</div>
+      <div class="sn-lbl">Config</div>
+      <div class="sn-item" onclick="showView('config')">⚙️ Configuration</div>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div class="topbar">
+      <h1 id="topbarTitle">Pipeline BODACC → Paiement</h1>
+      <div class="topbar-right">
+        <span class="tb-stat">Mise à jour : <strong id="lastUpdate">—</strong></span>
+        <button class="btn-refresh" onclick="refreshData()">↻ Actualiser</button>
+      </div>
+    </div>
+
+    <div class="content" id="mainContent">
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DÉTAIL ENTREPRISE -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="../js/bodacc.js"></script>
+<script src="../js/claude-api.js"></script>
+<script>
+const SB_URL='https://VOTRE_REF.supabase.co';
+const SB_KEY='VOTRE_ANON_KEY';
+// Note : pour le back-office, idéalement utiliser la service_role key via Make.com
+// Ici on utilise l'anon key avec RLS disabled pour admin
+let _sb=null;
+function sb(){if(!_sb&&typeof supabase!=='undefined')_sb=supabase.createClient(SB_URL,SB_KEY);return _sb;}
+
+let currentView='pipeline';
+let allData=[];
+let currentFilter='tous';
+
+// ── Démo data (58 entreprises simulées) ──────────────────
+const STATUTS=['nouveau','email_envoye','relance','paye','inactif'];
+const NAFS=[
+  ['4322A','Plomberie','local'],['4321A','Électricité','local'],['5610A','Restauration','local'],
+  ['9602A','Coiffure','local'],['6201Z','Informatique','digital'],['6831Z','Immobilier','regional'],
+  ['4941A','Transport','regional'],['7022Z','Conseil','national'],['4520A','Automobile','local'],
+  ['6920Z','Comptabilité','local'],['8621Z','Médecine','local'],['4332A','Menuiserie','local'],
+];
+const VILLES=[['Saumur','49'],['Angers','49'],['Nantes','44'],['Lyon','69'],['Paris','75'],['Toulouse','31'],['Bordeaux','33'],['Marseille','13'],['Nice','06'],['Strasbourg','67']];
+const FORMES=['EI','EURL','SARL','SAS','SCI'];
+
+function makeDemoData(){
+  return Array.from({length:52},(_,i)=>{
+    const statut=STATUTS[i%5];
+    const naf=NAFS[i%NAFS.length];
+    const ville=VILLES[i%VILLES.length];
+    const forme=FORMES[i%FORMES.length];
+    const jours=Math.floor(Math.random()*30);
+    const montant=statut==='paye'?[13900,1999,3499,5999][i%4]:null;
+    return{
+      id:`demo-${i}`,
+      siren:`${900000000+i*1234}`,
+      nom:`${['Martin','Dupont','Moreau','Bernard','Petit','Simon','Lambert','Girard','Roux','Michel'][i%10]} ${naf[1]} ${i+1}`,
+      naf_libelle:naf[1],naf_code:naf[0],type_entreprise:naf[2],
+      forme_juridique:forme,ville:ville[0],departement:ville[1],
+      pipeline_statut:statut,
+      email_envoye_at:statut!=='nouveau'?new Date(Date.now()-jours*86400000).toISOString():null,
+      montant,paiement_statut:statut==='paye'?'paid':null,
+      boost_niveau:statut==='paye'?['aucun','ville','departement','region'][i%4]:'aucun',
+      created_at:new Date(Date.now()-(jours+i)*86400000).toISOString(),
+    };
+  });
+}
+
+// ── Chargement données ────────────────────────────────────
+async function refreshData(){
+  document.getElementById('lastUpdate').textContent=new Date().toLocaleTimeString('fr-FR');
+  try{
+    const db=sb();
+    if(db){
+      const{data}=await db.from('pipeline_dashboard').select('*').limit(200);
+      if(data&&data.length){allData=data;renderView();return;}
+    }
+  }catch(e){}
+  allData=makeDemoData();
+  renderView();
+}
+
+function renderView(){
+  const titles={pipeline:'Pipeline BODACC → Paiement',revenue:'Revenus & Abonnements',fiches:'Toutes les fiches',avis:'Avis en attente',contacts:'Contacts entrants',emails:'Emails envoyés',bodacc:'Test BODACC Live',config:'Configuration'};
+  document.getElementById('topbarTitle').textContent=titles[currentView]||currentView;
+  if(currentView==='pipeline')renderPipeline();
+  else if(currentView==='revenue')renderRevenue();
+  else if(currentView==='bodacc')renderBodacc();
+  else renderPipeline();// fallback
+}
+
+// ── VUE PIPELINE ──────────────────────────────────────────
+function renderPipeline(){
+  const stats=calcStats();
+  const content=document.getElementById('mainContent');
+  content.innerHTML=`
+    <!-- KPIs -->
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-val">${stats.total}</div><div class="kpi-lbl">Total entreprises</div><div class="kpi-trend up">↑ +${stats.nouveaux} aujourd'hui</div></div>
+      <div class="kpi"><div class="kpi-val">${stats.emailEnvoye}</div><div class="kpi-lbl">Emails envoyés</div><div class="kpi-trend up">Taux ouverture ~38%</div></div>
+      <div class="kpi"><div class="kpi-val">${stats.payes}</div><div class="kpi-lbl">Conversions</div><div class="kpi-trend up">${stats.total>0?(stats.payes/stats.total*100).toFixed(1):'0'}% du pipeline</div></div>
+      <div class="kpi"><div class="kpi-val">${(stats.revenuTotal/100).toLocaleString('fr-FR',{style:'currency',currency:'EUR',minimumFractionDigits:0})}</div><div class="kpi-lbl">CA activations</div><div class="kpi-trend up">↑ Ce mois</div></div>
+      <div class="kpi"><div class="kpi-val">${stats.avecBoost}</div><div class="kpi-lbl">Abonnés boost</div><div class="kpi-trend" style="color:var(--or)">⭐ Récurrent</div></div>
+    </div>
+
+    <!-- PIPELINE TABLE -->
+    <div class="pipeline-wrap">
+      <div class="pipeline-header">
+        <h2>Pipeline entreprises</h2>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <input type="text" class="pipe-search" id="pipeSearch" placeholder="Rechercher…" oninput="filterPipeline()">
+          <div class="pipe-filters">
+            <button class="pipe-filter active" onclick="setPipeFilter('tous',this)">Tous (${stats.total})</button>
+            <button class="pipe-filter" onclick="setPipeFilter('nouveau',this)">Nouveau (${stats.nouveaux})</button>
+            <button class="pipe-filter" onclick="setPipeFilter('email_envoye',this)">Email envoyé (${stats.emailEnvoye})</button>
+            <button class="pipe-filter" onclick="setPipeFilter('relance',this)">Relance (${stats.relance})</button>
+            <button class="pipe-filter" onclick="setPipeFilter('paye',this)">Payé ✓ (${stats.payes})</button>
+          </div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table id="pipeTable">
+          <thead>
+            <tr>
+              <th>Entreprise</th><th>Secteur</th><th>Ville</th><th>Type</th>
+              <th>Statut</th><th>Email envoyé</th><th>Boost</th><th>Montant</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="pipeBody">
+            <tr><td colspan="9" style="text-align:center;padding:20px;"><div class="loading-spinner" style="margin:0 auto;"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  filterPipeline();
+}
+
+function calcStats(){
+  return{
+    total:allData.length,
+    nouveaux:allData.filter(d=>d.pipeline_statut==='nouveau').length,
+    emailEnvoye:allData.filter(d=>d.pipeline_statut==='email_envoye').length,
+    relance:allData.filter(d=>d.pipeline_statut==='relance').length,
+    payes:allData.filter(d=>d.pipeline_statut==='paye').length,
+    revenuTotal:allData.filter(d=>d.pipeline_statut==='paye').reduce((s,d)=>s+(d.montant||0),0),
+    avecBoost:allData.filter(d=>d.boost_niveau&&d.boost_niveau!=='aucun').length,
+  };
+}
+
+function setPipeFilter(f,el){
+  currentFilter=f;
+  document.querySelectorAll('.pipe-filter').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  filterPipeline();
+}
+
+function filterPipeline(){
+  const q=(document.getElementById('pipeSearch')?.value||'').toLowerCase();
+  let data=allData;
+  if(currentFilter!=='tous')data=data.filter(d=>d.pipeline_statut===currentFilter);
+  if(q)data=data.filter(d=>d.nom?.toLowerCase().includes(q)||d.siren?.includes(q)||d.ville?.toLowerCase().includes(q));
+
+  const STATUT_BADGE={
+    nouveau:'b-new',email_envoye:'b-email',relance:'b-relance',paye:'b-paye',inactif:'b-inactif'
+  };
+  const STATUT_LABEL={
+    nouveau:'Nouveau',email_envoye:'Email envoyé',relance:'Relance',paye:'✓ Payé',inactif:'Inactif'
+  };
+  const BOOST_BADGE={aucun:'b-aucun',ville:'b-boost',departement:'b-boost',region:'b-boost',multi_region:'b-boost',national:'b-boost'};
+  const TYPE_BADGE={local:'b-type-local',regional:'b-type-regional',digital:'b-type-digital',national:'b-type-national'};
+
+  const tbody=document.getElementById('pipeBody');
+  if(!data.length){
+    tbody.innerHTML=`<tr class="empty-row"><td colspan="9">Aucune entreprise pour ce filtre.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML=data.map(d=>`
+    <tr onclick="openModal('${d.id}')">
+      <td><div class="td-nom">${d.nom}</div><div class="td-sub">SIREN ${d.siren}</div></td>
+      <td>${d.naf_libelle||'—'}</td>
+      <td>${d.ville||'—'} <span style="color:var(--texte-ter)">(${d.departement||''})</span></td>
+      <td><span class="badge ${TYPE_BADGE[d.type_entreprise]||'b-type-local'}">${d.type_entreprise||'local'}</span></td>
+      <td><span class="badge ${STATUT_BADGE[d.pipeline_statut]||'b-new'}">${STATUT_LABEL[d.pipeline_statut]||d.pipeline_statut}</span></td>
+      <td style="color:var(--texte-ter)">${d.email_envoye_at?timeAgo(d.email_envoye_at):'—'}</td>
+      <td><span class="badge ${BOOST_BADGE[d.boost_niveau]||'b-aucun'}">${d.boost_niveau==='aucun'||!d.boost_niveau?'—':d.boost_niveau}</span></td>
+      <td style="font-weight:600;color:${d.montant?'var(--vert)':'var(--texte-ter)'}">${d.montant?(d.montant/100).toFixed(0)+'€':'—'}</td>
+      <td>
+        <div class="td-actions">
+          <button class="act-btn view" onclick="event.stopPropagation();openModal('${d.id}')">Voir</button>
+          <button class="act-btn email" onclick="event.stopPropagation();envoyerEmail('${d.id}','${d.siren}','${d.nom?.replace(/'/g,"\\'")}')">📧 Email</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+// ── VUE REVENUS ────────────────────────────────────────────
+function renderRevenue(){
+  const payes=allData.filter(d=>d.pipeline_statut==='paye');
+  const rev=payes.reduce((s,d)=>s+(d.montant||0),0);
+  const boosts=allData.filter(d=>d.boost_niveau&&d.boost_niveau!=='aucun');
+  const revBoost=boosts.reduce((s,d)=>{
+    const m={ville:1999,departement:3499,region:5999,multi_region:8999,national:14900}[d.boost_niveau]||0;
+    return s+m;
+  },0);
+
+  document.getElementById('mainContent').innerHTML=`
+    <div class="revenu-card">
+      <div class="rev-header"><h2>Revenus cumulés</h2></div>
+      <div class="rev-montant">${(rev/100).toLocaleString('fr-FR',{style:'currency',currency:'EUR',minimumFractionDigits:0})}</div>
+      <div class="rev-sub">Activations uniquement · ${payes.length} clients</div>
+      <div class="rev-grid">
+        <div class="rev-item"><div class="rev-item-val">${(revBoost/100).toLocaleString('fr-FR',{style:'currency',currency:'EUR',minimumFractionDigits:0})}</div><div class="rev-item-lbl">MRR estimé boosts</div></div>
+        <div class="rev-item"><div class="rev-item-val">${boosts.length}</div><div class="rev-item-lbl">Abonnés boost actifs</div></div>
+        <div class="rev-item"><div class="rev-item-val">${payes.length>0?(rev/payes.length/100).toFixed(0)+'€':'—'}</div><div class="rev-item-lbl">Panier moyen</div></div>
+      </div>
+    </div>
+    <div style="background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:16px 20px;">
+      <h3 style="font-size:13px;font-weight:700;margin-bottom:14px;">Répartition des boosts actifs</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;">
+        ${['ville','departement','region','multi_region','national'].map(b=>{
+          const nb=boosts.filter(d=>d.boost_niveau===b).length;
+          const prix={ville:'19,99',departement:'34,99',region:'59,99',multi_region:'89,99',national:'149'}[b];
+          return`<div style="padding:14px;border:1px solid var(--bord);border-radius:var(--r-md);">
+            <div style="font-size:11px;font-weight:700;text-transform:capitalize;margin-bottom:4px;">${b.replace('_',' ')}</div>
+            <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;">${nb}</div>
+            <div style="font-size:10px;color:var(--texte-ter);">${prix}€/mois · ${(nb*parseFloat(prix.replace(',','.'))).toFixed(0)}€ MRR</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ── MODAL ─────────────────────────────────────────────────
+function openModal(id){
+  const d=allData.find(x=>x.id===id);
+  if(!d)return;
+  const STATUTS_NEXT={nouveau:'email_envoye',email_envoye:'relance',relance:'paye'};
+  const next=STATUTS_NEXT[d.pipeline_statut];
+  document.getElementById('modalContent').innerHTML=`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>${d.nom}</h3>
+    <div class="modal-section">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div><div class="modal-lbl">SIREN</div><div class="modal-val">${d.siren}</div></div>
+        <div><div class="modal-lbl">Forme juridique</div><div class="modal-val">${d.forme_juridique||'—'}</div></div>
+        <div><div class="modal-lbl">Secteur NAF</div><div class="modal-val">${d.naf_libelle} (${d.naf_code||''})</div></div>
+        <div><div class="modal-lbl">Type d'activité</div><div class="modal-val">${d.type_entreprise}</div></div>
+        <div><div class="modal-lbl">Ville</div><div class="modal-val">${d.ville} (${d.departement})</div></div>
+        <div><div class="modal-lbl">Statut pipeline</div><div class="modal-val">${d.pipeline_statut}</div></div>
+        <div><div class="modal-lbl">Email envoyé</div><div class="modal-val">${d.email_envoye_at?new Date(d.email_envoye_at).toLocaleDateString('fr-FR'):'Non envoyé'}</div></div>
+        <div><div class="modal-lbl">Boost</div><div class="modal-val">${d.boost_niveau||'Aucun'}</div></div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-lbl">Paiement</div>
+      <div class="modal-val">${d.montant?`${(d.montant/100).toFixed(2)}€ · Payé ✓`:'En attente'}</div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn or" onclick="envoyerEmail('${d.id}','${d.siren}','${d.nom?.replace(/'/g,"\\'")}');closeModal()">📧 Envoyer un email</button>
+      ${next?`<button class="modal-btn primary" onclick="changerStatut('${d.id}','${next}');closeModal()">→ Passer à "${next}"</button>`:''}
+      <button class="modal-btn ghost" onclick="closeModal()">Fermer</button>
+    </div>`;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+
+// ── Actions ────────────────────────────────────────────────
+async function changerStatut(id,newStatut){
+  const d=allData.find(x=>x.id===id);
+  if(!d)return;
+  d.pipeline_statut=newStatut;
+  if(newStatut==='email_envoye')d.email_envoye_at=new Date().toISOString();
+  try{
+    const db=sb();
+    if(db&&!id.startsWith('demo')){
+      await db.from('entreprises').update({pipeline_statut:newStatut}).eq('id',id);
+    }
+  }catch(e){}
+  filterPipeline();
+}
+
+function envoyerEmail(id,siren,nom){
+  const d=allData.find(x=>x.id===id);
+  const template=d?.naf_code?getTemplateForNaf(d.naf_code):'activation';
+  alert(`📧 Email "${template}" planifié pour ${nom} (SIREN: ${siren})\n\nDans la version production, ceci déclencherait l'envoi via Brevo.`);
+  if(d&&d.pipeline_statut==='nouveau'){
+    changerStatut(id,'email_envoye');
+  }
+}
+
+function getTemplateForNaf(code){
+  const map={
+    '4322A':'artisan_plombier','4321A':'artisan_electricien',
+    '5610A':'commerce_restauration','9602A':'beaute_coiffure',
+    '6201Z':'digital_tech','6831Z':'immo_agence',
+    '4941A':'transport_demenagement','7022Z':'conseil_national'
+  };
+  return map[code]||'activation';
+}
+
+function showView(v){
+  currentView=v;
+  document.querySelectorAll('.sn-item').forEach(i=>i.classList.remove('active'));
+  event?.currentTarget?.classList.add('active');
+  renderView();
+}
+
+function timeAgo(d){
+  const diff=Date.now()-new Date(d);const days=Math.floor(diff/86400000);
+  if(days===0)return'Aujourd\'hui';if(days===1)return'Hier';
+  if(days<30)return`Il y a ${days}j`;return`Il y a ${Math.floor(days/30)}m`;
+}
+
+// ── VUE BODACC TEST ────────────────────────────────────────
+function renderBodacc(){
+  document.getElementById('mainContent').innerHTML=`
+    <div style="background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:20px;margin-bottom:20px;">
+      <h2 style="font-size:14px;font-weight:700;margin-bottom:4px;">Test API BODACC en direct</h2>
+      <p style="font-size:12px;color:var(--texte-ter);margin-bottom:16px;">Interroge l'API publique BODACC et affiche les nouvelles immatriculations du jour.</p>
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+        <select id="bodaccDept" style="padding:8px 12px;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:12px;outline:none;">
+          <option value="">Tous les départements</option>
+          <option value="49">49 — Maine-et-Loire</option>
+          <option value="44">44 — Loire-Atlantique</option>
+          <option value="75">75 — Paris</option>
+          <option value="69">69 — Rhône</option>
+          <option value="33">33 — Gironde</option>
+          <option value="31">31 — Haute-Garonne</option>
+          <option value="13">13 — Bouches-du-Rhône</option>
+        </select>
+        <input type="number" id="bodaccLimit" value="20" min="1" max="100" style="padding:8px 12px;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:12px;width:80px;outline:none;" placeholder="Limite">
+        <button onclick="fetchBodacc()" style="padding:8px 20px;background:var(--bleu);color:#fff;border:none;border-radius:var(--r-sm);font-size:12px;font-weight:600;cursor:pointer;">🔌 Tester BODACC</button>
+        <span id="bodaccStatus" style="font-size:12px;color:var(--texte-ter);align-self:center;"></span>
+      </div>
+      <div id="bodaccResults"></div>
+    </div>
+  `;
+}
+
+async function fetchBodacc(){
+  const dept=document.getElementById('bodaccDept')?.value||'';
+  const limit=parseInt(document.getElementById('bodaccLimit')?.value||'20');
+  const status=document.getElementById('bodaccStatus');
+  const results=document.getElementById('bodaccResults');
+
+  status.textContent='Connexion à BODACC…';
+  results.innerHTML=`<div class="loading-spinner"></div>`;
+
+  try{
+    // Test de connectivité
+    const ping=await window.BODACC?.ping();
+    if(!window.BODACC){
+      results.innerHTML=`<p style="color:var(--orange);font-size:12px;">Module BODACC non chargé. Vérifiez que js/bodacc.js est inclus.</p>`;
+      status.textContent='';return;
+    }
+
+    let res;
+    if(dept){
+      res=await window.BODACC.fetchParDept(dept,limit);
+    } else {
+      res=await window.BODACC.fetchDuJour(limit);
+    }
+
+    if(!res.ok){
+      results.innerHTML=`<p style="color:var(--rouge);font-size:12px;">Erreur : ${res.error}</p>`;
+      status.textContent='Erreur API';return;
+    }
+
+    status.textContent=`${res.records.length} résultats (total estimé : ${res.total})`;
+    bodaccRecordsCache = res.records;
+
+    if(!res.records.length){
+      results.innerHTML=`<p style="font-size:13px;color:var(--texte-ter);text-align:center;padding:20px;">Aucune immatriculation trouvée pour ces critères.</p>`;
+      return;
+    }
+
+    const BOOST_REC={local:'Boost Ville/Dept',regional:'Boost Région',digital:'Boost National',national:'Boost National'};
+
+    results.innerHTML=`
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <thead>
+            <tr style="background:var(--bg);">
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid var(--bord);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-ter);">Entreprise</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid var(--bord);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-ter);">Activité</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid var(--bord);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-ter);">Ville</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid var(--bord);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-ter);">Type</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid var(--bord);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-ter);">Boost rec.</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid var(--bord);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-ter);">Date</th>
+              <th style="padding:8px 12px;text-align:left;border-bottom:2px solid var(--bord);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--texte-ter);">IA</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${res.records.map((r,i)=>`
+              <tr style="border-bottom:1px solid var(--bord);">
+                <td style="padding:8px 12px;"><div style="font-weight:600;">${r.nom}</div><div style="font-size:10px;color:var(--texte-ter);">${r.siren}</div></td>
+                <td style="padding:8px 12px;color:var(--texte-sec);">${r.activite.slice(0,40)}${r.activite.length>40?'…':''}</td>
+                <td style="padding:8px 12px;color:var(--texte-sec);">${r.ville} <span style="color:var(--texte-ter);">(${r.departement})</span></td>
+                <td style="padding:8px 12px;"><span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;background:${r.type_activite==='local'?'var(--bleu-clair)':r.type_activite==='digital'?'#E5F5F5':'#F0ECF9'};color:var(--texte);">${r.type_activite}</span></td>
+                <td style="padding:8px 12px;font-size:11px;color:var(--or);font-weight:600;">${BOOST_REC[r.type_activite]||'—'}</td>
+                <td style="padding:8px 12px;font-size:11px;color:var(--texte-ter);">${r.date_parution}</td>
+                <td style="padding:8px 12px;">
+                  <button onclick="genererFichePreview(${i})" data-siren="${r.siren}" style="padding:4px 10px;background:var(--bleu-clair);border:none;border-radius:var(--r-sm);font-size:10px;font-weight:600;color:var(--bleu-vif);cursor:pointer;">✨ Générer</button>
+                </td>
+              </tr>
+              <tr id="preview-${i}" style="display:none;background:#f9fbff;">
+                <td colspan="7" style="padding:12px 16px;font-size:12px;color:var(--texte-sec);"></td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div style="padding:12px 0;font-size:11px;color:var(--texte-ter);text-align:right;">
+        Source : API BODACC — données publiques INSEE / Direction de l'information légale
+      </div>
+    `;
+  }catch(e){
+    results.innerHTML=`<p style="color:var(--rouge);font-size:12px;">Erreur inattendue : ${e.message}</p>`;
+    status.textContent='Erreur';
+  }
+}
+
+// ── Génération fiche IA depuis BODACC ─────────────────────
+let bodaccRecordsCache = [];
+async function genererFichePreview(idx) {
+  const r = bodaccRecordsCache[idx];
+  if (!r) return;
+
+  const previewRow = document.getElementById(`preview-${idx}`);
+  const previewCell = previewRow?.querySelector('td');
+  if (!previewRow || !previewCell) return;
+
+  previewRow.style.display = previewRow.style.display === 'none' ? '' : 'none';
+  if (previewRow.style.display === 'none') return;
+
+  previewCell.innerHTML = '<span style="color:var(--texte-ter);">✨ Génération en cours…</span>';
+
+  const result = window.ClaudeAPI
+    ? await window.ClaudeAPI.genererFiche({
+        nom: r.nom, naf_libelle: r.activite.replace(/\s*\([^)]+\)/,'').trim(),
+        naf_code: r.naf_code, ville: r.ville, departement: r.departement,
+        type_entreprise: r.type_activite,
+      })
+    : { ok: false };
+
+  const data = result.ok ? result.data : window.ClaudeAPI?.previewDemo({
+    nom: r.nom, naf_libelle: r.activite.replace(/\s*\([^)]+\)/,'').trim(),
+    ville: r.ville, departement: r.departement,
+  });
+
+  if (!data) { previewCell.innerHTML = '<span style="color:var(--rouge);font-size:12px;">Erreur génération</span>'; return; }
+
+  previewCell.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--texte-ter);margin-bottom:4px;">Description courte</div>
+        <div style="font-size:12px;color:var(--texte-sec);">${data.description_courte}</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--texte-ter);margin-bottom:4px;">Meta title</div>
+        <div style="font-size:12px;color:var(--texte-sec);">${data.meta_title}</div>
+      </div>
+      <div style="grid-column:1/-1;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--texte-ter);margin-bottom:4px;">Services</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          ${(data.services||[]).map(s=>`<span style="font-size:11px;background:var(--bleu-clair);color:var(--bleu-vif);padding:2px 8px;border-radius:100px;">${s}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+    ${!result.ok?'<div style="font-size:10px;color:var(--or);margin-top:6px;">Mode démo — connectez l\'API Claude pour la vraie génération</div>':''}
+  `;
+}
+
+// Stocker les records pour accès par index
+const _origRenderResultats = window.fetchBodacc;
+
+document.getElementById('lastUpdate').textContent=new Date().toLocaleTimeString('fr-FR');
+allData=makeDemoData();
+renderView();
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# VISIBLEO — .gitignore
+# NE JAMAIS commiter ces fichiers
+
+# Fichiers de configuration avec clés privées
+.env
+.env.local
+.env.production
+config.local.js
+
+# Sauvegarde avant configure.sh
+*.bak
+*.orig
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (si utilisé pour des scripts)
+node_modules/
+package-lock.json
+
+# Logs
+*.log

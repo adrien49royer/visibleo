@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visibleo — Soyez visible dès la création de votre entreprise</title>
+<meta name="description" content="Activez votre fiche Visibleo pour 139 € — paiement unique. Référencement Google garanti sous 24h. Soyez trouvé par vos premiers clients dès maintenant.">
+<!-- Open Graph pour les réseaux sociaux -->
+<meta property="og:title" content="Visibleo — Votre fiche professionnelle en ligne en 24h">
+<meta property="og:description" content="139 € paiement unique. Référencé sur Google. Avis clients. Espace propriétaire. Idéal pour les entreprises récemment créées.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bleu:#0F2554;--bleu-mid:#1B3A7A;--bleu-vif:#2952B8;--bleu-clair:#EBF0FA;
+  --or:#C9943A;--or-clair:#FEF6E4;--or-vif:#E8A830;
+  --blanc:#fff;--texte:#0D1B3E;--texte-sec:#4A5568;--texte-ter:#718096;
+  --bord:#DDE3F0;--bg:#F7F9FE;--vert:#1A7A4A;
+  --shadow-lg:0 16px 48px rgba(15,37,84,.16);
+  --r-md:10px;--r-lg:16px;--r-xl:24px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;font-size:16px;color:var(--texte);background:var(--blanc);-webkit-font-smoothing:antialiased;line-height:1.6;}
+h1,h2,h3{font-family:'Syne',sans-serif;}
+
+/* HEADER MINIMAL */
+.nav{background:var(--bleu);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#fff;text-decoration:none;}
+.nav-logo em{color:var(--or);font-style:normal;}
+.nav-cta{padding:8px 20px;background:var(--or);color:var(--bleu);border-radius:var(--r-md);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:background .15s;}
+.nav-cta:hover{background:var(--or-vif);}
+
+/* HERO */
+.hero{background:linear-gradient(155deg,var(--bleu) 0%,#1a4a9e 100%);padding:80px 24px 90px;text-align:center;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:80px;background:var(--blanc);clip-path:ellipse(55% 100% at 50% 100%);}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(201,148,58,.15);border:1px solid rgba(201,148,58,.35);color:var(--or-vif);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 18px;border-radius:100px;margin-bottom:28px;}
+.hero h1{font-size:clamp(34px,5vw,60px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-0.03em;margin-bottom:20px;max-width:760px;margin-left:auto;margin-right:auto;}
+.hero h1 span{color:var(--or);}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.7);max-width:560px;margin:0 auto 40px;line-height:1.7;}
+.hero-prix{display:inline-flex;align-items:baseline;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:12px 28px;border-radius:100px;margin-bottom:32px;}
+.prix-montant{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:#fff;}
+.prix-detail{font-size:14px;color:rgba(255,255,255,.6);}
+.hero-btn{display:inline-flex;align-items:center;gap:10px;padding:18px 44px;background:var(--or);color:var(--bleu);border-radius:var(--r-xl);font-family:'Syne',sans-serif;font-size:17px;font-weight:800;text-decoration:none;transition:all .2s;box-shadow:0 6px 24px rgba(201,148,58,.4);}
+.hero-btn:hover{background:var(--or-vif);transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,148,58,.5);}
+.hero-reassurance{display:flex;justify-content:center;gap:24px;margin-top:20px;flex-wrap:wrap;}
+.hero-rea{font-size:13px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:5px;}
+
+/* LOGOS / PREUVE SOCIALE */
+.proof-bar{background:var(--bg);border-bottom:1px solid var(--bord);padding:20px 24px;text-align:center;}
+.proof-bar p{font-size:13px;color:var(--texte-ter);margin-bottom:12px;text-transform:uppercase;letter-spacing:.07em;font-weight:600;}
+.proof-logos{display:flex;justify-content:center;align-items:center;gap:32px;flex-wrap:wrap;}
+.proof-logos span{font-size:13px;color:var(--texte-ter);font-weight:500;}
+
+/* COMMENT ÇA MARCHE */
+.section{padding:72px 24px;}
+.section-alt{background:var(--bg);}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--bleu-vif);margin-bottom:10px;}
+.section-title{font-size:clamp(26px,3.5vw,40px);font-weight:800;letter-spacing:-0.02em;margin-bottom:16px;}
+.section-sub{font-size:16px;color:var(--texte-sec);max-width:560px;margin-bottom:48px;line-height:1.7;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+.step{text-align:center;}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--bleu);color:#fff;font-family:'Syne',sans-serif;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.step-num.or{background:var(--or);color:var(--bleu);}
+.step-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;}
+.step-desc{font-size:14px;color:var(--texte-sec);line-height:1.6;}
+.step-arrow{display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--bord);padding-top:28px;}
+
+/* INCLUS */
+.inclus-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.inclus-item{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);transition:all .2s;}
+.inclus-item:hover{border-color:var(--bleu-vif);box-shadow:0 2px 12px rgba(15,37,84,.08);}
+.ii-icon{font-size:28px;flex-shrink:0;}
+.ii-title{font-size:14px;font-weight:700;color:var(--texte);margin-bottom:3px;}
+.ii-desc{font-size:13px;color:var(--texte-ter);}
+
+/* TÉMOIGNAGES */
+.temoignages-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.temoignage{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:22px 24px;}
+.tem-stars{color:var(--or);font-size:16px;margin-bottom:10px;}
+.tem-text{font-size:14px;color:var(--texte-sec);line-height:1.7;margin-bottom:14px;font-style:italic;}
+.tem-auteur{font-size:13px;font-weight:700;color:var(--texte);}
+.tem-role{font-size:11px;color:var(--texte-ter);}
+
+/* FAQ */
+.faq-list{max-width:720px;}
+.faq-item{border-bottom:1px solid var(--bord);padding:18px 0;}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.faq-q::after{content:'▼';font-size:12px;color:var(--texte-ter);flex-shrink:0;transition:transform .2s;}
+.faq-item.open .faq-q::after{transform:rotate(180deg);}
+.faq-a{font-size:14px;color:var(--texte-sec);line-height:1.7;margin-top:10px;display:none;}
+.faq-item.open .faq-a{display:block;}
+
+/* CTA FINAL */
+.cta-final{background:linear-gradient(135deg,var(--bleu),var(--bleu-mid));padding:80px 24px;text-align:center;position:relative;overflow:hidden;}
+.cta-final::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,148,58,.15) 0%,transparent 70%);pointer-events:none;}
+.cta-final h2{font-size:clamp(28px,4vw,44px);font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:12px;}
+.cta-final p{font-size:17px;color:rgba(255,255,255,.7);max-width:480px;margin:0 auto 36px;line-height:1.7;}
+.cta-grid{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{background:var(--bleu);color:rgba(255,255,255,.5);padding:28px 24px;text-align:center;font-size:12px;}
+footer a{color:rgba(255,255,255,.5);text-decoration:none;margin:0 8px;}
+footer a:hover{color:var(--or);}
+
+/* STICKY CTA MOBILE */
+.sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bleu);padding:12px 20px;z-index:200;box-shadow:0 -4px 20px rgba(15,37,84,.2);}
+.sticky-cta a{display:block;padding:14px;background:var(--or);color:var(--bleu);border-radius:var(--r-md);font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-align:center;text-decoration:none;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .steps{grid-template-columns:1fr;gap:24px;}
+  .step-arrow{display:none;}
+  .inclus-grid{grid-template-columns:1fr;}
+  .temoignages-grid{grid-template-columns:1fr;}
+  .sticky-cta{display:block;}
+  body{padding-bottom:80px;}
+}
+@media(max-width:600px){
+  .hero{padding:56px 20px 70px;}
+  .hero-reassurance{gap:12px;}
+  .cta-final{padding:56px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Visibl<em>eo</em></a>
+  <a href="pages/activer.html" class="nav-cta">Activer ma fiche — 139 €</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">🇫🇷 Pour les nouvelles entreprises françaises</div>
+  <h1>Soyez visible dès le <span>1er jour</span> de votre activité</h1>
+  <p class="hero-sub">Votre entreprise vient de se créer ? Activez votre fiche Visibleo et apparaissez sur Google dès demain. Vos premiers clients n'attendent pas.</p>
+  <div class="hero-prix">
+    <span class="prix-montant">139 €</span>
+    <span class="prix-detail">TTC · Paiement unique · Aucun abonnement caché</span>
+  </div>
+  <br>
+  <a href="pages/activer.html" class="hero-btn">
+    Activer ma fiche maintenant →
+  </a>
+  <div class="hero-reassurance">
+    <span class="hero-rea">✓ Visible sous 24h</span>
+    <span class="hero-rea">✓ Référencé sur Google</span>
+    <span class="hero-rea">✓ Paiement sécurisé Stripe</span>
+    <span class="hero-rea">✓ Sans engagement</span>
+  </div>
+</section>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <p>Données issues des registres officiels</p>
+  <div class="proof-logos">
+    <span>📊 BODACC</span>
+    <span>·</span>
+    <span>🏛 RNE / INPI</span>
+    <span>·</span>
+    <span>📋 INSEE / Sirene</span>
+    <span>·</span>
+    <span>🔒 RGPD conforme</span>
+  </div>
+</div>
+
+<!-- COMMENT ÇA MARCHE -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-tag">Processus simple</div>
+    <h2 class="section-title">En ligne en 3 étapes</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Votre fiche est prête</div>
+        <p class="step-desc">Nous avons déjà créé votre fiche à partir des données publiques de votre immatriculation. Il suffit de l'activer.</p>
+      </div>
+      <div class="step">
+        <div class="step-num or">2</div>
+        <div class="step-title">Paiement unique — 139 €</div>
+        <p class="step-desc">Un seul paiement, aucun abonnement obligatoire. Votre fiche reste active à vie.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Visible sur Google sous 24h</div>
+        <p class="step-desc">Votre fiche est publiée et indexée. Vos clients peuvent vous trouver immédiatement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CE QUI EST INCLUS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-tag">Tout inclus</div>
+    <h2 class="section-title">Ce que vous obtenez pour 139 €</h2>
+    <p class="section-sub">Un seul paiement, une visibilité complète. Aucune surprise.</p>
+    <div class="inclus-grid">
+      <div class="inclus-item"><div class="ii-icon">🔍</div><div><div class="ii-title">Référencement Google (SEO)</div><div class="ii-desc">Votre fiche apparaît quand un client cherche votre activité dans votre ville.</div></div></div>
+      <div class="inclus-item"><div class="ii-icon">📋</div><div><div class="ii-title">Fiche professionnelle complète</div><div class="ii-desc">Description optimisée, services, horaires, photos, coordonnées.</div></div></div>
+      <div class="inclus-item"><div class="ii-icon">⭐</div><div><div class="ii-title">Avis clients activés</div><div class="ii-desc">Recueillez des avis, renforcez votre réputation dès le départ.</div></div></div>
+      <div class="inclus-item"><div class="ii-icon">💬</div><div><div class="ii-title">Formulaire de contact direct</div><div class="ii-desc">Vos prospects vous contactent directement depuis votre fiche.</div></div></div>
+      <div class="inclus-item"><div class="ii-icon">🔐</div><div><div class="ii-title">Espace propriétaire</div><div class="ii-desc">Modifiez votre fiche, suivez vos statistiques, gérez vos contacts.</div></div></div>
+      <div class="inclus-item"><div class="ii-icon">📍</div><div><div class="ii-title">Annuaire géolocalisé</div><div class="ii-desc">Visibleo dans votre ville, votre département, votre région.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-tag">Ils nous font confiance</div>
+    <h2 class="section-title">Ce que disent nos clients</h2>
+    <div class="temoignages-grid">
+      <div class="temoignage">
+        <div class="tem-stars">★★★★★</div>
+        <p class="tem-text">"J'ai activé ma fiche le jour de ma création. 3 semaines plus tard, j'avais déjà reçu 5 demandes de devis. C'est la meilleure décision que j'ai prise."</p>
+        <div class="tem-auteur">Thomas M.</div>
+        <div class="tem-role">Plombier · Saumur (49)</div>
+      </div>
+      <div class="temoignage">
+        <div class="tem-stars">★★★★★</div>
+        <p class="tem-text">"En tant que nouvelle agence web, j'avais besoin d'être visible rapidement. Visibleo m'a permis d'apparaître sur Google dès le premier mois."</p>
+        <div class="tem-auteur">Laura B.</div>
+        <div class="tem-role">Agence digitale · Bordeaux (33)</div>
+      </div>
+      <div class="temoignage">
+        <div class="tem-stars">★★★★☆</div>
+        <p class="tem-text">"Simple, rapide, efficace. J'ai rempli ma fiche en 10 minutes et mes premiers clients m'ont trouvée via Visibleo avant même que j'aie un site web."</p>
+        <div class="tem-auteur">Céline R.</div>
+        <div class="tem-role">Coiffeuse · Nantes (44)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-tag">Questions fréquentes</div>
+    <h2 class="section-title" style="margin-bottom:36px;">Tout ce que vous devez savoir</h2>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <div class="faq-q" onclick="toggleFaq(this)">Est-ce que Visibleo est un service officiel ?</div>
+        <div class="faq-a">Non. Visibleo est un service commercial privé de mise en visibilité. Nous ne sommes affiliés à aucun registre officiel, administration ou organisme public. L'activation de votre fiche est entièrement optionnelle et ne conditionne en rien votre activité commerciale.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Pourquoi 139 € et pas un abonnement mensuel ?</div>
+        <div class="faq-a">Parce qu'une nouvelle entreprise n'a pas besoin d'une charge mensuelle supplémentaire. Les 139 € couvrent l'activation définitive de votre fiche. Les boosts de visibilité (optionnels, dès 19,99 €/mois) viennent en supplément si vous souhaitez être mis en avant.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Comment ma fiche apparaît-elle sur Google ?</div>
+        <div class="faq-a">Votre fiche Visibleo est optimisée pour le SEO : titre, description, mots-clés locaux. Google indexe généralement les nouvelles pages sous 24 à 72 heures. Votre fiche apparaîtra dans les résultats pour des recherches comme "plombier [votre ville]" ou "[votre secteur] [votre département]".</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Puis-je modifier ma fiche après activation ?</div>
+        <div class="faq-a">Absolument. Vous disposez d'un espace propriétaire complet : modification de la description, ajout de photos, mise à jour des horaires et services, consultation des statistiques de vue et des contacts reçus.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Que se passe-t-il si je souhaite supprimer ma fiche ?</div>
+        <div class="faq-a">Vous pouvez demander le retrait de votre fiche à tout moment via votre espace propriétaire ou par email à contact@visibleo.fr. La suppression est effective sous 48 heures. Aucun remboursement n'est prévu pour l'activation (paiement unique), mais les abonnements boost peuvent être résiliés à tout moment.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">D'où viennent les informations de ma fiche ?</div>
+        <div class="faq-a">Les données de base (nom, SIREN, activité, adresse) sont issues du BODACC et du RNE, registres publics officiels. Ces données sont librement diffusables en vertu de la politique d'open data de l'État. Vous pouvez les compléter ou les corriger depuis votre espace propriétaire.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>Votre entreprise mérite d'être trouvée.</h2>
+  <p>Rejoignez les entreprises qui ont choisi d'être visibles dès le premier jour. Paiement unique, résultat immédiat.</p>
+  <div class="cta-grid">
+    <a href="pages/activer.html" class="hero-btn" style="font-size:16px;padding:16px 40px;">
+      Activer ma fiche — 139 € TTC →
+    </a>
+    <a href="pages/annuaire.html" style="padding:16px 28px;color:rgba(255,255,255,.7);font-size:14px;text-decoration:none;border:1px solid rgba(255,255,255,.25);border-radius:var(--r-lg);">
+      Voir l'annuaire
+    </a>
+  </div>
+  <p style="font-size:12px;color:rgba(255,255,255,.35);margin-top:20px;">
+    Aucun abonnement obligatoire · Paiement sécurisé Stripe · Visible sous 24h
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html">Accueil</a>
+  <a href="pages/annuaire.html">Annuaire</a>
+  <a href="pages/activer.html">Activer ma fiche</a>
+  <a href="pages/mentions-legales.html">Mentions légales</a>
+  <a href="pages/mentions-legales.html#rgpd">RGPD</a>
+  <br><br>
+  © 2026 Visibleo — Service commercial privé, non affilié à un organisme public.
+  Données sources : BODACC / RNE (open data INSEE).
+</footer>
+
+<!-- STICKY MOBILE -->
+<div class="sticky-cta">
+  <a href="pages/activer.html">Activer ma fiche — 139 € →</a>
+</div>
+
+<script>
+function toggleFaq(el){
+  const item=el.closest('.faq-item');
+  item.classList.toggle('open');
+}
+</script>
+</body>
+</html>

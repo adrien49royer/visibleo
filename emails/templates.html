@@ -1,0 +1,493 @@
+<!--
+  VISIBLEO — Templates Email Brevo
+  Agent 5 — Copywriter & Email
+  =====================================================
+  8 variantes par secteur NAF :
+  1. artisan_local (plombier, électricien, maçon…)
+  2. artisan_btp (construction, rénovation)
+  3. commerce_restauration (restaurant, boulangerie…)
+  4. beaute_local (coiffeur, esthéticienne…)
+  5. transport_regional (déménageur, transporteur)
+  6. immo_agence (agence immobilière)
+  7. conseil_national (consultant, avocat, comptable)
+  8. digital_tech (dev, agence web, marketing)
+
+  Variables Brevo à remplacer :
+  {{ contact.NOM_ENTREPRISE }}
+  {{ contact.PRENOM_DIRIGEANT }}
+  {{ contact.VILLE }}
+  {{ contact.NAF_LIBELLE }}
+  {{ contact.SIREN }}
+  {{ contact.LIEN_ACTIVATION }}
+  =====================================================
+-->
+
+<!-- ═══════════════════════════════════════════════════
+     TEMPLATE 1 — ARTISAN LOCAL (Plombier, Électricien, etc.)
+     ═══════════════════════════════════════════════════ -->
+<!-- SUJET : {{ contact.NOM_ENTREPRISE }} — Votre fiche est prête sur Visibleo -->
+<html-template id="artisan_local">
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Visibleo — Votre fiche est prête</title></head>
+<body style="margin:0;padding:0;background:#F0F4FC;font-family:'Inter',Arial,sans-serif;font-size:15px;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+
+      <!-- HEADER -->
+      <tr><td style="background:#0F2554;padding:28px 40px;text-align:left;">
+        <div style="font-family:'Georgia',serif;font-size:24px;font-weight:bold;color:#fff;letter-spacing:-0.02em;">
+          Visibl<span style="color:#C9943A;">eo</span>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;text-transform:uppercase;letter-spacing:.1em;">L'annuaire des entreprises françaises</div>
+      </td></tr>
+
+      <!-- HERO BADGE -->
+      <tr><td style="background:#FEF6E4;border-bottom:3px solid #C9943A;padding:14px 40px;text-align:center;">
+        <span style="font-size:12px;font-weight:700;color:#92600A;text-transform:uppercase;letter-spacing:.08em;">🔧 Artisan · Secteur local</span>
+      </td></tr>
+
+      <!-- BODY -->
+      <tr><td style="padding:36px 40px;">
+        <p style="margin:0 0 16px;font-size:16px;font-weight:600;color:#0F2554;">Bonjour,</p>
+
+        <p style="margin:0 0 16px;line-height:1.7;color:#4A5568;">
+          Votre entreprise <strong>{{ contact.NOM_ENTREPRISE }}</strong> a été créée récemment dans le registre national des entreprises.
+          <strong>Votre fiche Visibleo est prête</strong> — il ne reste plus qu'à l'activer pour être visible sur Google et dans notre annuaire.
+        </p>
+
+        <!-- PREVIEW FICHE -->
+        <table width="100%" cellpadding="0" cellspacing="0" style="background:#F4F7FD;border:1px solid #DDE3F0;border-radius:12px;margin:24px 0;overflow:hidden;">
+          <tr><td style="padding:20px 24px;">
+            <div style="font-size:11px;color:#718096;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Aperçu de votre fiche</div>
+            <div style="font-size:18px;font-weight:700;color:#0D1B3E;margin-bottom:4px;">{{ contact.NOM_ENTREPRISE }}</div>
+            <div style="font-size:13px;color:#718096;margin-bottom:12px;">{{ contact.NAF_LIBELLE }} · {{ contact.VILLE }}</div>
+            <div style="display:inline-block;background:#EBF0FA;color:#2952B8;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;">● Non référencée actuellement</div>
+          </td></tr>
+        </table>
+
+        <p style="margin:0 0 16px;line-height:1.7;color:#4A5568;">
+          En activant votre fiche, vos futurs clients <strong>dans un rayon de 30 à 50 km</strong> pourront vous trouver facilement.
+          Un plombier, un électricien ou un artisan visible sur Google reçoit en moyenne <strong>8 à 15 contacts supplémentaires par mois.</strong>
+        </p>
+
+        <!-- INCLUS -->
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin:20px 0;">
+          <tr>
+            <td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Fiche professionnelle complète</td>
+            <td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Référencement Google SEO</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Avis clients activés</td>
+            <td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Visible sous 24 heures</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Espace propriétaire inclus</td>
+            <td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Paiement unique — 139 € TTC</td>
+          </tr>
+        </table>
+
+        <!-- CTA -->
+        <table cellpadding="0" cellspacing="0" style="margin:28px 0;">
+          <tr><td style="background:#0F2554;border-radius:10px;padding:0;">
+            <a href="{{ contact.LIEN_ACTIVATION }}" style="display:block;padding:16px 40px;color:#fff;text-decoration:none;font-size:15px;font-weight:700;font-family:Georgia,serif;text-align:center;letter-spacing:-0.01em;">
+              Activer ma fiche — 139 € TTC →
+            </a>
+          </td></tr>
+        </table>
+
+        <p style="margin:0;font-size:13px;color:#718096;line-height:1.6;">
+          Paiement unique et définitif. Aucun abonnement caché. Aucune obligation — vous pouvez ignorer ce message sans conséquence.
+        </p>
+      </td></tr>
+
+      <!-- FOOTER -->
+      <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:20px 40px;">
+        <p style="margin:0;font-size:11px;color:#718096;line-height:1.7;">
+          Visibleo est un service commercial privé, non affilié à un organisme public ou gouvernemental.
+          Les données utilisées sont issues du registre public BODACC / INSEE.
+          <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner</a>
+        </p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+</body></html>
+</html-template>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TEMPLATE 2 — ARTISAN BTP (Construction, Rénovation)
+     Sujet : {{ contact.NOM_ENTREPRISE }} — Soyez le premier référencé dans le BTP à {{ contact.VILLE }}
+     ═══════════════════════════════════════════════════ -->
+<html-template id="artisan_btp">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#F0F4FC;font-family:Arial,sans-serif;font-size:15px;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+      <tr><td style="background:#0F2554;padding:28px 40px;">
+        <div style="font-family:Georgia,serif;font-size:24px;font-weight:bold;color:#fff;">Visibl<span style="color:#C9943A;">eo</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;text-transform:uppercase;letter-spacing:.1em;">L'annuaire des professionnels du bâtiment</div>
+      </td></tr>
+      <tr><td style="background:#FEF6E4;border-bottom:3px solid #C9943A;padding:14px 40px;text-align:center;">
+        <span style="font-size:12px;font-weight:700;color:#92600A;text-transform:uppercase;letter-spacing:.08em;">🏗️ BTP & Construction · Secteur porteur</span>
+      </td></tr>
+      <tr><td style="padding:36px 40px;">
+        <p style="margin:0 0 16px;line-height:1.7;color:#4A5568;">
+          Le secteur du bâtiment est l'un des plus recherchés sur Google. À <strong>{{ contact.VILLE }}</strong>, des centaines de propriétaires cherchent chaque mois un professionnel de confiance pour leurs travaux.
+        </p>
+        <p style="margin:0 0 20px;line-height:1.7;color:#4A5568;">
+          Votre entreprise <strong>{{ contact.NOM_ENTREPRISE }}</strong> vient de se créer — c'est le moment idéal pour construire votre réputation en ligne dès le départ.
+        </p>
+        <!-- Chiffre clé -->
+        <table width="100%" cellpadding="0" cellspacing="0" style="background:#EBF0FA;border-radius:10px;margin:20px 0;">
+          <tr><td style="padding:20px;text-align:center;">
+            <div style="font-size:36px;font-weight:800;color:#0F2554;font-family:Georgia,serif;">73%</div>
+            <div style="font-size:13px;color:#4A5568;margin-top:6px;">des propriétaires cherchent leur artisan BTP sur Google avant de le contacter</div>
+          </td></tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" style="margin:24px 0;">
+          <tr><td style="background:#C9943A;border-radius:10px;">
+            <a href="{{ contact.LIEN_ACTIVATION }}" style="display:block;padding:16px 40px;color:#0F2554;text-decoration:none;font-size:15px;font-weight:700;font-family:Georgia,serif;text-align:center;">
+              Activer ma fiche BTP — 139 € →
+            </a>
+          </td></tr>
+        </table>
+        <p style="margin:0;font-size:12px;color:#718096;">Paiement unique. Aucun abonnement. Visible sous 24h.</p>
+      </td></tr>
+      <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:16px 40px;">
+        <p style="margin:0;font-size:11px;color:#718096;">Service commercial privé — non affilié à un organisme public. <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>
+</html-template>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TEMPLATE 3 — COMMERCE / RESTAURATION
+     Sujet : Vos futurs clients vous cherchent déjà en ligne — {{ contact.NOM_ENTREPRISE }}
+     ═══════════════════════════════════════════════════ -->
+<html-template id="commerce_restauration">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#F0F4FC;font-family:Arial,sans-serif;font-size:15px;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+      <tr><td style="background:#0F2554;padding:28px 40px;">
+        <div style="font-family:Georgia,serif;font-size:24px;font-weight:bold;color:#fff;">Visibl<span style="color:#C9943A;">eo</span></div>
+      </td></tr>
+      <tr><td style="background:#FEF6E4;border-bottom:3px solid #C9943A;padding:14px 40px;text-align:center;">
+        <span style="font-size:12px;font-weight:700;color:#92600A;text-transform:uppercase;letter-spacing:.08em;">🍽️ Commerce & Restauration · Visibilité locale</span>
+      </td></tr>
+      <tr><td style="padding:36px 40px;">
+        <p style="margin:0 0 16px;line-height:1.7;color:#4A5568;">
+          À <strong>{{ contact.VILLE }}</strong>, des dizaines de personnes cherchent chaque jour un restaurant, un commerce ou un établissement de qualité près de chez eux.
+          Aujourd'hui, <strong>{{ contact.NOM_ENTREPRISE }}</strong> n'apparaît pas dans les résultats.
+        </p>
+        <p style="margin:0 0 20px;line-height:1.7;color:#4A5568;">
+          Activez votre fiche Visibleo pour <strong>apparaître quand on cherche votre type d'établissement dans votre ville.</strong>
+        </p>
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin:20px 0;border:1px solid #DDE3F0;border-radius:10px;">
+          <tr style="border-bottom:1px solid #DDE3F0;">
+            <td style="padding:12px 16px;font-size:13px;color:#0F2554;font-weight:600;">🗺 Référencé sur l'annuaire local</td>
+            <td style="padding:12px 16px;font-size:13px;color:#1A7A4A;font-weight:600;text-align:right;">✓ Inclus</td>
+          </tr>
+          <tr style="border-bottom:1px solid #DDE3F0;">
+            <td style="padding:12px 16px;font-size:13px;color:#0F2554;font-weight:600;">⭐ Système d'avis clients</td>
+            <td style="padding:12px 16px;font-size:13px;color:#1A7A4A;font-weight:600;text-align:right;">✓ Inclus</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 16px;font-size:13px;color:#0F2554;font-weight:600;">📍 Apparaître sur Google "restaurant [ville]"</td>
+            <td style="padding:12px 16px;font-size:13px;color:#1A7A4A;font-weight:600;text-align:right;">✓ Inclus</td>
+          </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" style="margin:24px 0;">
+          <tr><td style="background:#0F2554;border-radius:10px;">
+            <a href="{{ contact.LIEN_ACTIVATION }}" style="display:block;padding:16px 40px;color:#fff;text-decoration:none;font-size:15px;font-weight:700;font-family:Georgia,serif;text-align:center;">
+              Activer ma fiche — 139 € TTC →
+            </a>
+          </td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:16px 40px;">
+        <p style="margin:0;font-size:11px;color:#718096;">Service commercial privé — aucune obligation. <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>
+</html-template>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TEMPLATE 4 — BEAUTÉ / BIEN-ÊTRE
+     Sujet : {{ contact.NOM_ENTREPRISE }} — Trouvez de nouveaux clients dès demain
+     ═══════════════════════════════════════════════════ -->
+<html-template id="beaute_local">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#F9F0FA;font-family:Arial,sans-serif;font-size:15px;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F9F0FA;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+      <tr><td style="background:#0F2554;padding:28px 40px;">
+        <div style="font-family:Georgia,serif;font-size:24px;font-weight:bold;color:#fff;">Visibl<span style="color:#C9943A;">eo</span></div>
+      </td></tr>
+      <tr><td style="background:#F9F0FA;border-bottom:3px solid #9B59B6;padding:14px 40px;text-align:center;">
+        <span style="font-size:12px;font-weight:700;color:#6C3483;text-transform:uppercase;letter-spacing:.08em;">✂️ Beauté & Bien-être · Secteur de confiance</span>
+      </td></tr>
+      <tr><td style="padding:36px 40px;">
+        <p style="margin:0 0 16px;line-height:1.7;color:#4A5568;">
+          Dans la beauté, la confiance est tout. Vos futurs clients cherchent des avis, des photos, et des informations sur votre salon <strong>avant même de vous appeler.</strong>
+        </p>
+        <p style="margin:0 0 20px;line-height:1.7;color:#4A5568;">
+          Activez la fiche de <strong>{{ contact.NOM_ENTREPRISE }}</strong> sur Visibleo et soyez présent au moment où vos clients vous cherchent à <strong>{{ contact.VILLE }}.</strong>
+        </p>
+        <table width="100%" cellpadding="0" cellspacing="0" style="background:#F9F0FA;border-radius:10px;padding:16px;margin:20px 0;">
+          <tr><td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Fiche avec photos de votre salon</td></tr>
+          <tr><td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Système d'avis clients vérifiés</td></tr>
+          <tr><td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Affichage de vos horaires et services</td></tr>
+          <tr><td style="padding:8px 0;font-size:13px;color:#4A5568;">✅ Contact direct depuis la fiche</td></tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" style="margin:24px 0;">
+          <tr><td style="background:#0F2554;border-radius:10px;">
+            <a href="{{ contact.LIEN_ACTIVATION }}" style="display:block;padding:16px 36px;color:#fff;text-decoration:none;font-size:15px;font-weight:700;font-family:Georgia,serif;text-align:center;">
+              Activer ma fiche Visibleo — 139 € →
+            </a>
+          </td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:16px 40px;">
+        <p style="margin:0;font-size:11px;color:#718096;">Service commercial privé. <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>
+</html-template>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TEMPLATE 5 — TRANSPORT & DÉMÉNAGEMENT
+     Sujet : {{ contact.NOM_ENTREPRISE }} — Couvrez toute la région avec Visibleo
+     ═══════════════════════════════════════════════════ -->
+<html-template id="transport_regional">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#F0F4FC;font-family:Arial,sans-serif;font-size:15px;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+      <tr><td style="background:#0F2554;padding:28px 40px;">
+        <div style="font-family:Georgia,serif;font-size:24px;font-weight:bold;color:#fff;">Visibl<span style="color:#C9943A;">eo</span></div>
+      </td></tr>
+      <tr><td style="background:#FEF6E4;border-bottom:3px solid #C9943A;padding:14px 40px;text-align:center;">
+        <span style="font-size:12px;font-weight:700;color:#92600A;text-transform:uppercase;letter-spacing:.08em;">📦 Transport & Déménagement · Portée régionale</span>
+      </td></tr>
+      <tr><td style="padding:36px 40px;">
+        <p style="margin:0 0 16px;line-height:1.7;color:#4A5568;">
+          Votre activité transport/déménagement couvre <strong>plusieurs villes, voire plusieurs départements.</strong>
+          Votre fiche Visibleo peut être boostée sur toute une région pour toucher des clients sur l'ensemble de votre zone d'intervention.
+        </p>
+        <table width="100%" cellpadding="0" cellspacing="0" style="background:#EBF0FA;border-radius:10px;margin:20px 0;">
+          <tr><td style="padding:16px 20px;">
+            <div style="font-size:13px;font-weight:700;color:#0F2554;margin-bottom:8px;">🚀 Boost Région — recommandé pour vous</div>
+            <div style="font-size:12px;color:#4A5568;">Visibilité prioritaire sur toute votre région • Dès 59,99€/mois après activation</div>
+          </td></tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" style="margin:24px 0;">
+          <tr><td style="background:#0F2554;border-radius:10px;">
+            <a href="{{ contact.LIEN_ACTIVATION }}" style="display:block;padding:16px 36px;color:#fff;text-decoration:none;font-size:15px;font-weight:700;font-family:Georgia,serif;text-align:center;">
+              Activer ma fiche — 139 € TTC →
+            </a>
+          </td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:16px 40px;">
+        <p style="margin:0;font-size:11px;color:#718096;">Service commercial privé. <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>
+</html-template>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TEMPLATE 6 — IMMOBILIER
+     Sujet : {{ contact.NOM_ENTREPRISE }} — Visibilité régionale pour votre agence
+     ═══════════════════════════════════════════════════ -->
+<html-template id="immo_agence">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#F0F4FC;font-family:Arial,sans-serif;font-size:15px;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+      <tr><td style="background:#0F2554;padding:28px 40px;">
+        <div style="font-family:Georgia,serif;font-size:24px;font-weight:bold;color:#fff;">Visibl<span style="color:#C9943A;">eo</span></div>
+      </td></tr>
+      <tr><td style="background:#E6F5EC;border-bottom:3px solid #1A7A4A;padding:14px 40px;text-align:center;">
+        <span style="font-size:12px;font-weight:700;color:#1A7A4A;text-transform:uppercase;letter-spacing:.08em;">🏠 Immobilier · Portée régionale</span>
+      </td></tr>
+      <tr><td style="padding:36px 40px;">
+        <p style="margin:0 0 16px;line-height:1.7;color:#4A5568;">
+          Dans l'immobilier, la réputation en ligne est déterminante. Les acheteurs et vendeurs comparent les agences <strong>avant même de les appeler.</strong>
+        </p>
+        <p style="margin:0 0 20px;line-height:1.7;color:#4A5568;">
+          Activez la fiche de <strong>{{ contact.NOM_ENTREPRISE }}</strong> et bénéficiez d'un référencement régional sur Visibleo. Boost Région disponible dès 59,99€/mois.
+        </p>
+        <table cellpadding="0" cellspacing="0" style="margin:24px 0;">
+          <tr><td style="background:#0F2554;border-radius:10px;">
+            <a href="{{ contact.LIEN_ACTIVATION }}" style="display:block;padding:16px 36px;color:#fff;text-decoration:none;font-size:15px;font-weight:700;font-family:Georgia,serif;text-align:center;">
+              Activer ma fiche — 139 € TTC →
+            </a>
+          </td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:16px 40px;">
+        <p style="margin:0;font-size:11px;color:#718096;">Service commercial privé. <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>
+</html-template>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TEMPLATE 7 — CONSEIL / JURIDIQUE / COMPTABILITÉ
+     Sujet : Votre cabinet en ligne — {{ contact.NOM_ENTREPRISE }}
+     ═══════════════════════════════════════════════════ -->
+<html-template id="conseil_national">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#F0F4FC;font-family:Arial,sans-serif;font-size:15px;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+      <tr><td style="background:#0F2554;padding:28px 40px;">
+        <div style="font-family:Georgia,serif;font-size:24px;font-weight:bold;color:#fff;">Visibl<span style="color:#C9943A;">eo</span></div>
+      </td></tr>
+      <tr><td style="background:#EBF0FA;border-bottom:3px solid #0F2554;padding:14px 40px;text-align:center;">
+        <span style="font-size:12px;font-weight:700;color:#0F2554;text-transform:uppercase;letter-spacing:.08em;">💼 Conseil & Professions libérales</span>
+      </td></tr>
+      <tr><td style="padding:36px 40px;">
+        <p style="margin:0 0 16px;line-height:1.7;color:#4A5568;">
+          Un avocat, un consultant ou un expert-comptable sans présence en ligne laisse des mandats potentiels à ses concurrents.
+          <strong>{{ contact.NOM_ENTREPRISE }}</strong> peut changer ça dès aujourd'hui.
+        </p>
+        <p style="margin:0 0 20px;line-height:1.7;color:#4A5568;">
+          Visibleo vous offre une présence professionnelle en ligne, des avis clients, et la possibilité d'être référencé nationalement selon votre champ d'activité.
+        </p>
+        <table cellpadding="0" cellspacing="0" style="margin:24px 0;">
+          <tr><td style="background:#0F2554;border-radius:10px;">
+            <a href="{{ contact.LIEN_ACTIVATION }}" style="display:block;padding:16px 36px;color:#fff;text-decoration:none;font-size:15px;font-weight:700;font-family:Georgia,serif;text-align:center;">
+              Activer ma fiche — 139 € TTC →
+            </a>
+          </td></tr>
+        </table>
+        <p style="margin:0;font-size:12px;color:#718096;">Paiement unique. Visible sous 24h. Aucun engagement mensuel obligatoire.</p>
+      </td></tr>
+      <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:16px 40px;">
+        <p style="margin:0;font-size:11px;color:#718096;">Service commercial privé. <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>
+</html-template>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TEMPLATE 8 — DIGITAL / TECH / MARKETING
+     Sujet : {{ contact.NOM_ENTREPRISE }} — Une présence nationale dès le 1er jour
+     ═══════════════════════════════════════════════════ -->
+<html-template id="digital_tech">
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#1a1a2e;font-family:Arial,sans-serif;font-size:15px;color:#0D1B3E;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+  <tr><td align="center">
+    <table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+      <tr><td style="background:linear-gradient(135deg,#0F2554,#1B3A7A);padding:28px 40px;">
+        <div style="font-family:Georgia,serif;font-size:24px;font-weight:bold;color:#fff;">Visibl<span style="color:#C9943A;">eo</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;text-transform:uppercase;letter-spacing:.1em;">Présence nationale · Digital & Tech</div>
+      </td></tr>
+      <tr><td style="background:#EBF5FF;border-bottom:3px solid #2952B8;padding:14px 40px;text-align:center;">
+        <span style="font-size:12px;font-weight:700;color:#2952B8;text-transform:uppercase;letter-spacing:.08em;">💻 Digital, Tech & Marketing · Portée nationale</span>
+      </td></tr>
+      <tr><td style="padding:36px 40px;">
+        <p style="margin:0 0 16px;line-height:1.7;color:#4A5568;">
+          Vous le savez mieux que personne : <strong>la visibilité en ligne est le nerf de la guerre.</strong>
+          Pourtant, <strong>{{ contact.NOM_ENTREPRISE }}</strong> n'est pas encore référencée sur Visibleo.
+        </p>
+        <p style="margin:0 0 20px;line-height:1.7;color:#4A5568;">
+          Avec le <strong>Boost National</strong>, votre agence ou société tech apparaît en tête des résultats sur toute la France — là où vos prospects cherchent leurs prestataires digitaux.
+        </p>
+        <table width="100%" cellpadding="0" cellspacing="0" style="background:#EBF0FA;border-radius:10px;margin:20px 0;">
+          <tr>
+            <td style="padding:14px 20px;border-right:1px solid #DDE3F0;text-align:center;">
+              <div style="font-size:28px;font-weight:800;color:#0F2554;font-family:Georgia,serif;">139€</div>
+              <div style="font-size:11px;color:#718096;margin-top:2px;">Activation unique</div>
+            </td>
+            <td style="padding:14px 20px;text-align:center;">
+              <div style="font-size:28px;font-weight:800;color:#0F2554;font-family:Georgia,serif;">+149€</div>
+              <div style="font-size:11px;color:#718096;margin-top:2px;">Boost National / mois</div>
+            </td>
+          </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" style="margin:24px 0;">
+          <tr><td style="background:#2952B8;border-radius:10px;">
+            <a href="{{ contact.LIEN_ACTIVATION }}" style="display:block;padding:16px 36px;color:#fff;text-decoration:none;font-size:15px;font-weight:700;font-family:Georgia,serif;text-align:center;">
+              Activer ma fiche nationale — 139 € →
+            </a>
+          </td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="background:#F4F7FD;border-top:1px solid #DDE3F0;padding:16px 40px;">
+        <p style="margin:0;font-size:11px;color:#718096;">Service commercial privé. <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Se désabonner</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body></html>
+</html-template>
+
+<!--
+  ═══════════════════════════════════════
+  CONFIGURATION BREVO
+  ═══════════════════════════════════════
+
+  1. Créer 8 templates dans Brevo (un par html-template ci-dessus)
+  2. Noter les template IDs retournés par Brevo
+  3. Dans Make.com, mapper naf_code → template_id :
+
+  const TEMPLATE_MAP = {
+    '4322A': 1,   // artisan_local (plombier)
+    '4321A': 1,   // artisan_local (électricien)
+    '4399C': 2,   // artisan_btp
+    '4120A': 2,   // artisan_btp (construction)
+    '5610A': 3,   // commerce_restauration
+    '5610C': 3,   // commerce_restauration (rapide)
+    '9602A': 4,   // beaute_local (coiffure)
+    '9602B': 4,   // beaute_local (esthétique)
+    '4941A': 5,   // transport_regional
+    '4942Z': 5,   // transport (déménagement)
+    '6831Z': 6,   // immo_agence
+    '6810Z': 6,   // immo (marchand de biens)
+    '7022Z': 7,   // conseil_national
+    '6920Z': 7,   // comptabilite
+    '6910Z': 7,   // juridique
+    '6201Z': 8,   // digital_tech (dev)
+    '7311Z': 8,   // digital_tech (pub)
+    // Défaut pour tous les autres :
+    'default': 1  // artisan_local
+  };
+
+  4. Variables Brevo à setter dans le contact :
+     NOM_ENTREPRISE, PRENOM_DIRIGEANT, VILLE,
+     NAF_LIBELLE, SIREN, LIEN_ACTIVATION, LIEN_OPTOUT
+
+  5. LIEN_ACTIVATION = https://visibleo.fr/pages/activer.html?siren={SIREN}
+-->

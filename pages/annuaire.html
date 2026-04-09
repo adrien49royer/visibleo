@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annuaire des entreprises françaises — Visibleo</title>
+<meta name="description" content="Recherchez parmi des milliers d'entreprises françaises. Filtrez par secteur, département, région. Artisans, commerces, professions libérales.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bleu:#0F2554;--bleu-mid:#1B3A7A;--bleu-vif:#2952B8;--bleu-clair:#EBF0FA;--bleu-pale:#F4F7FD;
+  --or:#C9943A;--or-clair:#FEF6E4;--or-vif:#E8A830;
+  --blanc:#FFFFFF;--texte:#0D1B3E;--texte-sec:#4A5568;--texte-ter:#718096;
+  --bord:#DDE3F0;--bg:#F7F9FE;--vert:#1A7A4A;
+  --shadow-sm:0 1px 3px rgba(15,37,84,.08);--shadow-md:0 4px 16px rgba(15,37,84,.1);
+  --r-sm:6px;--r-md:10px;--r-lg:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;font-size:14px;color:var(--texte);background:var(--bg);-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'Syne',sans-serif;}
+
+/* HEADER */
+.header{background:var(--bleu);padding:0 24px;height:60px;display:flex;align-items:center;gap:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,37,84,.4);}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;}
+.logo-icon{width:30px;height:30px;background:var(--or);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--bleu);}
+.logo-text{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#fff;}
+.logo-text em{color:var(--or);font-style:normal;}
+.header-search-mini{flex:1;max-width:500px;display:flex;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--r-md);overflow:hidden;}
+.hsm-input{flex:1;padding:0 14px;background:transparent;border:none;outline:none;color:#fff;font-size:13px;font-family:'Inter',sans-serif;}
+.hsm-input::placeholder{color:rgba(255,255,255,.45);}
+.hsm-btn{padding:0 16px;background:var(--or);border:none;cursor:pointer;color:var(--bleu);font-size:15px;display:flex;align-items:center;}
+
+/* FILTRES */
+.filtres-bar{background:var(--blanc);border-bottom:1px solid var(--bord);padding:12px 24px;position:sticky;top:60px;z-index:99;}
+.filtres-inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.filtre-select{padding:8px 12px;border:1px solid var(--bord);border-radius:var(--r-md);font-size:12px;color:var(--texte);background:var(--blanc);outline:none;cursor:pointer;min-width:140px;}
+.filtre-select:focus{border-color:var(--bleu-vif);}
+.filtre-actif{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:var(--bleu-clair);color:var(--bleu-vif);border-radius:100px;font-size:12px;font-weight:500;}
+.filtre-actif button{background:none;border:none;color:var(--bleu-vif);cursor:pointer;font-size:14px;}
+.filtres-reset{margin-left:auto;font-size:12px;color:var(--texte-ter);cursor:pointer;padding:6px 10px;}
+.filtres-reset:hover{color:var(--rouge);}
+.nb-resultats{font-size:12px;color:var(--texte-ter);padding:6px 0;white-space:nowrap;}
+
+/* LAYOUT */
+.page-wrap{max-width:1240px;margin:0 auto;padding:24px;display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:start;}
+
+/* SIDEBAR FILTRES AVANCÉS */
+.filtres-sidebar{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:0;position:sticky;top:130px;}
+.fs-head{padding:16px 18px;border-bottom:1px solid var(--bord);}
+.fs-head h3{font-size:13px;font-weight:700;color:var(--texte);}
+.fs-section{padding:14px 18px;border-bottom:1px solid var(--bord);}
+.fs-section:last-child{border-bottom:none;}
+.fs-section h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--texte-ter);margin-bottom:10px;}
+.fs-option{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:13px;color:var(--texte-sec);}
+.fs-option:hover{color:var(--bleu-vif);}
+.fs-option input{accent-color:var(--bleu-vif);}
+.fs-option .count{margin-left:auto;font-size:11px;color:var(--texte-ter);}
+
+/* GRILLE RÉSULTATS */
+.results-main{}
+.results-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.results-header h2{font-size:18px;font-weight:700;}
+.results-count{font-size:13px;color:var(--texte-ter);margin-top:2px;}
+.tri-bar{display:flex;align-items:center;gap:8px;}
+.tri-btn{padding:6px 14px;border:1px solid var(--bord);border-radius:var(--r-md);font-size:12px;font-weight:500;cursor:pointer;background:var(--blanc);color:var(--texte-sec);transition:all .15s;}
+.tri-btn.active{background:var(--bleu);color:#fff;border-color:var(--bleu);}
+.fiches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+
+/* FICHE CARD (identique homepage) */
+.fiche-card{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);overflow:hidden;transition:all .2s;text-decoration:none;display:flex;flex-direction:column;position:relative;}
+.fiche-card:hover{box-shadow:var(--shadow-md);border-color:var(--bleu-vif);transform:translateY(-2px);}
+.fiche-card.boosted{border-color:var(--or);}
+.boost-ribbon{position:absolute;top:10px;right:10px;background:var(--or);color:var(--bleu);font-size:10px;font-weight:700;padding:2px 9px;border-radius:100px;}
+.fiche-cover{height:130px;background:linear-gradient(135deg,var(--bleu-clair),var(--bleu-pale));display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.fiche-cover img{width:100%;height:100%;object-fit:cover;}
+.fiche-cover-ph{font-size:40px;opacity:.3;}
+.fiche-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;}
+.fiche-meta{display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap;}
+.fiche-secteur{font-size:10px;font-weight:600;color:var(--bleu-vif);background:var(--bleu-clair);padding:2px 8px;border-radius:100px;text-transform:uppercase;letter-spacing:.05em;}
+.fiche-ville{font-size:11px;color:var(--texte-ter);}
+.fiche-nom{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--texte);margin-bottom:6px;line-height:1.3;}
+.fiche-desc{font-size:12px;color:var(--texte-sec);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1;margin-bottom:10px;}
+.fiche-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--bord);}
+.stars{color:var(--or);font-size:12px;}
+.note-val{font-size:12px;font-weight:600;color:var(--texte);}
+.note-nb{font-size:11px;color:var(--texte-ter);}
+.fiche-cta{font-size:11px;font-weight:600;color:var(--bleu-vif);}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:28px;}
+.pag-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid var(--bord);border-radius:var(--r-sm);font-size:13px;cursor:pointer;background:var(--blanc);color:var(--texte-sec);transition:all .15s;}
+.pag-btn:hover{border-color:var(--bleu-vif);color:var(--bleu-vif);}
+.pag-btn.active{background:var(--bleu);color:#fff;border-color:var(--bleu);}
+.pag-btn.disabled{opacity:.4;cursor:default;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:60px 24px;color:var(--texte-ter);}
+.empty-state .es-icon{font-size:48px;margin-bottom:16px;}
+
+/* Loading */
+.loading-spinner{width:32px;height:32px;border:3px solid var(--bord);border-top-color:var(--bleu-vif);border-radius:50%;animation:spin .8s linear infinite;margin:40px auto;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr;}
+  .filtres-sidebar{position:static;margin-bottom:16px;}
+}
+@media(max-width:600px){
+  .fiches-grid{grid-template-columns:1fr;}
+  .page-wrap{padding:16px;}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="../index.html" class="logo">
+    <div class="logo-icon">V</div>
+    <span class="logo-text">Visibl<em>eo</em></span>
+  </a>
+  <div class="header-search-mini">
+    <input class="hsm-input" type="text" id="searchQ" placeholder="Plombier, coiffeur, avocat…"
+           onkeydown="if(event.key==='Enter')filtrer()">
+    <button class="hsm-btn" onclick="filtrer()">🔍</button>
+  </div>
+</header>
+
+<!-- FILTRES RAPIDES -->
+<div class="filtres-bar">
+  <div class="filtres-inner">
+    <input type="text" class="filtre-select" id="fVille" placeholder="🏙 Ville ou code postal" oninput="debounce(filtrer,400)()">
+    <select class="filtre-select" id="fSecteur" onchange="filtrer()">
+      <option value="">Tous les secteurs</option>
+      <option value="Plomberie">🔧 Plomberie & Chauffage</option>
+      <option value="Électricité">⚡ Électricité</option>
+      <option value="BTP">🏗 BTP & Rénovation</option>
+      <option value="Restauration">🍽 Restauration</option>
+      <option value="Coiffure">✂️ Beauté & Bien-être</option>
+      <option value="Déménagement">📦 Transport & Déménagement</option>
+      <option value="Conseil">💼 Conseil & Juridique</option>
+      <option value="Informatique">💻 Digital & Tech</option>
+      <option value="Immobilier">🏠 Immobilier</option>
+      <option value="Santé">❤️ Santé & Médical</option>
+      <option value="Automobile">🚗 Automobile</option>
+    </select>
+    <select class="filtre-select" id="fDept" onchange="filtrer()">
+      <option value="">Tous les départements</option>
+      <option value="75">75 — Paris</option>
+      <option value="69">69 — Rhône (Lyon)</option>
+      <option value="13">13 — Bouches-du-Rhône</option>
+      <option value="33">33 — Gironde (Bordeaux)</option>
+      <option value="31">31 — Haute-Garonne (Toulouse)</option>
+      <option value="44">44 — Loire-Atlantique (Nantes)</option>
+      <option value="67">67 — Bas-Rhin (Strasbourg)</option>
+      <option value="59">59 — Nord (Lille)</option>
+      <option value="49">49 — Maine-et-Loire (Angers)</option>
+      <option value="06">06 — Alpes-Maritimes (Nice)</option>
+    </select>
+    <select class="filtre-select" id="fBoost" onchange="filtrer()">
+      <option value="">Tous</option>
+      <option value="boost">⭐ Avec boost uniquement</option>
+    </select>
+    <span class="nb-resultats" id="nbResultats"></span>
+    <span class="filtres-reset" onclick="resetFiltres()">✕ Réinitialiser</span>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
+  <div class="filtres-sidebar">
+    <div class="fs-head"><h3>Affiner les résultats</h3></div>
+    <div class="fs-section">
+      <h4>Type d'activité</h4>
+      <label class="fs-option"><input type="checkbox" value="local" onchange="filtrer()"> Artisans & locaux <span class="count">—</span></label>
+      <label class="fs-option"><input type="checkbox" value="regional" onchange="filtrer()"> Régional <span class="count">—</span></label>
+      <label class="fs-option"><input type="checkbox" value="digital" onchange="filtrer()"> Digital & National <span class="count">—</span></label>
+    </div>
+    <div class="fs-section">
+      <h4>Note minimale</h4>
+      <label class="fs-option"><input type="radio" name="noteMin" value="0" checked onchange="filtrer()"> Toutes</label>
+      <label class="fs-option"><input type="radio" name="noteMin" value="4" onchange="filtrer()"> 4 étoiles et + ★★★★</label>
+      <label class="fs-option"><input type="radio" name="noteMin" value="4.5" onchange="filtrer()"> 4,5 étoiles et + ★★★★½</label>
+    </div>
+    <div class="fs-section">
+      <h4>Boost</h4>
+      <label class="fs-option"><input type="radio" name="boostF" value="" checked onchange="filtrer()"> Tous</label>
+      <label class="fs-option"><input type="radio" name="boostF" value="boost" onchange="filtrer()"> Mis en avant ⭐</label>
+    </div>
+  </div>
+
+  <!-- RÉSULTATS -->
+  <div class="results-main">
+    <div class="results-header">
+      <div>
+        <h2 id="resultsTitle">Toutes les entreprises</h2>
+        <div class="results-count" id="resultsCount"></div>
+      </div>
+      <div class="tri-bar">
+        <button class="tri-btn active" onclick="setTri('pertinence',this)">Pertinence</button>
+        <button class="tri-btn" onclick="setTri('note',this)">Note</button>
+        <button class="tri-btn" onclick="setTri('recent',this)">Récent</button>
+      </div>
+    </div>
+    <div class="fiches-grid" id="fichesGrid">
+      <div style="grid-column:1/-1;"><div class="loading-spinner"></div></div>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+const SB_URL='https://VOTRE_REF.supabase.co';
+const SB_KEY='VOTRE_ANON_KEY';
+let _sb=null;
+function sb(){if(!_sb&&typeof supabase!=='undefined')_sb=supabase.createClient(SB_URL,SB_KEY);return _sb;}
+
+let triActuel='pertinence';
+let currentPage=1;
+const PER_PAGE=18;
+
+// Démo données
+const DEMOS=[
+  {nom:'Martin Plomberie',ville:'Saumur',dept:'49',naf:'Plomberie & Chauffage',type:'local',note:4.8,nb:12,desc:'Plombier professionnel sur Saumur et 30km. Urgences 24h/24.',services:['Dépannage urgent','Chauffage'],boost:'departement',e:'🔧',slug:'martin-plomberie-saumur-49'},
+  {nom:'Digital Flow Agency',ville:'Bordeaux',dept:'33',naf:'Marketing Digital',type:'digital',note:5.0,nb:7,desc:'Agence SEO et création web. Référencement Google garanti.',services:['SEO','Web design'],boost:'national',e:'💻',slug:'digital-flow-bordeaux-33'},
+  {nom:'La Belle Coupe',ville:'Nantes',dept:'44',naf:'Coiffure',type:'local',note:4.6,nb:34,desc:'Salon moderne. Coupes femmes, hommes, couleurs et balayages.',services:['Coupes','Couleurs'],boost:'ville',e:'✂️',slug:'la-belle-coupe-nantes-44'},
+  {nom:'Bâti Pro Toulouse',ville:'Toulouse',dept:'31',naf:'BTP & Construction',type:'local',note:4.5,nb:19,desc:'Rénovation, extension, maçonnerie. 15 ans d\'expérience.',services:['Rénovation','Maçonnerie'],boost:'region',e:'🏗️',slug:'bati-pro-toulouse-31'},
+  {nom:'Transport Express 49',ville:'Angers',dept:'49',naf:'Déménagement',type:'regional',note:4.7,nb:28,desc:'Déménagement résidentiel & pro en Pays de la Loire.',services:['Déménagement','Garde-meuble'],boost:'region',e:'📦',slug:'transport-express-angers-49'},
+  {nom:'Cabinet Juridique Martin',ville:'Paris 8e',dept:'75',naf:'Droit des affaires',type:'national',note:4.9,nb:11,desc:'Avocats spécialisés droit des affaires et droit du travail.',services:['Droit des affaires','Contrats'],boost:'national',e:'⚖️',slug:'cabinet-martin-paris-75'},
+  {nom:'Auto Garage Dupont',ville:'Lyon',dept:'69',naf:'Automobile',type:'local',note:4.4,nb:22,desc:'Réparation et entretien toutes marques. Devis gratuit.',services:['Révision','Carrosserie'],boost:'ville',e:'🚗',slug:'auto-garage-dupont-lyon-69'},
+  {nom:'Cabinet Compta Loire',ville:'Saint-Nazaire',dept:'44',naf:'Comptabilité',type:'local',note:4.7,nb:8,desc:'Expert-comptable pour TPE et PME. Bilan, déclarations, conseil.',services:['Comptabilité','Déclarations'],boost:'departement',e:'📊',slug:'compta-loire-44'},
+  {nom:'Immo Méditerranée',ville:'Marseille',dept:'13',naf:'Immobilier',type:'regional',note:4.3,nb:45,desc:'Agence immobilière spécialisée biens de prestige PACA.',services:['Vente','Gestion locative'],boost:'region',e:'🏠',slug:'immo-med-marseille-13'},
+  {nom:'PhysioFit Bordeaux',ville:'Bordeaux',dept:'33',naf:'Santé',type:'local',note:4.9,nb:31,desc:'Cabinet de kinésithérapie et rééducation sportive.',services:['Kinésithérapie','Sport'],boost:'ville',e:'❤️',slug:'physiofit-bordeaux-33'},
+  {nom:'Le Bon Goût',ville:'Strasbourg',dept:'67',naf:'Restauration',type:'local',note:4.6,nb:67,desc:'Restaurant brasserie alsacienne. Cuisine traditionnelle revisitée.',services:['Déjeuner','Dîner'],boost:'ville',e:'🍽️',slug:'bon-gout-strasbourg-67'},
+  {nom:'Électricité Moreau',ville:'Nantes',dept:'44',naf:'Électricité',type:'local',note:4.5,nb:15,desc:'Électricien certifié. Installation, dépannage, mise aux normes.',services:['Installation','Dépannage'],boost:'departement',e:'⚡',slug:'elec-moreau-nantes-44'},
+];
+
+const BOOST_LABELS={ville:'⭐ Mis en avant',departement:'⭐⭐ Prioritaire dept.',region:'⭐⭐⭐ Prioritaire région',multi_region:'🏆 Multi-régions',national:'🏆 Référence nationale'};
+const BOOST_ORDER={national:5,multi_region:4,region:3,departement:2,ville:1,aucun:0};
+
+let allFiches=[];
+let filtered=[];
+
+// ── Chargement initial ────────────────────────────────────
+async function loadFiches(){
+  try{
+    const db=sb();
+    if(db){
+      const{data}=await db.from('fiches').select('*,entreprises(*)').eq('statut','active').order('boost_niveau',{ascending:false}).limit(200);
+      if(data&&data.length){
+        allFiches=data.map(f=>({
+          nom:f.entreprises?.nom||'',
+          ville:f.entreprises?.ville||'',
+          dept:f.entreprises?.departement||'',
+          naf:f.entreprises?.naf_libelle||'',
+          type:f.entreprises?.type_entreprise||'local',
+          note:f.note_moyenne||0,
+          nb:f.nb_avis||0,
+          desc:f.description_courte||'',
+          boost:f.boost_niveau||'aucun',
+          e:'🏢',
+          slug:f.slug,
+          _raw:f
+        }));
+        filtrer();return;
+      }
+    }
+  }catch(e){}
+  allFiches=DEMOS;
+  filtrer();
+}
+
+// ── Filtrage ─────────────────────────────────────────────
+function filtrer(){
+  const q=document.getElementById('searchQ').value.toLowerCase();
+  const ville=document.getElementById('fVille').value.toLowerCase();
+  const secteur=document.getElementById('fSecteur').value.toLowerCase();
+  const dept=document.getElementById('fDept').value;
+  const noteMin=parseFloat(document.querySelector('input[name="noteMin"]:checked')?.value||0);
+  const boostOnly=document.querySelector('input[name="boostF"]:checked')?.value==='boost';
+  const types=Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(i=>i.value);
+
+  filtered=allFiches.filter(f=>{
+    if(q&&!f.nom.toLowerCase().includes(q)&&!f.naf.toLowerCase().includes(q)&&!f.desc.toLowerCase().includes(q))return false;
+    if(ville&&!f.ville.toLowerCase().includes(ville))return false;
+    if(secteur&&!f.naf.toLowerCase().includes(secteur))return false;
+    if(dept&&f.dept!==dept)return false;
+    if(f.note<noteMin)return false;
+    if(boostOnly&&(!f.boost||f.boost==='aucun'))return false;
+    if(types.length&&!types.includes(f.type))return false;
+    return true;
+  });
+
+  // Tri
+  const bo=BOOST_ORDER;
+  if(triActuel==='pertinence') filtered.sort((a,b)=>(bo[b.boost]||0)-(bo[a.boost]||0)||(b.note-a.note));
+  else if(triActuel==='note') filtered.sort((a,b)=>b.note-a.note);
+
+  currentPage=1;
+  renderResultats();
+  renderPagination();
+  updateTitle();
+}
+
+function setTri(t,el){
+  triActuel=t;
+  document.querySelectorAll('.tri-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  filtrer();
+}
+
+function resetFiltres(){
+  document.getElementById('searchQ').value='';
+  document.getElementById('fVille').value='';
+  document.getElementById('fSecteur').value='';
+  document.getElementById('fDept').value='';
+  document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
+  document.querySelector('input[name="noteMin"]').checked=true;
+  document.querySelector('input[name="boostF"]').checked=true;
+  filtrer();
+}
+
+function updateTitle(){
+  const secteur=document.getElementById('fSecteur').value;
+  const ville=document.getElementById('fVille').value||document.getElementById('fDept').options[document.getElementById('fDept').selectedIndex]?.text;
+  const titre=[secteur,ville&&ville!=='Tous les départements'?ville:''].filter(Boolean).join(' à ')||'Toutes les entreprises';
+  document.getElementById('resultsTitle').textContent=titre;
+  document.getElementById('resultsCount').textContent=`${filtered.length} résultat${filtered.length!==1?'s':''}`;
+  document.getElementById('nbResultats').textContent=`${filtered.length} résultat${filtered.length!==1?'s':''}`;
+}
+
+// ── Rendu ─────────────────────────────────────────────────
+function renderResultats(){
+  const start=(currentPage-1)*PER_PAGE;
+  const page=filtered.slice(start,start+PER_PAGE);
+  const grid=document.getElementById('fichesGrid');
+  if(!page.length){
+    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1;"><div class="es-icon">🔍</div><p>Aucun résultat pour ces critères.</p></div>`;
+    return;
+  }
+  grid.innerHTML=page.map(f=>{
+    const bl=BOOST_LABELS[f.boost];
+    const stars='★'.repeat(Math.round(f.note))+'☆'.repeat(5-Math.round(f.note));
+    return`<a class="fiche-card ${f.boost&&f.boost!=='aucun'?'boosted':''}" href="fiche.html?slug=${f.slug}">
+      ${bl?`<div class="boost-ribbon">${bl}</div>`:''}
+      <div class="fiche-cover">${f.photo?`<img src="${f.photo}" alt="${f.nom}" loading="lazy">`:`<div class="fiche-cover-ph">${f.e}</div>`}</div>
+      <div class="fiche-body">
+        <div class="fiche-meta"><span class="fiche-secteur">${f.naf}</span><span class="fiche-ville">📍 ${f.ville}</span></div>
+        <div class="fiche-nom">${f.nom}</div>
+        <div class="fiche-desc">${f.desc}</div>
+        <div class="fiche-footer">
+          <div style="display:flex;align-items:center;gap:5px;"><span class="stars">${stars}</span><span class="note-val">${parseFloat(f.note).toFixed(1)}</span><span class="note-nb">(${f.nb})</span></div>
+          <span class="fiche-cta">Voir →</span>
+        </div>
+      </div>
+    </a>`;
+  }).join('');
+}
+
+function renderPagination(){
+  const total=Math.ceil(filtered.length/PER_PAGE);
+  if(total<=1){document.getElementById('pagination').innerHTML='';return;}
+  let html=`<button class="pag-btn${currentPage===1?' disabled':''}" onclick="goPage(${currentPage-1})">←</button>`;
+  for(let i=1;i<=Math.min(total,7);i++){
+    html+=`<button class="pag-btn${i===currentPage?' active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  if(total>7)html+=`<span style="padding:0 8px;color:var(--texte-ter)">…</span>`;
+  html+=`<button class="pag-btn${currentPage===total?' disabled':''}" onclick="goPage(${currentPage+1})">→</button>`;
+  document.getElementById('pagination').innerHTML=html;
+}
+
+function goPage(p){
+  const max=Math.ceil(filtered.length/PER_PAGE);
+  if(p<1||p>max)return;
+  currentPage=p;
+  renderResultats();
+  renderPagination();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── Debounce ──────────────────────────────────────────────
+function debounce(fn,delay){let t;return(...args)=>{clearTimeout(t);t=setTimeout(()=>fn(...args),delay);};}
+
+// ── Init depuis URL params ────────────────────────────────
+const urlP=new URLSearchParams(window.location.search);
+if(urlP.get('secteur'))document.getElementById('fSecteur').value=urlP.get('secteur');
+if(urlP.get('ville'))document.getElementById('fVille').value=urlP.get('ville');
+if(urlP.get('dept'))document.getElementById('fDept').value=urlP.get('dept');
+if(urlP.get('q'))document.getElementById('searchQ').value=urlP.get('q');
+
+loadFiches();
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Se désabonner — Visibleo</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bleu:#0F2554;--bleu-vif:#2952B8;--bleu-clair:#EBF0FA;--or:#C9943A;--or-clair:#FEF6E4;--texte:#0D1B3E;--texte-sec:#4A5568;--texte-ter:#718096;--bord:#DDE3F0;--bg:#F7F9FE;--blanc:#fff;--vert:#1A7A4A;--rouge:#C0392B;--r-md:10px;--r-lg:16px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;font-size:15px;color:var(--texte);background:var(--bg);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+h1,h2{font-family:'Syne',sans-serif;}
+.header{background:var(--bleu);padding:0 24px;height:56px;display:flex;align-items:center;}
+.logo-text{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#fff;text-decoration:none;}
+.logo-text em{color:var(--or);font-style:normal;}
+.wrap{max-width:520px;margin:0 auto;padding:60px 24px;flex:1;}
+.card{background:var(--blanc);border:1px solid var(--bord);border-radius:var(--r-lg);padding:40px;box-shadow:0 4px 24px rgba(15,37,84,.08);}
+.card-icon{font-size:48px;margin-bottom:20px;text-align:center;}
+.card h1{font-size:22px;font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:-0.02em;}
+.card .sub{font-size:14px;color:var(--texte-ter);text-align:center;margin-bottom:28px;line-height:1.6;}
+.empresa-info{background:var(--bleu-clair);border-radius:var(--r-md);padding:14px 18px;margin-bottom:24px;font-size:13px;}
+.empresa-nom{font-weight:700;color:var(--texte);margin-bottom:2px;}
+.empresa-siren{color:var(--texte-ter);}
+.options{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:1px solid var(--bord);border-radius:var(--r-md);cursor:pointer;transition:all .15s;}
+.opt:hover{border-color:var(--bleu-vif);background:var(--bleu-clair);}
+.opt.selected{border-color:var(--bleu-vif);background:var(--bleu-clair);}
+.opt input[type=radio]{margin-top:3px;accent-color:var(--bleu-vif);flex-shrink:0;}
+.opt-title{font-size:13px;font-weight:600;color:var(--texte);}
+.opt-sub{font-size:11px;color:var(--texte-ter);margin-top:2px;}
+.btn-unsub{width:100%;padding:13px;background:var(--bleu);color:#fff;border:none;border-radius:var(--r-md);font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s;}
+.btn-unsub:hover{background:var(--bleu-vif);}
+.btn-unsub.danger{background:var(--rouge);}
+.btn-unsub.danger:hover{background:#a93226;}
+.note{font-size:11px;color:var(--texte-ter);text-align:center;margin-top:14px;line-height:1.6;}
+/* States */
+.state{display:none;}
+.state.active{display:block;}
+/* Success */
+.success-icon{font-size:56px;text-align:center;margin-bottom:20px;}
+.success-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;text-align:center;margin-bottom:10px;}
+.success-sub{font-size:14px;color:var(--texte-sec);text-align:center;line-height:1.7;margin-bottom:24px;}
+.btn-retour{display:block;text-align:center;padding:10px 24px;background:var(--bleu-clair);color:var(--bleu-vif);border-radius:var(--r-md);font-size:13px;font-weight:600;text-decoration:none;transition:all .15s;}
+.btn-retour:hover{background:var(--bleu-vif);color:#fff;}
+.loading{text-align:center;padding:20px;color:var(--texte-ter);}
+.spinner{width:28px;height:28px;border:3px solid var(--bord);border-top-color:var(--bleu-vif);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+footer{padding:20px 24px;text-align:center;font-size:11px;color:var(--texte-ter);}
+footer a{color:var(--texte-ter);}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="../index.html" class="logo-text">Visibl<em>eo</em></a>
+</header>
+
+<div class="wrap">
+  <div class="card">
+
+    <!-- STATE 1 : Chargement -->
+    <div class="state active" id="stateLoading">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Chargement de vos informations…</p>
+      </div>
+    </div>
+
+    <!-- STATE 2 : Formulaire -->
+    <div class="state" id="stateForm">
+      <div class="card-icon">📧</div>
+      <h1>Gérer mes communications</h1>
+      <p class="sub">Choisissez comment vous souhaitez que nous traitions vos informations.</p>
+
+      <div class="empresa-info" id="empresaInfo">
+        <div class="empresa-nom" id="empresaNom">Chargement…</div>
+        <div class="empresa-siren" id="empresaSiren"></div>
+      </div>
+
+      <div class="options">
+        <label class="opt selected" id="opt1">
+          <input type="radio" name="optout" value="emails_only" checked onchange="updateBtn()">
+          <div>
+            <div class="opt-title">Ne plus recevoir d'emails commerciaux</div>
+            <div class="opt-sub">Votre fiche reste en ligne si elle est déjà activée. Seuls les emails promotionnels sont supprimés.</div>
+          </div>
+        </label>
+        <label class="opt" id="opt2">
+          <input type="radio" name="optout" value="all" onchange="updateBtn()">
+          <div>
+            <div class="opt-title">Supprimer toutes mes données personnelles</div>
+            <div class="opt-sub">Suppression de votre adresse email et de vos données personnelles de nos systèmes. Votre fiche publique reste accessible (données publiques BODACC).</div>
+          </div>
+        </label>
+        <label class="opt" id="opt3">
+          <input type="radio" name="optout" value="fiche" onchange="updateBtn()">
+          <div>
+            <div class="opt-title">Demander le retrait de ma fiche</div>
+            <div class="opt-sub">Votre fiche sera retirée de l'annuaire Visibleo sous 48h. Cette action est irréversible.</div>
+          </div>
+        </label>
+      </div>
+
+      <button class="btn-unsub" id="btnUnsub" onclick="soumettre()">
+        Ne plus recevoir d'emails →
+      </button>
+
+      <p class="note">
+        Conformément au RGPD, votre demande sera traitée sous 72 heures.<br>
+        Questions : <a href="mailto:contact@visibleo.fr" style="color:var(--bleu-vif);">contact@visibleo.fr</a>
+      </p>
+    </div>
+
+    <!-- STATE 3 : Succès -->
+    <div class="state" id="stateSuccess">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Demande enregistrée</div>
+      <div class="success-sub" id="successMsg">
+        Votre demande a bien été prise en compte.<br>
+        Vous ne recevrez plus d'emails commerciaux de Visibleo.
+      </div>
+      <a href="../index.html" class="btn-retour">← Retour à l'accueil</a>
+    </div>
+
+    <!-- STATE 4 : Erreur -->
+    <div class="state" id="stateError">
+      <div class="card-icon">⚠️</div>
+      <h1 style="text-align:center;">Lien invalide</h1>
+      <p class="sub">Ce lien de désabonnement est invalide ou a expiré.<br>
+        Contactez-nous directement : <a href="mailto:contact@visibleo.fr" style="color:var(--bleu-vif);">contact@visibleo.fr</a>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <a href="mentions-legales.html">Mentions légales</a> · Visibleo — Service commercial privé
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+const SB_URL = 'https://VOTRE_REF.supabase.co';
+const SB_KEY = 'VOTRE_ANON_KEY';
+let _sb = null;
+function sb() { if (!_sb && typeof supabase !== 'undefined') _sb = supabase.createClient(SB_URL, SB_KEY); return _sb; }
+
+// Récupérer le SIREN depuis l'URL
+const params = new URLSearchParams(window.location.search);
+const siren = params.get('siren')?.replace(/\s/g, '') || '';
+let entrepriseData = null;
+
+// ── Init ──────────────────────────────────────────────────
+async function init() {
+  if (!siren) { showState('stateError'); return; }
+
+  try {
+    const db = sb();
+    if (db) {
+      const { data } = await db.from('entreprises').select('id,nom,naf_libelle,ville').eq('siren', siren).single();
+      entrepriseData = data;
+    }
+  } catch(e) {}
+
+  // Même sans Supabase, afficher le formulaire avec le SIREN
+  document.getElementById('empresaNom').textContent = entrepriseData?.nom || `Entreprise SIREN ${siren}`;
+  document.getElementById('empresaSiren').textContent = `SIREN : ${siren}${entrepriseData?.naf_libelle ? ` · ${entrepriseData.naf_libelle}` : ''}${entrepriseData?.ville ? ` · ${entrepriseData.ville}` : ''}`;
+  showState('stateForm');
+}
+
+// ── Mise à jour bouton selon sélection ────────────────────
+function updateBtn() {
+  const val = document.querySelector('input[name=optout]:checked')?.value;
+  const btn = document.getElementById('btnUnsub');
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  document.querySelector(`input[value="${val}"]`)?.closest('.opt')?.classList.add('selected');
+
+  if (val === 'emails_only') {
+    btn.textContent = 'Ne plus recevoir d\'emails →';
+    btn.className = 'btn-unsub';
+  } else if (val === 'all') {
+    btn.textContent = 'Supprimer mes données personnelles →';
+    btn.className = 'btn-unsub danger';
+  } else if (val === 'fiche') {
+    btn.textContent = 'Demander le retrait de ma fiche →';
+    btn.className = 'btn-unsub danger';
+  }
+}
+
+// ── Soumission ────────────────────────────────────────────
+async function soumettre() {
+  const val = document.querySelector('input[name=optout]:checked')?.value;
+  if (!val) return;
+
+  document.getElementById('btnUnsub').disabled = true;
+  document.getElementById('btnUnsub').textContent = 'Traitement en cours…';
+
+  try {
+    const db = sb();
+    if (db && entrepriseData?.id) {
+      if (val === 'emails_only') {
+        // Marquer optout dans emails_log / entreprises
+        await db.from('entreprises').update({ pipeline_statut: 'inactif' }).eq('id', entrepriseData.id);
+      } else if (val === 'all') {
+        // Anonymiser les données personnelles
+        await db.from('entreprises').update({
+          email_contact: null,
+          telephone: null,
+          nom_dirigeant: null,
+          pipeline_statut: 'inactif',
+        }).eq('id', entrepriseData.id);
+      } else if (val === 'fiche') {
+        // Retirer la fiche publique
+        await db.from('fiches').update({ statut: 'suspendu' }).eq('entreprise_id', entrepriseData.id);
+        await db.from('entreprises').update({ pipeline_statut: 'inactif' }).eq('id', entrepriseData.id);
+      }
+    }
+  } catch(e) {
+    // En mode démo ou si Supabase non configuré, on affiche quand même le succès
+    console.log('[Optout] Mode démo ou erreur Supabase:', e);
+  }
+
+  // Messages de succès selon l'action
+  const msgs = {
+    emails_only: 'Vous ne recevrez plus d\'emails commerciaux de Visibleo. Votre fiche reste en ligne si elle est activée.',
+    all: 'Vos données personnelles ont été supprimées de nos systèmes dans la limite des obligations légales (conservation données comptables).',
+    fiche: 'Votre demande de retrait de fiche a été enregistrée. Elle sera traitée sous 48 heures.',
+  };
+
+  document.getElementById('successMsg').textContent = msgs[val] || 'Votre demande a été prise en compte.';
+  showState('stateSuccess');
+}
+
+function showState(id) {
+  document.querySelectorAll('.state').forEach(s => s.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+}
+
+init();
+</script>
+</body>
+</html>

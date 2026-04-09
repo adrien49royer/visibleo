@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Bienvenue sur Visibleo — Votre fiche est activée</title></head>
+<body style="margin:0;padding:0;background:#F0F4FC;font-family:'Inter',Arial,sans-serif;color:#0D1B3E;">
+<!--
+  TEMPLATE EMAIL : bienvenue_paiement
+  Sujet Brevo : ✅ Votre fiche {{ contact.NOM_ENTREPRISE }} est activée — Bienvenue sur Visibleo !
+  Variables : NOM_ENTREPRISE, PRENOM_DIRIGEANT, VILLE, LIEN_ESPACE, LIEN_FICHE, SIREN, BOOST_NIVEAU
+-->
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FC;padding:32px 16px;">
+<tr><td align="center">
+<table width="580" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,37,84,.1);">
+
+  <!-- HEADER VERT SUCCESS -->
+  <tr><td style="background:linear-gradient(135deg,#0F2554,#1B3A7A);padding:32px 40px;text-align:center;">
+    <div style="font-size:48px;margin-bottom:12px;">✅</div>
+    <div style="font-family:Georgia,serif;font-size:26px;font-weight:bold;color:#fff;letter-spacing:-0.02em;">
+      Votre fiche est activée !
+    </div>
+    <div style="font-size:14px;color:rgba(255,255,255,.65);margin-top:8px;">
+      Bienvenue sur Visibl<span style="color:#C9943A;">eo</span>
+    </div>
+  </td></tr>
+
+  <!-- FICHE CONFIRMÉE -->
+  <tr><td style="padding:32px 40px 20px;">
+    <p style="margin:0 0 16px;font-size:15px;color:#0D1B3E;">
+      Bonjour {{ contact.PRENOM_DIRIGEANT }},
+    </p>
+    <p style="margin:0 0 20px;font-size:15px;line-height:1.7;color:#4A5568;">
+      Votre paiement a bien été reçu. La fiche de <strong>{{ contact.NOM_ENTREPRISE }}</strong>
+      est maintenant <strong style="color:#1A7A4A;">active et visible</strong> sur Visibleo.
+    </p>
+
+    <!-- Récap fiche -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#F4F7FD;border-radius:12px;overflow:hidden;margin-bottom:24px;">
+      <tr><td style="background:#0F2554;padding:12px 20px;">
+        <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.07em;">Votre fiche</div>
+      </td></tr>
+      <tr><td style="padding:16px 20px;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="padding:6px 0;font-size:13px;color:#718096;width:140px;">Entreprise</td>
+            <td style="padding:6px 0;font-size:13px;font-weight:600;color:#0D1B3E;">{{ contact.NOM_ENTREPRISE }}</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 0;font-size:13px;color:#718096;">Localisation</td>
+            <td style="padding:6px 0;font-size:13px;color:#0D1B3E;">{{ contact.VILLE }}</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 0;font-size:13px;color:#718096;">SIREN</td>
+            <td style="padding:6px 0;font-size:13px;color:#0D1B3E;">{{ contact.SIREN }}</td>
+          </tr>
+          <tr>
+            <td style="padding:6px 0;font-size:13px;color:#718096;">Boost actif</td>
+            <td style="padding:6px 0;font-size:13px;color:#C9943A;font-weight:600;">{{ contact.BOOST_NIVEAU }}</td>
+          </tr>
+        </table>
+      </td></tr>
+    </table>
+
+    <!-- CE QUI SE PASSE MAINTENANT -->
+    <p style="margin:0 0 14px;font-size:14px;font-weight:700;color:#0F2554;">Ce qui se passe maintenant :</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+      <tr>
+        <td style="width:36px;vertical-align:top;padding:4px 0;">
+          <div style="width:26px;height:26px;background:#0F2554;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">1</div>
+        </td>
+        <td style="padding:4px 0 4px 10px;font-size:13px;color:#4A5568;line-height:1.6;">
+          <strong style="color:#0D1B3E;">Votre fiche est en ligne</strong> — visible sur Visibleo dès maintenant
+        </td>
+      </tr>
+      <tr>
+        <td style="width:36px;vertical-align:top;padding:4px 0;">
+          <div style="width:26px;height:26px;background:#0F2554;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">2</div>
+        </td>
+        <td style="padding:4px 0 4px 10px;font-size:13px;color:#4A5568;line-height:1.6;">
+          <strong style="color:#0D1B3E;">Indexation Google</strong> — votre fiche apparaîtra dans les résultats sous 24 à 72h
+        </td>
+      </tr>
+      <tr>
+        <td style="width:36px;vertical-align:top;padding:4px 0;">
+          <div style="width:26px;height:26px;background:#C9943A;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#0F2554;">3</div>
+        </td>
+        <td style="padding:4px 0 4px 10px;font-size:13px;color:#4A5568;line-height:1.6;">
+          <strong style="color:#0D1B3E;">Personnalisez votre fiche</strong> — ajoutez vos photos, horaires et services depuis votre espace
+        </td>
+      </tr>
+    </table>
+
+    <!-- CTA DOUBLE -->
+    <table cellpadding="0" cellspacing="0" style="margin-bottom:12px;width:100%;">
+      <tr>
+        <td style="padding-right:8px;">
+          <a href="{{ contact.LIEN_ESPACE }}" style="display:block;padding:13px 20px;background:#0F2554;color:#fff;text-decoration:none;font-size:13px;font-weight:700;font-family:Georgia,serif;text-align:center;border-radius:10px;">
+            Accéder à mon espace →
+          </a>
+        </td>
+        <td style="padding-left:8px;">
+          <a href="{{ contact.LIEN_FICHE }}" style="display:block;padding:13px 20px;background:#F4F7FD;color:#0F2554;text-decoration:none;font-size:13px;font-weight:600;text-align:center;border-radius:10px;border:1px solid #DDE3F0;">
+            Voir ma fiche publique
+          </a>
+        </td>
+      </tr>
+    </table>
+  </td></tr>
+
+  <!-- CONSEIL PERSONNALISATION -->
+  <tr><td style="background:#FEF6E4;border-top:1px solid #F0D898;border-bottom:1px solid #F0D898;padding:18px 40px;">
+    <p style="margin:0;font-size:13px;color:#92600A;line-height:1.6;">
+      💡 <strong>Conseil :</strong> Les fiches avec photo reçoivent 3× plus de contacts.
+      Ajoutez au moins une photo de votre activité depuis votre espace propriétaire.
+    </p>
+  </td></tr>
+
+  <!-- FOOTER -->
+  <tr><td style="background:#F4F7FD;padding:20px 40px;">
+    <p style="margin:0;font-size:11px;color:#718096;line-height:1.7;">
+      Vous recevez cet email car vous avez activé votre fiche sur Visibleo.
+      Pour toute question : <a href="mailto:contact@visibleo.fr" style="color:#718096;">contact@visibleo.fr</a><br>
+      <a href="{{ contact.LIEN_OPTOUT }}" style="color:#718096;">Gérer mes communications</a>
+    </p>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>
