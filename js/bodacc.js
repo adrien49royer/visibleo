@@ -1,26 +1,36 @@
 // ============================================================
-// VISIBLEO — Module BODACC
-// Récupère les nouvelles immatriculations depuis l'API BODACC
-// Usage : import depuis admin.html ou un script Make.com
+// VISIBLEO — Module BODACC v2
+// Schéma API mis à jour avril 2026 — champs réels vérifiés
+// ============================================================
+// Champs réels BODACC :
+//   commercant         → nom de l'entreprise / dirigeant
+//   ville, cp          → localisation
+//   numerodepartement  → département (ex: "49")
+//   region_nom_officiel → région
+//   familleavis        → "creation" | "immatriculation" | "modification" ...
+//   familleavis_lib    → "Créations" | "Immatriculations" ...
+//   dateparution       → "YYYY-MM-DD"
+//   listepersonnes     → JSON avec SIREN, nom dirigeant, activité
+//   listeetablissements → JSON avec adresse, activité NAF
+//   registre           → "RCS" | "RM" ...
 // ============================================================
 
 const BODACC = {
 
   BASE_URL: 'https://bodacc-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/annonces-commerciales/records',
 
-  // ── Récupérer les immatriculations du jour ─────────────────
+  // ── Récupérer les créations/immatriculations du jour ───────
   async fetchDuJour(limit = 50, offset = 0) {
     const hier = new Date();
     hier.setDate(hier.getDate() - 1);
-    const dateStr = hier.toISOString().split('T')[0]; // YYYY-MM-DD
+    const dateStr = hier.toISOString().split('T')[0];
 
     const params = new URLSearchParams({
-      where: `dateparution >= '${dateStr}' AND familleavis_lib = 'Création'`,
-      select: 'id,dateparution,publicationavis,nompatronyme,siren,activiteformatee,adresseetablissement,numerodepartement,ville,typeannonce,registre',
+      where: `(familleavis = 'creation' OR familleavis = 'immatriculation') AND dateparution >= '${dateStr}'`,
+      select: 'id,dateparution,commercant,ville,cp,numerodepartement,region_nom_officiel,familleavis,familleavis_lib,listepersonnes,listeetablissements,registre',
       limit: String(limit),
       offset: String(offset),
       order_by: 'dateparution DESC',
-      lang: 'fr',
     });
 
     try {
@@ -33,7 +43,7 @@ const BODACC = {
         records: (json.results || []).map(r => this._normaliser(r)),
       };
     } catch (e) {
-      console.error('[BODACC] Erreur fetch:', e);
+      console.error('[BODACC] Erreur:', e);
       return { ok: false, error: e.message, records: [] };
     }
   },
@@ -41,8 +51,8 @@ const BODACC = {
   // ── Récupérer par département ──────────────────────────────
   async fetchParDept(dept, limit = 30) {
     const params = new URLSearchParams({
-      where: `numerodepartement = '${dept}' AND familleavis_lib = 'Création'`,
-      select: 'id,dateparution,nompatronyme,siren,activiteformatee,adresseetablissement,numerodepartement,ville',
+      where: `(familleavis = 'creation' OR familleavis = 'immatriculation') AND numerodepartement = '${dept}'`,
+      select: 'id,dateparution,commercant,ville,cp,numerodepartement,region_nom_officiel,familleavis_lib,listepersonnes,listeetablissements',
       limit: String(limit),
       order_by: 'dateparution DESC',
     });
@@ -61,11 +71,11 @@ const BODACC = {
     }
   },
 
-  // ── Chercher par SIREN ────────────────────────────────────
+  // ── Chercher par SIREN (dans listepersonnes JSON) ──────────
   async fetchParSiren(siren) {
     const params = new URLSearchParams({
-      where: `siren = '${siren.replace(/\s/g, '')}'`,
-      limit: '1',
+      where: `listepersonnes like '%${siren.replace(/\s/g,'')}%'`,
+      limit: '3',
     });
 
     try {
@@ -79,74 +89,83 @@ const BODACC = {
   },
 
   // ── Normaliser un enregistrement BODACC ───────────────────
-  _normaliser(record) {
-    const addr = record.adresseetablissement || {};
+  _normaliser(r) {
+    // Extraire SIREN et activité depuis listepersonnes (JSON imbriqué)
+    let siren = '', activite = '', naf_code = '', nom_dirigeant = '';
+    try {
+      const lp = r.listepersonnes;
+      const personnes = typeof lp === 'string' ? JSON.parse(lp) : lp;
+      if (Array.isArray(personnes) && personnes.length > 0) {
+        const p = personnes[0];
+        siren = p.siren || p.sirenSiret?.slice(0, 9) || '';
+        nom_dirigeant = p.nom && p.prenom ? `${p.prenom} ${p.nom}` : (p.denomination || '');
+        activite = p.activite || p.libelleCodeAPE || '';
+        naf_code = p.codeAPE || p.codeNaf || '';
+      }
+    } catch(e) {}
+
+    // Extraire activité depuis listeetablissements si vide
+    if (!activite) {
+      try {
+        const le = r.listeetablissements;
+        const etabs = typeof le === 'string' ? JSON.parse(le) : le;
+        if (Array.isArray(etabs) && etabs.length > 0) {
+          activite = etabs[0].activite || etabs[0].libelleActivitePrincipale || '';
+          naf_code = etabs[0].codeAPE || etabs[0].codeNaf || naf_code;
+        }
+      } catch(e) {}
+    }
+
     return {
-      siren:           record.siren || '',
-      nom:             record.nompatronyme || '',
-      activite:        record.activiteformatee || '',
-      adresse:         [addr.numeroVoieEtablissement, addr.typeVoieEtablissement, addr.libelleVoieEtablissement].filter(Boolean).join(' '),
-      ville:           record.ville || addr.libelleCommuneEtablissement || '',
-      departement:     record.numerodepartement || '',
-      code_postal:     addr.codePostalEtablissement || '',
-      date_parution:   record.dateparution || '',
-      type_annonce:    record.typeannonce || '',
-      registre:        record.registre || '',
+      siren,
+      nom: r.commercant || nom_dirigeant || '',
+      nom_dirigeant,
+      activite: activite || r.familleavis_lib || '',
+      naf_code,
+      adresse: '',
+      ville: r.ville || '',
+      code_postal: r.cp || '',
+      departement: r.numerodepartement || '',
+      region: r.region_nom_officiel || '',
+      date_parution: r.dateparution || '',
+      registre: r.registre || '',
+      type_famille: r.familleavis || '',
       // Enrichissement auto
-      naf_code:        this._extractNaf(record.activiteformatee),
-      type_activite:   this._classifierActivite(record.activiteformatee),
-      slug_ville:      this._toSlug(record.ville || ''),
+      type_activite: this._classifierActivite(activite),
+      slug_ville: this._toSlug(r.ville || ''),
+      _raw: r,
     };
   },
 
-  // ── Extraire un code NAF depuis le libellé ────────────────
-  _extractNaf(libelle) {
-    if (!libelle) return '';
-    // Format BODACC : "Travaux de plomberie (4322A)"
-    const match = libelle.match(/\(([0-9]{4}[A-Z])\)/);
-    return match ? match[1] : '';
-  },
-
-  // ── Classifier le type d'activité ────────────────────────
+  // ── Classification automatique ────────────────────────────
   _classifierActivite(activite) {
     if (!activite) return 'local';
     const a = activite.toLowerCase();
-    if (/(logiciel|informatique|numérique|web|digital|seo|marketing digital|intelligence artificielle)/i.test(a)) return 'digital';
-    if (/(conseil|consulting|management|stratégie|audit|formation)/i.test(a)) return 'national';
-    if (/(transport|déménagement|logistique|fret)/i.test(a)) return 'regional';
-    if (/(immobilier|agence immobilière|promotion immobilière)/i.test(a)) return 'regional';
+    if (/(logiciel|informatique|numérique|web|digital|seo|marketing digital|ia |intelligence artificielle)/i.test(a)) return 'digital';
+    if (/(conseil|consulting|management|stratégie|audit|formation professionnelle)/i.test(a)) return 'national';
+    if (/(transport|déménagement|logistique|fret|messagerie)/i.test(a)) return 'regional';
+    if (/(immobilier|agence immobilière|promotion immobilière|marchand de biens)/i.test(a)) return 'regional';
     return 'local';
   },
 
-  // ── Slug utilitaire ───────────────────────────────────────
   _toSlug(str) {
-    return str
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '');
+    return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   },
 
-  // ── Générer un slug fiche depuis un record ────────────────
   genererSlug(record) {
-    const nom = this._toSlug(record.nom || '');
-    const ville = this._toSlug(record.ville || '');
-    const dept = record.departement || '';
-    return `${nom}-${ville}-${dept}`.slice(0, 80);
+    return `${this._toSlug(record.nom)}-${this._toSlug(record.ville)}-${record.departement}`.slice(0, 80);
   },
 
-  // ── Préparer l'objet pour INSERT Supabase ────────────────
   toSupabaseEntreprise(record) {
     return {
       siren:           record.siren,
       nom:             record.nom,
       naf_code:        record.naf_code,
-      naf_libelle:     record.activite.replace(/\s*\([^)]+\)/, '').trim(),
-      adresse:         record.adresse,
+      naf_libelle:     record.activite,
       ville:           record.ville,
       code_postal:     record.code_postal,
       departement:     record.departement,
+      region:          record.region,
       date_immat:      record.date_parution,
       source:          'BODACC',
       type_entreprise: record.type_activite,
@@ -154,17 +173,12 @@ const BODACC = {
     };
   },
 
-  // ── Test de connectivité API ───────────────────────────────
   async ping() {
     try {
       const res = await fetch(`${this.BASE_URL}?limit=1`);
       return res.ok;
-    } catch {
-      return false;
-    }
+    } catch { return false; }
   },
 };
 
-// Export si utilisé en module
-if (typeof module !== 'undefined') module.exports = BODACC;
 window.BODACC = BODACC;
