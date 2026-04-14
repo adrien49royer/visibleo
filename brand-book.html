@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vizibleo — Brand Book v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --bleu:        #002395;
+  --bleu-deep:   #001A70;
+  --bleu-vif:    #3461F5;
+  --bleu-clair:  #EEF1FB;
+  --bleu-pale:   #F5F7FD;
+  --blanc:       #FFFFFF;
+  --rouge:       #ED2939;
+  --rouge-dark:  #C41E2E;
+  --rouge-pale:  #FDE8EA;
+  --gris-950:    #0A0C14;
+  --gris-800:    #1E2130;
+  --gris-600:    #4A4E62;
+  --gris-400:    #8A8EA6;
+  --gris-200:    #D0D4E8;
+  --gris-100:    #E8EAF2;
+  --gris-50:     #F4F5F9;
+  --font:        'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+/* ═══════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font);
+  background: var(--gris-50);
+  color: var(--gris-800);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════ */
+.page { max-width: 1080px; margin: 0 auto; padding: 0 40px 120px; }
+
+/* ═══════════════════════════════════════
+   COVER
+═══════════════════════════════════════ */
+.cover {
+  min-height: 100vh;
+  background: var(--bleu-deep);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 56px 72px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+.cover-circle {
+  position: absolute;
+  right: -160px; bottom: -160px;
+  width: 560px; height: 560px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.05);
+}
+.cover-circle-2 {
+  position: absolute;
+  right: -60px; bottom: -60px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-bbr {
+  display: flex;
+  flex-direction: column;
+  width: 7px;
+  height: 88px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cover-bbr .b { flex: 1; background: var(--bleu); }
+.cover-bbr .w { flex: 1; background: rgba(255,255,255,.55); }
+.cover-bbr .r { flex: 1; background: var(--rouge); }
+
+.cover-meta {
+  text-align: right;
+  color: rgba(255,255,255,.3);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.cover-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* LOGO COVER */
+.logo {
+  font-family: var(--font);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+.logo .b { color: var(--bleu); }
+.logo .e {
+  color: #fff;
+  -webkit-text-stroke: 5px var(--bleu);
+  paint-order: stroke fill;
+}
+.logo .o { color: var(--rouge); }
+
+.logo-on-dark .b  { color: #fff; }
+.logo-on-dark .e  { color: #fff; -webkit-text-stroke: 5px rgba(255,255,255,.45); paint-order: stroke fill; }
+.logo-on-dark .o  { color: #FF6070; }
+
+.logo-xl { font-size: 88px; }
+.logo-xl .e { -webkit-text-stroke-width: 6px; }
+
+.logo-lg { font-size: 52px; }
+.logo-lg .e { -webkit-text-stroke-width: 5px; }
+
+.logo-md { font-size: 34px; }
+.logo-md .e { -webkit-text-stroke-width: 3.5px; }
+
+.logo-sm { font-size: 22px; }
+.logo-sm .e { -webkit-text-stroke-width: 2.5px; }
+
+.logo-xs { font-size: 15px; }
+.logo-xs .e { -webkit-text-stroke-width: 1.8px; }
+
+.cover-tagline {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  margin-top: 16px;
+}
+
+.cover-bottom {
+  position: relative;
+  z-index: 1;
+}
+
+.cover-doc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.cover-doc-title {
+  font-size: 13px;
+  color: rgba(255,255,255,.5);
+  line-height: 1.7;
+}
+.cover-doc-title strong { color: rgba(255,255,255,.8); display: block; font-size: 16px; margin-bottom: 3px; }
+.cover-doc-ver {
+  font-size: 11px;
+  color: rgba(255,255,255,.25);
+  letter-spacing: .1em;
+}
+
+.cover-barre {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 5px;
+  display: flex;
+}
+.cover-barre .b { flex: 1; background: var(--bleu); }
+.cover-barre .w { flex: 1; background: rgba(255,255,255,.7); }
+.cover-barre .r { flex: 1; background: var(--rouge); }
+
+/* ═══════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════ */
+.section { padding: 72px 0 56px; }
+
+.sec-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.sec-num {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--rouge);
+}
+.sec-num-line {
+  height: 1px; width: 32px;
+  background: var(--rouge); opacity: .4;
+}
+.sec-title {
+  font-size: 36px; font-weight: 800;
+  color: var(--bleu-deep);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.sec-sub {
+  font-size: 15px; font-weight: 400;
+  color: var(--gris-600);
+  line-height: 1.75;
+  max-width: 620px;
+  margin-bottom: 40px;
+}
+
+.sep {
+  height: 1px;
+  background: var(--gris-200);
+  margin: 0 0 72px;
+}
+
+/* ═══════════════════════════════════════
+   LOGO SECTION
+═══════════════════════════════════════ */
+.logo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.logo-cell {
+  border-radius: 8px;
+  padding: 48px 44px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px;
+}
+.logo-cell-light { background: #fff; border: 1px solid var(--gris-200); }
+.logo-cell-dark  { background: var(--bleu-deep); }
+.logo-cell-gray  { background: var(--gris-50); border: 1px solid var(--gris-200); }
+.logo-cell-pale  { background: var(--bleu-pale); border: 1px solid var(--gris-200); }
+.logo-cell-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gris-400);
+  margin-top: 24px;
+}
+.logo-cell-dark .logo-cell-label { color: rgba(255,255,255,.3); }
+
+.logo-row-sm {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+/* Nousage */
+.nousage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 32px;
+}
+.nousage-item {
+  border: 1.5px solid #f5d4d6;
+  border-radius: 6px;
+  padding: 24px 20px 16px;
+  background: #fffafb;
+  text-align: center;
+  position: relative;
+}
+.nousage-x {
+  position: absolute;
+  top: 10px; right: 12px;
+  width: 18px; height: 18px;
+  background: var(--rouge);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 10px; font-weight: 700;
+}
+.nousage-label {
+  font-size: 11px; font-weight: 600;
+  color: var(--rouge-dark);
+  margin-top: 12px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+/* Construction */
+.construction-box {
+  background: #fff;
+  border: 1px solid var(--gris-200);
+  border-radius: 8px;
+  padding: 36px 40px;
+  margin-top: 32px;
+}
+.construction-title {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gris-400);
+  margin-bottom: 24px;
+}
+.zone-libre {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.zone-libre-logo { flex-shrink: 0; }
+.zone-libre-arrows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--gris-400);
+}
+.zone-libre-rule {
+  font-size: 13px;
+  color: var(--gris-600);
+  background: var(--gris-50);
+  border: 1px dashed var(--gris-200);
+  border-radius: 4px;
+  padding: 16px 20px;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════
+   COULEURS
+═══════════════════════════════════════ */
+.colors-primary {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--gris-200);
+  margin-bottom: 16px;
+}
+.color-swatch {}
+.sw-block { height: 80px; }
+.sw-info {
+  padding: 12px 14px;
+  background: #fff;
+  border-top: 1px solid var(--gris-200);
+}
+.sw-name { font-size: 12px; font-weight: 600; color: var(--gris-800); }
+.sw-hex  { font-size: 11px; color: var(--gris-400); font-family: 'Courier New', monospace; margin-top: 2px; }
+.sw-role { font-size: 10px; color: var(--gris-400); margin-top: 3px; line-height: 1.4; }
+
+.colors-neutral {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--gris-200);
+}
+.colors-neutral .sw-block { height: 56px; }
+
+.color-combos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+.combo-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+.combo-demo {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.combo-label {
+  background: #fff;
+  border: 1px solid var(--gris-200);
+  border-top: none;
+  padding: 10px 14px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gris-400);
+  border-radius: 0 0 8px 8px;
+}
+.btn-demo {
+  display: inline-block;
+  padding: 9px 18px;
+  border-radius: 4px;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  cursor: default;
+}
+
+/* ═══════════════════════════════════════
+   TYPOGRAPHIE
+═══════════════════════════════════════ */
+.typo-specimen {
+  background: #fff;
+  border: 1px solid var(--gris-200);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.typo-header {
+  background: var(--bleu-pale);
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--gris-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.typo-header-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gris-600);
+}
+.typo-header-tag {
+  font-size: 10px; font-weight: 600;
+  background: #fff;
+  color: var(--bleu);
+  border: 1px solid var(--bleu-clair);
+  padding: 3px 10px;
+  border-radius: 100px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.typo-body { padding: 36px 40px; }
+.typo-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 28px;
+  align-items: baseline;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--gris-100);
+  margin-bottom: 24px;
+}
+.typo-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.typo-meta { font-size: 11px; color: var(--gris-400); line-height: 1.7; }
+.typo-meta strong { display: block; font-size: 12px; font-weight: 600; color: var(--gris-600); margin-bottom: 3px; }
+
+.typo-hierarchy {
+  background: #fff;
+  border: 1px solid var(--gris-200);
+  border-radius: 8px;
+  padding: 36px 40px;
+  margin-top: 16px;
+}
+
+/* ═══════════════════════════════════════
+   COMPOSANTS
+═══════════════════════════════════════ */
+.comp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.comp-cell {
+  background: #fff;
+  border: 1px solid var(--gris-200);
+  border-radius: 8px;
+  padding: 28px 28px 24px;
+}
+.comp-title {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gris-400);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--gris-100);
+  margin-bottom: 20px;
+}
+
+/* Boutons */
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
+.vbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px;
+  border-radius: 4px;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .15s;
+}
+.vbtn-primary { background: var(--bleu); color: #fff; }
+.vbtn-primary:hover { background: var(--bleu-vif); }
+.vbtn-rouge  { background: var(--rouge); color: #fff; }
+.vbtn-rouge:hover { background: var(--rouge-dark); }
+.vbtn-ghost  { background: transparent; color: var(--bleu); border: 2px solid var(--bleu); }
+.vbtn-ghost:hover { background: var(--bleu-clair); }
+.vbtn-lg { padding: 13px 28px; font-size: 15px; }
+.vbtn-sm { padding: 6px 14px; font-size: 12px; }
+
+/* Badges */
+.badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.vbadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.vbadge::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.vbadge-bleu  { background: var(--bleu-clair); color: var(--bleu); }
+.vbadge-rouge { background: var(--rouge-pale); color: var(--rouge-dark); }
+.vbadge-vert  { background: #e0f2ea; color: #0B5E32; }
+.vbadge-gris  { background: var(--gris-100); color: var(--gris-600); }
+
+/* Fiche card */
+.fiche {
+  background: #fff;
+  border: 1px solid var(--gris-200);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color .15s;
+  font-family: var(--font);
+}
+.fiche.featured { border: 2px solid var(--rouge); }
+.fiche-img {
+  height: 108px;
+  background: var(--bleu-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: var(--bleu-vif);
+  opacity: .3;
+}
+.fiche-boost {
+  position: absolute; top: 10px; left: 10px;
+  background: var(--bleu);
+  color: #fff;
+  font-size: 9px; font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 100px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  opacity: 1;
+}
+.fiche-body { padding: 14px 16px; }
+.fiche-sector {
+  display: inline-block;
+  background: var(--bleu-clair);
+  color: var(--bleu);
+  font-size: 9px; font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 7px;
+}
+.fiche-nom {
+  font-size: 15px; font-weight: 800;
+  color: var(--gris-800);
+  letter-spacing: -0.02em;
+  margin-bottom: 3px;
+}
+.fiche-loc { font-size: 11px; color: var(--gris-400); margin-bottom: 11px; }
+.fiche-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--gris-100);
+}
+.fiche-stars { color: var(--rouge); font-size: 11px; letter-spacing: 1px; }
+.fiche-note  { font-size: 12px; font-weight: 700; color: var(--gris-800); margin-left: 4px; }
+.fiche-navis { font-size: 11px; color: var(--gris-400); }
+.fiche-cta   { font-size: 11px; font-weight: 700; color: var(--bleu); }
+.fiche-cta-rouge { color: var(--rouge); }
+
+.vnonref {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--rouge-pale);
+  color: var(--rouge-dark);
+  font-size: 9px; font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 7px;
+}
+.vnonref::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--rouge);
+  flex-shrink: 0;
+}
+
+/* Inputs */
+.vinput {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--gris-200);
+  border-radius: 4px;
+  font-family: var(--font);
+  font-size: 13px;
+  color: var(--gris-800);
+  outline: none;
+  transition: border .15s;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.vinput:focus { border-color: var(--bleu); }
+.vlabel {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--gris-600);
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Tampon courrier */
+.tampon {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 12px;
+  border: 2px solid var(--bleu);
+  border-radius: 3px;
+}
+.tampon-bbr {
+  display: flex;
+  flex-direction: column;
+  width: 7px;
+  height: 32px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.tampon-bbr .b { flex: 1; background: var(--bleu); }
+.tampon-bbr .w { flex: 1; background: #ccc; }
+.tampon-bbr .r { flex: 1; background: var(--rouge); }
+.tampon-sep { width: 1px; height: 32px; background: var(--gris-200); flex-shrink: 0; }
+.tampon-brand { font-family: var(--font); font-size: 18px; font-weight: 800; color: var(--bleu); letter-spacing: -0.03em; }
+.tampon-brand .o { color: var(--rouge); }
+.tampon-brand .e {
+  color: #fff;
+  -webkit-text-stroke: 2.5px var(--bleu);
+  paint-order: stroke fill;
+}
+.tampon-sub { font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--gris-400); margin-top: 2px; }
+
+/* ═══════════════════════════════════════
+   APPLICATIONS
+═══════════════════════════════════════ */
+.app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.app-card { border: 1px solid var(--gris-200); border-radius: 8px; overflow: hidden; }
+.app-label {
+  background: var(--bleu-pale);
+  padding: 10px 16px;
+  font-size: 10px; font-weight: 700;
+  color: var(--gris-600);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--gris-200);
+}
+
+/* Header preview */
+.prev-header {
+  background: var(--bleu-deep);
+  padding: 0 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.prev-nav { display: flex; gap: 16px; align-items: center; }
+.prev-nav a {
+  font-size: 12px;
+  color: rgba(255,255,255,.55);
+  text-decoration: none;
+  font-weight: 500;
+}
+.prev-cta {
+  background: var(--rouge);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+/* Email preview */
+.email-wrap { background: var(--gris-100); padding: 16px; }
+.email-card {
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 340px;
+  margin: 0 auto;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+.email-header { background: var(--bleu-deep); padding: 16px 20px; }
+.email-sub { font-size: 9px; font-weight: 500; letter-spacing: .12em; color: rgba(255,255,255,.35); margin-top: 3px; text-transform: uppercase; }
+.email-body { padding: 16px 20px; font-size: 12px; color: #333; line-height: 1.65; }
+.email-body p { margin-bottom: 10px; }
+.email-cta {
+  display: block;
+  background: var(--bleu);
+  color: #fff;
+  text-align: center;
+  padding: 10px 16px;
+  border-radius: 3px;
+  font-size: 12px; font-weight: 700;
+  text-decoration: none;
+  font-family: var(--font);
+  margin: 12px 0;
+}
+.email-footer { background: var(--gris-50); padding: 10px 20px; font-size: 9px; color: var(--gris-400); border-top: 1px solid var(--gris-100); line-height: 1.6; }
+
+/* Favicon */
+.favicon-row { display: flex; align-items: flex-end; gap: 24px; background: var(--gris-50); padding: 24px; }
+.fav-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.fav-box {
+  background: var(--bleu-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.fav-label { font-size: 10px; color: var(--gris-400); font-weight: 500; }
+.fav-mono {
+  font-family: var(--font);
+  font-weight: 800;
+  color: var(--bleu);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* Courrier preview */
+.courrier-prev {
+  background: #fff;
+  padding: 20px;
+  font-family: var(--font);
+}
+.courrier-entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 14px;
+  border-bottom: 3px solid var(--bleu);
+}
+.courrier-meta { font-size: 10px; color: var(--gris-400); line-height: 1.7; text-align: right; }
+.courrier-meta strong { color: var(--gris-800); font-size: 11px; }
+
+/* ═══════════════════════════════════════
+   TON ÉDITORIAL
+═══════════════════════════════════════ */
+.ton-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ton-card { padding: 24px 28px; border-radius: 8px; }
+.ton-oui { background: #e8f5ee; border-left: 3px solid #0B5E32; }
+.ton-non { background: var(--rouge-pale); border-left: 3px solid var(--rouge); }
+.ton-title {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 14px;
+}
+.ton-oui .ton-title { color: #0B5E32; }
+.ton-non .ton-title { color: var(--rouge-dark); }
+.ton-item { font-size: 13px; margin-bottom: 8px; display: flex; gap: 8px; color: var(--gris-800); }
+.ton-mark { flex-shrink: 0; font-weight: 700; }
+.ton-oui .ton-mark { color: #0B5E32; }
+.ton-non .ton-mark { color: var(--rouge); }
+
+/* ═══════════════════════════════════════
+   ESPACEMENTS
+═══════════════════════════════════════ */
+.spacing-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  background: #fff;
+  border: 1px solid var(--gris-200);
+  border-radius: 8px;
+  padding: 28px 32px;
+}
+.spacing-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.spacing-block { background: var(--bleu-clair); border: 1px solid var(--bleu-vif); width: 40px; }
+.spacing-val  { font-size: 11px; color: var(--gris-400); font-family: 'Courier New', monospace; }
+.spacing-label { font-size: 9px; color: var(--gris-400); letter-spacing: .06em; text-transform: uppercase; text-align: center; }
+
+/* ═══════════════════════════════════════
+   FOOTER BRAND BOOK
+═══════════════════════════════════════ */
+.bb-footer {
+  background: var(--bleu-deep);
+  border-radius: 8px;
+  padding: 36px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.bb-footer-right {
+  font-size: 11px;
+  color: rgba(255,255,255,.3);
+  text-align: right;
+  line-height: 1.8;
+}
+.bb-footer-barre {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  display: flex;
+}
+.bb-footer-barre .b { flex: 1; background: var(--bleu); }
+.bb-footer-barre .w { flex: 1; background: rgba(255,255,255,.5); }
+.bb-footer-barre .r { flex: 1; background: var(--rouge); }
+
+/* ═══════════════════════════════════════
+   UTILS
+═══════════════════════════════════════ */
+.cards-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.muted { color: var(--gris-400); }
+.mt8  { margin-top: 8px; }
+.mt16 { margin-top: 16px; }
+.mt24 { margin-top: 24px; }
+.mt32 { margin-top: 32px; }
+
+@media (max-width: 720px) {
+  .page { padding: 0 20px 80px; }
+  .cover { padding: 40px 32px; }
+  .logo-xl { font-size: 56px; }
+  .logo-grid, .comp-grid, .app-grid, .ton-grid { grid-template-columns: 1fr; }
+  .nousage-grid { grid-template-columns: repeat(2, 1fr); }
+  .colors-primary { grid-template-columns: repeat(4, 1fr); }
+  .colors-neutral { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media print {
+  .cover { min-height: auto; page-break-after: always; }
+  .section { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     COUVERTURE
+══════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-circle"></div>
+  <div class="cover-circle-2"></div>
+
+  <div class="cover-top">
+    <div class="cover-bbr">
+      <div class="b"></div><div class="w"></div><div class="r"></div>
+    </div>
+    <div class="cover-meta">
+      Confidentiel — usage interne<br>
+      Angers, France · 2026
+    </div>
+  </div>
+
+  <div class="cover-center">
+    <div class="logo logo-xl logo-on-dark" style="margin-bottom:18px;">
+      <span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span>
+    </div>
+    <div class="cover-tagline">Le réseau des entreprises françaises</div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-doc-row">
+      <div class="cover-doc-title">
+        <strong>Charte Graphique & Identité de Marque</strong>
+        Version 2.0 · Plus Jakarta Sans · Palette BBR
+      </div>
+      <div class="cover-doc-ver">AVANTI pour Vizibleo</div>
+    </div>
+  </div>
+
+  <div class="cover-barre">
+    <div class="b"></div><div class="w"></div><div class="r"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     CONTENU
+══════════════════════════════════ -->
+<div class="page">
+
+  <!-- ── 01 LOGO ── -->
+  <div class="section">
+    <div class="sec-eyebrow"><span class="sec-num">01</span><span class="sec-num-line"></span></div>
+    <h2 class="sec-title">Logo & Identité visuelle</h2>
+    <p class="sec-sub">Le logotype Vizibleo repose sur un principe tricolore direct : <strong style="color:var(--bleu)">Vizibl</strong> en bleu RF, le <strong>e</strong> blanc souligné d'un contour bleu (blanc sur fond coloré), le <strong style="color:var(--rouge)">o</strong> en rouge RF. Police Plus Jakarta Sans 800. Aucun pictogramme séparé — le logo est le mot.</p>
+
+    <!-- Fond blanc -->
+    <div class="logo-grid">
+      <div class="logo-cell logo-cell-light">
+        <div>
+          <div class="logo logo-lg">
+            <span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span>
+          </div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gris-400);margin-top:10px;">Le réseau des entreprises françaises</div>
+        </div>
+        <span class="logo-cell-label">Usage principal · Fond blanc</span>
+      </div>
+      <div class="logo-cell logo-cell-dark">
+        <div>
+          <div class="logo logo-lg logo-on-dark">
+            <span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span>
+          </div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:10px;">Le réseau des entreprises françaises</div>
+        </div>
+        <span class="logo-cell-label">Usage inversé · Fond bleu</span>
+      </div>
+    </div>
+
+    <!-- Déclinaisons de taille -->
+    <div class="logo-cell logo-cell-light mt8" style="min-height:auto; padding: 32px 44px;">
+      <div class="logo-row-sm" style="align-items:center;">
+        <div class="logo logo-md"><span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span></div>
+        <div class="logo logo-sm"><span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span></div>
+        <div class="logo logo-xs"><span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span></div>
+        <div style="margin-left:auto;font-size:11px;color:var(--gris-400);line-height:1.8;text-align:right;">
+          34px · Header web<br>
+          22px · Nav compacte<br>
+          15px · Taille minimale
+        </div>
+      </div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-400);margin-top:20px;padding-top:14px;border-top:1px solid var(--gris-100);">Taille minimale recommandée : 15px — en dessous, le contour du "e" devient illisible</div>
+    </div>
+
+    <!-- Fond gris & fond bleu clair -->
+    <div class="logo-grid mt8">
+      <div class="logo-cell logo-cell-gray" style="min-height:auto; padding: 32px 44px;">
+        <div class="logo logo-md"><span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span></div>
+        <span class="logo-cell-label mt8">Fond gris clair</span>
+      </div>
+      <div class="logo-cell logo-cell-pale" style="min-height:auto; padding: 32px 44px;">
+        <div class="logo logo-md"><span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span></div>
+        <span class="logo-cell-label mt8">Fond bleu pâle</span>
+      </div>
+    </div>
+
+    <!-- Zone de protection -->
+    <div class="construction-box">
+      <div class="construction-title">Zone de protection — espace minimal autour du logo</div>
+      <div class="zone-libre">
+        <div class="zone-libre-logo">
+          <div style="border: 1.5px dashed var(--gris-200); padding: 20px; border-radius:4px; display:inline-block;">
+            <div class="logo logo-md"><span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span></div>
+          </div>
+        </div>
+        <div class="zone-libre-rule">
+          La zone de protection correspond à la hauteur de la lettre majuscule du logo.<br>
+          <strong style="color:var(--gris-800);">Aucun élément graphique ou textuel ne doit pénétrer cette zone.</strong><br>
+          Sur support papier : zone minimale = 8mm. Sur écran : = hauteur du logo × 0.5.
+        </div>
+      </div>
+    </div>
+
+    <!-- À ne pas faire -->
+    <h3 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gris-600);margin-top:36px;margin-bottom:16px;">À ne jamais faire</h3>
+    <div class="nousage-grid">
+      <div class="nousage-item">
+        <div class="nousage-x">✕</div>
+        <div class="logo logo-sm" style="opacity:.4;filter:grayscale(1)"><span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span></div>
+        <div class="nousage-label">Fond coloré non autorisé</div>
+      </div>
+      <div class="nousage-item">
+        <div class="nousage-x">✕</div>
+        <div class="logo logo-sm" style="transform:scaleX(1.35);display:inline-block;"><span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span></div>
+        <div class="nousage-label">Déformation horizontale</div>
+      </div>
+      <div class="nousage-item">
+        <div class="nousage-x">✕</div>
+        <div class="logo logo-sm" style="opacity:.25;"><span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span></div>
+        <div class="nousage-label">Opacité réduite</div>
+      </div>
+      <div class="nousage-item">
+        <div class="nousage-x">✕</div>
+        <div style="font-family:Georgia,serif;font-size:18px;font-weight:700;letter-spacing:-0.02em;color:var(--bleu);">Vizibl<span style="color:#fff; -webkit-text-stroke:2px var(--bleu);">e</span><span style="color:var(--rouge);">o</span></div>
+        <div class="nousage-label">Police différente</div>
+      </div>
+    </div>
+  </div>
+  <div class="sep"></div>
+
+  <!-- ── 02 COULEURS ── -->
+  <div class="section">
+    <div class="sec-eyebrow"><span class="sec-num">02</span><span class="sec-num-line"></span></div>
+    <h2 class="sec-title">Palette de couleurs</h2>
+    <p class="sec-sub">Palette strictement Bleu-Blanc-Rouge. Les couleurs du drapeau français (`#002395` et `#ED2939`) sont dans le domaine public — leur usage par un acteur privé est libre. Elles ancrent Vizibleo dans un registre institutionnel reconnaissable sans ambiguïté avec un organisme d'État.</p>
+
+    <h3 style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-400);margin-bottom:14px;">Couleurs primaires</h3>
+    <div class="colors-primary">
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#002395;"></div>
+        <div class="sw-info"><div class="sw-name">Bleu RF</div><div class="sw-hex">#002395</div><div class="sw-role">Logo · Headers · Fond principal</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#001A70;"></div>
+        <div class="sw-info"><div class="sw-name">Bleu profond</div><div class="sw-hex">#001A70</div><div class="sw-role">Couverture · Hover fond</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#3461F5;"></div>
+        <div class="sw-info"><div class="sw-name">Bleu vif</div><div class="sw-hex">#3461F5</div><div class="sw-role">Liens · Accents CTA</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#EEF1FB; border-bottom: 1px solid #d0d8f0;"></div>
+        <div class="sw-info"><div class="sw-name">Bleu clair</div><div class="sw-hex">#EEF1FB</div><div class="sw-role">Badges · Fonds sections</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#F5F7FD; border-bottom: 1px solid #e0e5f5;"></div>
+        <div class="sw-info"><div class="sw-name">Bleu pâle</div><div class="sw-hex">#F5F7FD</div><div class="sw-role">Background page</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#ED2939;"></div>
+        <div class="sw-info"><div class="sw-name">Rouge RF</div><div class="sw-hex">#ED2939</div><div class="sw-role">Logo "o" · CTA boost · Étoiles</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#C41E2E;"></div>
+        <div class="sw-info"><div class="sw-name">Rouge sombre</div><div class="sw-hex">#C41E2E</div><div class="sw-role">Hover rouge · Erreur</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#FDE8EA; border-bottom: 1px solid #f5c0c6;"></div>
+        <div class="sw-info"><div class="sw-name">Rouge pâle</div><div class="sw-hex">#FDE8EA</div><div class="sw-role">Badges alerte · Non référencé</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-400);margin:24px 0 14px;">Neutres</h3>
+    <div class="colors-neutral">
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#0A0C14;"></div>
+        <div class="sw-info"><div class="sw-name">Gris 950</div><div class="sw-hex">#0A0C14</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#1E2130;"></div>
+        <div class="sw-info"><div class="sw-name">Gris 800</div><div class="sw-hex">#1E2130</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#4A4E62;"></div>
+        <div class="sw-info"><div class="sw-name">Gris 600</div><div class="sw-hex">#4A4E62</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#8A8EA6;"></div>
+        <div class="sw-info"><div class="sw-name">Gris 400</div><div class="sw-hex">#8A8EA6</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#D0D4E8; border-bottom:1px solid #bcc2d8;"></div>
+        <div class="sw-info"><div class="sw-name">Gris 200</div><div class="sw-hex">#D0D4E8</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="sw-block" style="background:#F4F5F9; border-bottom:1px solid #dde0ec;"></div>
+        <div class="sw-info"><div class="sw-name">Gris 50</div><div class="sw-hex">#F4F5F9</div></div>
+      </div>
+    </div>
+
+    <!-- Associations -->
+    <h3 style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-400);margin:24px 0 14px;">Associations recommandées</h3>
+    <div class="color-combos">
+      <div class="combo-card">
+        <div class="combo-demo" style="background:var(--bleu-deep);">
+          <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:-0.02em;">Titre principal</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.55);">Sous-texte secondaire</div>
+          <div class="btn-demo" style="background:var(--rouge);color:#fff;align-self:flex-start;">Action →</div>
+        </div>
+        <div class="combo-label">Fond bleu profond + rouge CTA</div>
+      </div>
+      <div class="combo-card">
+        <div class="combo-demo" style="background:#fff;border:1px solid var(--gris-200);border-bottom:none;">
+          <div style="font-size:18px;font-weight:800;color:var(--bleu);letter-spacing:-0.02em;">Titre principal</div>
+          <div style="font-size:12px;color:var(--gris-400);">Sous-texte secondaire</div>
+          <div class="btn-demo" style="background:var(--bleu);color:#fff;align-self:flex-start;">Action →</div>
+        </div>
+        <div class="combo-label">Fond blanc + bleu primaire</div>
+      </div>
+      <div class="combo-card">
+        <div class="combo-demo" style="background:var(--bleu-clair);border:1px solid var(--gris-200);border-bottom:none;">
+          <div style="font-size:18px;font-weight:800;color:var(--bleu);letter-spacing:-0.02em;">Section info</div>
+          <div style="font-size:12px;color:var(--gris-600);">Fond bleu pâle institutionnel</div>
+          <div class="btn-demo" style="background:var(--bleu);color:#fff;align-self:flex-start;">Activer →</div>
+        </div>
+        <div class="combo-label">Fond bleu clair + bleu primaire</div>
+      </div>
+    </div>
+  </div>
+  <div class="sep"></div>
+
+  <!-- ── 03 TYPOGRAPHIE ── -->
+  <div class="section">
+    <div class="sec-eyebrow"><span class="sec-num">03</span><span class="sec-num-line"></span></div>
+    <h2 class="sec-title">Typographie</h2>
+    <p class="sec-sub"><strong>Plus Jakarta Sans</strong> — Google Fonts, licence SIL OFL (totalement libre). Grotesque humaniste, le "a" binoculaire rappelle Marianne, 8 graisses, variable font. Police unique pour tous les usages, du logo au corps de texte.</p>
+
+    <div class="typo-specimen">
+      <div class="typo-header">
+        <span class="typo-header-label">Plus Jakarta Sans — échelle complète</span>
+        <span class="typo-header-tag">Google Fonts · SIL OFL · Gratuit</span>
+      </div>
+      <div class="typo-body">
+        <div class="typo-row">
+          <div class="typo-meta"><strong>Display</strong>72px · 800<br>Lettr. −0.05em<br>Interligne 1.0</div>
+          <div style="font-size:64px;font-weight:800;letter-spacing:-0.05em;line-height:1;color:var(--bleu);">Vizibleo</div>
+        </div>
+        <div class="typo-row">
+          <div class="typo-meta"><strong>H1</strong>48px · 800<br>Lettr. −0.04em<br>Interligne 1.1</div>
+          <div style="font-size:44px;font-weight:800;letter-spacing:-0.04em;line-height:1.1;color:var(--bleu);">Trouvez les meilleurs professionnels</div>
+        </div>
+        <div class="typo-row">
+          <div class="typo-meta"><strong>H2</strong>32px · 800<br>Lettr. −0.03em<br>Interligne 1.15</div>
+          <div style="font-size:32px;font-weight:800;letter-spacing:-0.03em;line-height:1.15;color:var(--bleu);">Activez votre fiche dès aujourd'hui</div>
+        </div>
+        <div class="typo-row">
+          <div class="typo-meta"><strong>H3</strong>22px · 700<br>Lettr. −0.02em<br>Interligne 1.3</div>
+          <div style="font-size:22px;font-weight:700;letter-spacing:-0.02em;line-height:1.3;">Votre fiche est prête — 139 € TTC, paiement unique</div>
+        </div>
+        <div class="typo-row">
+          <div class="typo-meta"><strong>Body</strong>15px · 400<br>Lettr. 0em<br>Interligne 1.75</div>
+          <div style="font-size:15px;font-weight:400;line-height:1.75;max-width:520px;color:var(--gris-600);">Votre entreprise a été immatriculée récemment. Votre fiche Vizibleo est déjà créée et attend votre activation. Une fois activée, elle apparaît dans les résultats Google sous 24 heures.</div>
+        </div>
+        <div class="typo-row">
+          <div class="typo-meta"><strong>Label</strong>11px · 700<br>Lettr. +0.12em<br>Majuscules</div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gris-400);">Plomberie & Chauffage · Saumur · Maine-et-Loire (49)</div>
+        </div>
+        <div class="typo-row">
+          <div class="typo-meta"><strong>Chiffre clé</strong>52px · 800<br>Lettr. −0.04em<br>Couleur rouge</div>
+          <div style="font-size:52px;font-weight:800;letter-spacing:-0.04em;color:var(--rouge);line-height:1;">139€</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hiérarchie en situation -->
+    <div class="typo-hierarchy">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-400);margin-bottom:24px;">Hiérarchie en situation — Page d'activation</div>
+      <div style="max-width:520px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rouge);margin-bottom:8px;">Nouvelle entreprise française</div>
+        <div style="font-size:32px;font-weight:800;letter-spacing:-0.03em;color:var(--bleu);line-height:1.15;margin-bottom:12px;">Soyez visible dès le<br>1er jour de votre activité</div>
+        <div style="font-size:15px;color:var(--gris-600);line-height:1.75;margin-bottom:24px;">Votre fiche Vizibleo est prête. Un seul paiement et vous êtes référencé sur Google sous 24 heures — sans abonnement.</div>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <div class="vbtn vbtn-primary vbtn-lg">Activer ma fiche — 139 €</div>
+          <div style="font-size:12px;color:var(--gris-400);">Paiement unique · Sans engagement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sep"></div>
+
+  <!-- ── 04 COMPOSANTS ── -->
+  <div class="section">
+    <div class="sec-eyebrow"><span class="sec-num">04</span><span class="sec-num-line"></span></div>
+    <h2 class="sec-title">Composants UI</h2>
+    <p class="sec-sub">Bibliothèque de composants réutilisables. Tous construits sur la même grille de 4px, les mêmes tokens de couleur, la même police.</p>
+
+    <div class="comp-grid">
+      <!-- Boutons -->
+      <div class="comp-cell">
+        <div class="comp-title">Boutons</div>
+        <div class="btn-row">
+          <button class="vbtn vbtn-primary">Activer ma fiche</button>
+          <button class="vbtn vbtn-rouge">Boost département</button>
+        </div>
+        <div class="btn-row">
+          <button class="vbtn vbtn-ghost">Voir l'annuaire</button>
+          <button class="vbtn vbtn-primary vbtn-sm">Connexion</button>
+        </div>
+        <div class="btn-row mt8">
+          <button class="vbtn vbtn-primary vbtn-lg" style="width:100%;justify-content:center;">Référencer mon entreprise →</button>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div class="comp-cell">
+        <div class="comp-title">Badges & statuts</div>
+        <div class="badge-row" style="margin-bottom:10px;">
+          <span class="vbadge vbadge-vert">Fiche active</span>
+          <span class="vbadge vbadge-bleu">Boost actif</span>
+          <span class="vbadge vbadge-rouge">Non référencée</span>
+        </div>
+        <div class="badge-row" style="margin-bottom:10px;">
+          <span class="vbadge vbadge-bleu">Plomberie</span>
+          <span class="vbadge vbadge-bleu">Digital & Tech</span>
+          <span class="vbadge vbadge-bleu">BTP</span>
+        </div>
+        <div class="badge-row">
+          <span class="vbadge vbadge-gris">Email envoyé</span>
+          <span class="vbadge vbadge-gris">En attente</span>
+          <span class="vbadge vbadge-vert">Payé ✓</span>
+        </div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="comp-cell">
+        <div class="comp-title">Champs de formulaire</div>
+        <label class="vlabel">Que recherchez-vous ?</label>
+        <input class="vinput" type="text" placeholder="Plombier, électricien, avocat…">
+        <label class="vlabel">Ville ou code postal</label>
+        <input class="vinput" type="text" placeholder="Paris, Lyon, Nantes…">
+        <button class="vbtn vbtn-primary" style="width:100%;justify-content:center;margin-top:4px;">Rechercher</button>
+      </div>
+
+      <!-- Fiche card -->
+      <div class="comp-cell" style="background:var(--gris-50);">
+        <div class="comp-title">Fiche entreprise</div>
+        <div class="cards-row">
+          <div class="fiche featured" style="width:180px;">
+            <div class="fiche-img">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <div class="fiche-boost">Prioritaire</div>
+            </div>
+            <div class="fiche-body">
+              <span class="fiche-sector">Électricité</span>
+              <div class="fiche-nom">Dupont Élec.</div>
+              <div class="fiche-loc">Angers (49)</div>
+              <div class="fiche-foot">
+                <div style="display:flex;align-items:center;gap:3px;"><span class="fiche-stars">★★★★★</span><span class="fiche-note">4.9</span></div>
+                <span class="fiche-cta">Voir →</span>
+              </div>
+            </div>
+          </div>
+          <div class="fiche" style="width:180px;">
+            <div class="fiche-img">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <div class="fiche-body">
+              <span class="vnonref">Non référencée</span>
+              <div class="fiche-nom">FxInformed</div>
+              <div class="fiche-loc">Èze (06)</div>
+              <div class="fiche-foot">
+                <span class="fiche-cta fiche-cta-rouge">Activer →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tampon courrier -->
+    <div class="comp-cell mt12" style="background:#fff;border:1px solid var(--gris-200);border-radius:8px;padding:28px;margin-top:12px;">
+      <div class="comp-title">Tampon institutionnel — courrier physique</div>
+      <div style="display:flex;align-items:center;gap:32px;flex-wrap:wrap;">
+        <div class="tampon">
+          <div class="tampon-bbr"><div class="b"></div><div class="w"></div><div class="r"></div></div>
+          <div class="tampon-sep"></div>
+          <div>
+            <div class="tampon-brand">Vizibl<span class="e">e</span><span class="o">o</span></div>
+            <div class="tampon-sub">Réseau professionnel</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--gris-600);line-height:1.7;max-width:380px;">Le drapeau tricolore à gauche renforce la légitimité sans imiter un document officiel. La mention "service commercial privé" en pied de page protège juridiquement.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sep"></div>
+
+  <!-- ── 05 TON ÉDITORIAL ── -->
+  <div class="section">
+    <div class="sec-eyebrow"><span class="sec-num">05</span><span class="sec-num-line"></span></div>
+    <h2 class="sec-title">Ton éditorial</h2>
+    <p class="sec-sub">L'équilibre cible est précis : professionnel et sobre comme un service institutionnel, direct et honnête comme un partenaire commercial. Jamais ambigu sur la nature du service, jamais condescendant.</p>
+
+    <div class="ton-grid">
+      <div class="ton-card ton-oui">
+        <div class="ton-title">✓ Ce qu'on dit</div>
+        <div class="ton-item"><span class="ton-mark">✓</span><span>Direct et factuel — "Votre fiche est prête. Activez-la."</span></div>
+        <div class="ton-item"><span class="ton-mark">✓</span><span>Transparent — "service commercial privé, non affilié à un organisme public"</span></div>
+        <div class="ton-item"><span class="ton-mark">✓</span><span>Concret — prix TTC affichés, délais réels, sans jargon</span></div>
+        <div class="ton-item"><span class="ton-mark">✓</span><span>Valorisant — "votre entreprise", "votre activité", "vos clients"</span></div>
+        <div class="ton-item"><span class="ton-mark">✓</span><span>Sobre — pas d'exclamation excessive, pas de superlatifs</span></div>
+      </div>
+      <div class="ton-card ton-non">
+        <div class="ton-title">✕ Ce qu'on évite</div>
+        <div class="ton-item"><span class="ton-mark">✕</span><span>Termes ambigus — "inscription légale", "registre officiel", "obligatoire"</span></div>
+        <div class="ton-item"><span class="ton-mark">✕</span><span>Fausse urgence — "Offre expire dans 2h", "Dernière chance"</span></div>
+        <div class="ton-item"><span class="ton-mark">✕</span><span>Références à des organismes publics — INSEE, INPI, BODACC, URSSAF</span></div>
+        <div class="ton-item"><span class="ton-mark">✕</span><span>Ton familier — "T'as créé ta boîte ?"</span></div>
+        <div class="ton-item"><span class="ton-mark">✕</span><span>Surinformation — pas plus de 3 messages clés par support</span></div>
+      </div>
+    </div>
+
+    <!-- Exemples de phrases -->
+    <div style="background:#fff;border:1px solid var(--gris-200);border-radius:8px;padding:28px 32px;margin-top:12px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-400);margin-bottom:18px;">Exemples de formulations</div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:start;">
+          <span style="font-size:10px;font-weight:700;color:#0B5E32;text-transform:uppercase;letter-spacing:.06em;padding-top:2px;">✓ Utiliser</span>
+          <span style="font-size:14px;color:var(--gris-800);line-height:1.6;">"Votre entreprise <strong>MARTIN PLOMBERIE</strong> a été créée le 10 mars. Votre fiche Vizibleo est prête — activez-la pour apparaître sur Google dès demain, 139 € TTC, paiement unique."</span>
+        </div>
+        <div style="height:1px;background:var(--gris-100);"></div>
+        <div style="display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:start;">
+          <span style="font-size:10px;font-weight:700;color:var(--rouge-dark);text-transform:uppercase;letter-spacing:.06em;padding-top:2px;">✕ Éviter</span>
+          <span style="font-size:14px;color:var(--gris-400);text-decoration:line-through;line-height:1.6;">"Suite à votre immatriculation, vous êtes dans l'obligation de compléter votre dossier de référencement au registre national Vizibleo avant le 15 avril..."</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sep"></div>
+
+  <!-- ── 06 APPLICATIONS ── -->
+  <div class="section">
+    <div class="sec-eyebrow"><span class="sec-num">06</span><span class="sec-num-line"></span></div>
+    <h2 class="sec-title">Applications de la marque</h2>
+    <p class="sec-sub">Rendu de l'identité sur les principaux supports.</p>
+
+    <div class="app-grid">
+      <!-- Header web -->
+      <div class="app-card">
+        <div class="app-label">Header site web</div>
+        <div class="prev-header">
+          <div class="logo logo-sm logo-on-dark">
+            <span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span>
+          </div>
+          <nav class="prev-nav">
+            <a href="#">Annuaire</a>
+            <a href="#">Tarifs</a>
+            <a href="#" class="prev-cta">Activer ma fiche</a>
+          </nav>
+        </div>
+        <div style="background:#fff;padding:12px 16px;font-size:10px;color:var(--gris-400);">Fond bleu profond · Logo blanc · CTA rouge</div>
+      </div>
+
+      <!-- Email -->
+      <div class="app-card">
+        <div class="app-label">Email transactionnel</div>
+        <div class="email-wrap">
+          <div class="email-card">
+            <div class="email-header">
+              <div class="logo logo-sm logo-on-dark">
+                <span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span>
+              </div>
+              <div class="email-sub">Le réseau des entreprises françaises</div>
+            </div>
+            <div class="email-body">
+              <p><strong style="color:var(--bleu);">Votre fiche est prête, M. MARTIN</strong></p>
+              <p>MARTIN PLOMBERIE a été immatriculée le 10/03. Activez votre fiche pour être visible sur Google dès demain.</p>
+              <a href="#" class="email-cta">Activer ma fiche — 139 € TTC →</a>
+              <p style="font-size:10px;color:#999;">Paiement unique · Visible sous 24h · Sans engagement</p>
+            </div>
+            <div class="email-footer">Service commercial privé — non affilié à un organisme public · Se désabonner</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Favicon & icônes -->
+      <div class="app-card">
+        <div class="app-label">Favicon & icône app</div>
+        <div class="favicon-row">
+          <div class="fav-item">
+            <div class="fav-box" style="width:64px;height:64px;border-radius:14px;">
+              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:36px;color:#fff;letter-spacing:-0.05em;-webkit-text-stroke:3px rgba(255,255,255,.35);paint-order:stroke fill;">V</span>
+            </div>
+            <span class="fav-label">64px</span>
+          </div>
+          <div class="fav-item">
+            <div class="fav-box" style="width:32px;height:32px;border-radius:7px;">
+              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:19px;color:#fff;letter-spacing:-0.04em;">V</span>
+            </div>
+            <span class="fav-label">32px</span>
+          </div>
+          <div class="fav-item">
+            <div class="fav-box" style="width:16px;height:16px;border-radius:3px;">
+              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:11px;color:#fff;">V</span>
+            </div>
+            <span class="fav-label">16px</span>
+          </div>
+          <div style="margin-left:auto;">
+            <div style="font-size:12px;color:var(--gris-600);line-height:1.7;">
+              Le favicon utilise le monogramme <strong style="color:var(--bleu);">V</strong> majuscule<br>
+              sur fond bleu profond <code style="background:var(--gris-100);padding:1px 5px;border-radius:2px;font-size:10px;">#001A70</code>.<br>
+              Coins arrondis proportionnels à la taille.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Courrier -->
+      <div class="app-card">
+        <div class="app-label">Courrier physique — en-tête</div>
+        <div style="padding:20px;background:#fff;">
+          <div class="courrier-entete">
+            <div class="tampon">
+              <div class="tampon-bbr"><div class="b"></div><div class="w"></div><div class="r"></div></div>
+              <div class="tampon-sep"></div>
+              <div>
+                <div class="tampon-brand">Vizibl<span class="e">e</span><span class="o">o</span></div>
+                <div class="tampon-sub">Réseau professionnel</div>
+              </div>
+            </div>
+            <div class="courrier-meta">
+              <strong>14 avril 2026</strong>
+              Réf. : 49–912345678<br>
+              Créé le 10/03/2026
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--gris-400);margin-top:10px;">Bandeau bleu 3px · Tampon BBR + logo · Date et réf. alignées à droite</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sep"></div>
+
+  <!-- ── 07 ESPACEMENTS ── -->
+  <div class="section">
+    <div class="sec-eyebrow"><span class="sec-num">07</span><span class="sec-num-line"></span></div>
+    <h2 class="sec-title">Grille & espacements</h2>
+    <p class="sec-sub">Système basé sur 4px. Tous les espacements sont des multiples de 4. Grille 12 colonnes, gouttière 24px, max-width 1240px.</p>
+
+    <div class="spacing-row">
+      <div class="spacing-item"><div class="spacing-block" style="height:4px;"></div><span class="spacing-val">4px</span><span class="spacing-label">XXS</span></div>
+      <div class="spacing-item"><div class="spacing-block" style="height:8px;"></div><span class="spacing-val">8px</span><span class="spacing-label">XS</span></div>
+      <div class="spacing-item"><div class="spacing-block" style="height:12px;"></div><span class="spacing-val">12px</span><span class="spacing-label">S</span></div>
+      <div class="spacing-item"><div class="spacing-block" style="height:16px;"></div><span class="spacing-val">16px</span><span class="spacing-label">M</span></div>
+      <div class="spacing-item"><div class="spacing-block" style="height:24px;"></div><span class="spacing-val">24px</span><span class="spacing-label">L</span></div>
+      <div class="spacing-item"><div class="spacing-block" style="height:32px;"></div><span class="spacing-val">32px</span><span class="spacing-label">XL</span></div>
+      <div class="spacing-item"><div class="spacing-block" style="height:48px;"></div><span class="spacing-val">48px</span><span class="spacing-label">2XL</span></div>
+      <div class="spacing-item"><div class="spacing-block" style="height:64px;"></div><span class="spacing-val">64px</span><span class="spacing-label">3XL</span></div>
+      <div class="spacing-item"><div class="spacing-block" style="height:80px;"></div><span class="spacing-val">80px</span><span class="spacing-label">4XL</span></div>
+      <div style="margin-left:auto;font-size:12px;color:var(--gris-400);line-height:1.9;">
+        Bordures : 1px standard · 2px featured<br>
+        Rayons : 4px éléments · 8px cards · 100px pills<br>
+        Grille : 12 col. · 24px gutter · max 1240px
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="bb-footer">
+    <div>
+      <div class="logo logo-md logo-on-dark" style="margin-bottom:8px;">
+        <span class="b">Vizibl</span><span class="e">e</span><span class="o">o</span>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:6px;">Charte Graphique v2.0 · 2026</div>
+    </div>
+    <div class="bb-footer-right">
+      Document confidentiel — usage interne<br>
+      AVANTI · Angers, France<br>
+      contact@vizibleo.fr
+    </div>
+    <div class="bb-footer-barre">
+      <div class="b"></div><div class="w"></div><div class="r"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
