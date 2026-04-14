@@ -9,8 +9,8 @@
 // ============================================================
 const CONFIG = {
   supabase: {
-    url:     window.__ENV?.SUPABASE_URL     || 'https://VOTRE_REF.supabase.co',
-    anonKey: window.__ENV?.SUPABASE_ANON    || 'VOTRE_ANON_KEY',
+    url:     window.__ENV?.SUPABASE_URL     || 'https://uwiwhejcsuelfenatkdw.supabase.co',
+    anonKey: window.__ENV?.SUPABASE_ANON    || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3aXdoZWpjc3VlbGZlbmF0a2R3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxOTExMzAsImV4cCI6MjA5MTc2NzEzMH0.F2YVWaczzTsFHc2-hsFMCK1p8fYXz5k5eDRTywYZPrY',
     // NE JAMAIS exposer la service_role key côté front
   },
   stripe: {
